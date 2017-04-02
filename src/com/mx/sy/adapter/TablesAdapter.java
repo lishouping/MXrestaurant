@@ -8,7 +8,7 @@ import android.content.Context;
 import com.mx.sy.base.CommonBaseAdapter;
 import com.mx.sy.base.CommonViewHolder;
 
-// 餐桌列表adapter
+// 餐桌分类列表adapter
 public class TablesAdapter extends CommonBaseAdapter<HashMap<String, String>>{
 	private Context context;
 	private List<HashMap<String, String>> dateList;
