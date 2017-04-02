@@ -37,6 +37,13 @@ import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
 import com.mx.sy.dialog.SweetAlertDialog;
 
+/**
+* <p>Title: InitActivity<／p>
+* <p>Description: <／p>
+* <p>Company: LTGames<／p> 
+* @author lishouping
+* @date 2017年4月2日
+ */
 public class InitActivity extends BaseActivity {
 
 
