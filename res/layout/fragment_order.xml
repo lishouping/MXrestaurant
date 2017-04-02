@@ -2,12 +2,84 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/sweet_dialog_bg_color"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView32" />
+    <com.mx.sy.common.PullToRefreshView
+        android:id="@+id/pullrefresh_order"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/lin_order_nomanage"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/main_bg_color"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_text_color"
+                    android:text="未处理"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="@color/sweet_dialog_bg_color" />
+
+            <LinearLayout
+                 android:id="@+id/lin_order_manageing"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/main_bg_color"
+                android:orientation="vertical"
+                android:gravity="center" 
+                   >
+                 <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_text_color"
+                    android:text="正在用餐"/>
+            </LinearLayout>
+             <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="@color/sweet_dialog_bg_color" />
+
+            <LinearLayout
+                 android:id="@+id/lin_order_managend"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/main_bg_color"
+                android:orientation="vertical"
+                android:gravity="center" 
+                   >
+                 <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_text_color"
+                    android:text="已完成"/>
+            </LinearLayout>
+        </LinearLayout>
+		<ListView 
+		    android:id="@+id/lv_order"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    ></ListView>
+       
+    </com.mx.sy.common.PullToRefreshView>
 
 </LinearLayout>
