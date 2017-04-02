@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sweet_dialog_bg_color"
+    android:orientation="vertical" >
+
+    <com.mx.sy.common.PullToRefreshView
+        android:id="@+id/pullrefresh_table"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/main_bg_color"
+                android:text="餐桌状态"
+                android:textColor="@color/sweet_dialog_bg_color" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="@color/sweet_dialog_bg_color" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/main_bg_color"
+                android:text="餐桌分类"
+                android:textColor="@color/sweet_dialog_bg_color" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gri_tables"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:horizontalSpacing="10dp"
+            android:numColumns="4"
+            android:verticalSpacing="10dp" >
+        </GridView>
+    </com.mx.sy.common.PullToRefreshView>
+
+</LinearLayout>

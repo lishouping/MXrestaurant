@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
+    <FrameLayout
+        android:id="@+id/fragment"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:background="#BABABA" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_marginBottom="3dip"
+        android:layout_marginTop="2dip"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:id="@+id/fl_tableinfo"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/iv_tableinfo"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tv_tableinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_tableinfo"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_tableinfo_number"
+                android:layout_width="15dip"
+                android:layout_height="15dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dip"
+                android:background="@drawable/share_tabnumber"
+                android:visibility="invisible" >
+
+                <TextView
+                    android:id="@+id/tv_tableinfo_number"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/button_text_color"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_service"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/iv_service"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tv_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_service"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_service_number"
+                android:layout_width="15dip"
+                android:layout_height="15dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dip"
+                android:background="@drawable/share_tabnumber"
+                android:visibility="invisible" >
+
+                <TextView
+                    android:id="@+id/tv_service_number"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/button_text_color"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_saoma"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/iv_saoma"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tv_saoma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_saoma"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_saoma_number"
+                android:layout_width="15dip"
+                android:layout_height="15dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="25dip"
+                android:background="@drawable/share_tabnumber"
+                android:visibility="invisible" >
+
+                <TextView
+                    android:id="@+id/tv_saoma_number"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/button_text_color"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_order"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/iv_order"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tv_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_order"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_order_number"
+                android:layout_width="15dip"
+                android:layout_height="15dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dip"
+                android:background="@drawable/share_tabnumber"
+                android:visibility="invisible" >
+
+                <TextView
+                    android:id="@+id/tv_order_number"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/button_text_color"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </FrameLayout>
+        
+        <FrameLayout
+            android:id="@+id/fl_mine"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/iv_mine"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tv_mine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_mine"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_mine"
+                android:layout_width="15dip"
+                android:layout_height="15dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dip"
+                android:background="@drawable/share_tabnumber"
+                android:visibility="invisible" >
+
+                <TextView
+                    android:id="@+id/tv_mine_number"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/button_text_color"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </FrameLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>
