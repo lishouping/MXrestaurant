@@ -55,7 +55,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			setChioceItem(2);
 			break;
 		case R.id.fl_saoma:
-			Intent intent = new Intent(getApplicationContext(),QrCodeActivity.class);
+			Intent intent = new Intent(getApplicationContext(),MipcaActivityCapture.class);
 			startActivity(intent);
 			break;
 		case R.id.fl_order:
