@@ -23,13 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mx.sy.activity.LoginActivity">
+        <activity android:name="com.mx.sy.activity.LoginActivity" >
         </activity>
-    	<activity android:name="com.mx.sy.activity.MainActivity">
+        <activity android:name="com.mx.sy.activity.MainActivity" >
         </activity>
-        	<activity android:name="com.mx.sy.activity.QrCodeActivity">
+        <activity android:name="com.mx.sy.activity.QrCodeActivity" >
         </activity>
-    	<activity android:name="com.mx.sy.activity.MipcaActivityCapture"></activity>
+        <activity android:name="com.mx.sy.activity.MipcaActivityCapture" >
+        </activity>
+        <activity
+            android:name="com.mx.sy.dialog.ClassSelectDialog"
+            android:theme="@style/transcutestyle" >
+        </activity>
+        <activity android:name="com.mx.sy.activity.FoodCustomActivity" >
+        </activity>
     </application>
 
 </manifest>
