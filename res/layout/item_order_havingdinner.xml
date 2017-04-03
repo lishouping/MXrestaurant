@@ -72,6 +72,7 @@
             android:orientation="horizontal" >
 
             <LinearLayout
+                android:id="@+id/lv_addfood"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
@@ -80,7 +81,6 @@
                 android:gravity="center" >
 
                 <TextView
-                    android:id="@+id/tv_push"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="加菜"
@@ -93,6 +93,7 @@
                 android:layout_height="fill_parent" />
 
             <LinearLayout
+                 android:id="@+id/lv_placeorder"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="10dp"
@@ -101,7 +102,6 @@
                 android:background="@color/main_bg_color" >
 
                 <TextView
-                    android:id="@+id/tv_placeorder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="结账"

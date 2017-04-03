@@ -22,7 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@color/main_bg_color"
+                android:background="@color/gray_btn_bg_color"
                 android:orientation="vertical"
                 android:gravity="center"
                 >

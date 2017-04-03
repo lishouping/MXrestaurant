@@ -37,6 +37,12 @@
         </activity>
         <activity android:name="com.mx.sy.activity.FoodCustomActivity" >
         </activity>
+        <activity android:name="com.mx.sy.activity.OrderSubmitActivity" >
+        </activity>
+        <activity android:name="com.mx.sy.activity.OrderConductActivity" >
+        </activity>
+         <activity android:name="com.mx.sy.activity.OrderEndActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mx.sy.R;
 import com.mx.sy.adapter.DishesClassAdapter;
@@ -49,7 +51,8 @@ public class FoodCustomActivity extends BaseActivity{
 			
 			break;
 		case R.id.btn_place_order:
-			
+			Intent intent = new Intent(getApplicationContext(),OrderSubmitActivity.class);
+			startActivity(intent);
 			break;
 		default:
 			break;
@@ -100,10 +103,12 @@ public class FoodCustomActivity extends BaseActivity{
 		lv_dishesclass.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 				// TODO Auto-generated method stub
-				
+				Toast.makeText(getApplicationContext(), "点击时间", Toast.LENGTH_SHORT).show();
+				dishesClassAdapter.setSelectedPosition(position);
+				dishesClassAdapter.notifyDataSetChanged();
 			}
 		});
 		

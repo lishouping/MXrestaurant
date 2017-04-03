@@ -5,7 +5,10 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.mx.sy.R;
 import com.mx.sy.base.CommonBaseAdapter;
@@ -34,6 +37,14 @@ public class DishesNameAdapter extends CommonBaseAdapter<HashMap<String, String>
 	@Override
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
+		holder.getView(R.id.lin_addfood).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+			}
+		});
 //		holder.getConvertView().setBackgroundColor(Color.rgb(223, 90, 55));
 	}
 }

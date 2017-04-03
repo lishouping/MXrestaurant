@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
 import com.mx.sy.R;
@@ -22,6 +24,8 @@ public class DishesClassAdapter extends CommonBaseAdapter<HashMap<String, String
 	private Context context;
 	private List<HashMap<String, String>> dateList;
 	private int itemID;
+	private int selectedPosition = 0;// 选中的位置
+	
 	public DishesClassAdapter(Context context, List<HashMap<String, String>> datas,
 			int itemID) {
 		super(context, datas, itemID);
@@ -30,10 +34,18 @@ public class DishesClassAdapter extends CommonBaseAdapter<HashMap<String, String
 		this.context = context;
 		this.itemID = itemID;
 	}
-
+	public void setSelectedPosition(int position) {
+	    selectedPosition = position;
+	}
 	@Override
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
-//		holder.getConvertView().setBackgroundColor(Color.rgb(223, 90, 55));
+		
+		int position = holder.getPosition();
+		if (selectedPosition == position) {
+			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(208, 208, 208));
+		} else {
+			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(223, 90, 55));
+		}
 	}
 }

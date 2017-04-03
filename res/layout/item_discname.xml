@@ -35,10 +35,12 @@
 			     android:textColor="@color/text_color"
 			    android:text="￥23"/>
             <LinearLayout 
+                android:id="@+id/lin_addfood"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginRight="15dip"
                 android:layout_marginLeft="10dp"
+                android:orientation="vertical"
                 android:background="@color/blue_btn_bg_color">
                 
             </LinearLayout>

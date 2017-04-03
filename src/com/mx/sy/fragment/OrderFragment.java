@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.mx.sy.R;
+import com.mx.sy.activity.OrderConductActivity;
+import com.mx.sy.activity.OrderEndActivity;
+import com.mx.sy.activity.OrderSubmitActivity;
 import com.mx.sy.adapter.OrderAdapter;
 import com.mx.sy.adapter.ServiceAdapter;
 import com.mx.sy.base.BaseFragment;
@@ -32,6 +39,9 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 	private OrderAdapter orderAdapter;
 	
 	PullToRefreshView mPullToRefreshView;	
+	
+	private int selectBtnFlag = 0;
+	
 	@Override
 	protected int setLayoutResouceId() {
 		// TODO Auto-generated method stub
@@ -71,9 +81,25 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 		for (int i = 0; i < 10; i++) {
 			dateList.add(new HashMap<String, String>());
 		}
-		orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_havingdinner);
+		orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_untreated);
 		lv_order.setAdapter(orderAdapter);
-		
+		lv_order.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				if (selectBtnFlag==0) {
+					intent.setClass(mActivity, OrderSubmitActivity.class);
+				}else if (selectBtnFlag==1) {
+					intent.setClass(mActivity, OrderConductActivity.class);
+				}else if (selectBtnFlag==2) {
+					intent.setClass(mActivity, OrderEndActivity.class);
+				}
+				startActivity(intent);
+			}
+		});
 		
 	}
 
@@ -82,13 +108,40 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.lin_order_nomanage:
-			
+			// 未处理
+			selectBtnFlag = 0;
+			changeBtnBg(selectBtnFlag);
+			dateList.clear();
+			for (int i = 0; i < 10; i++) {
+				dateList.add(new HashMap<String, String>());
+			}
+			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_untreated);
+			lv_order.setAdapter(orderAdapter);
+			orderAdapter.notifyDataSetChanged();
 			break;
 		case R.id.lin_order_manageing:
-			
+			// 正在用餐
+			selectBtnFlag = 1;
+			changeBtnBg(selectBtnFlag);
+			dateList.clear();
+			for (int i = 0; i < 10; i++) {
+				dateList.add(new HashMap<String, String>());
+			}
+			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_havingdinner);
+			lv_order.setAdapter(orderAdapter);
+			orderAdapter.notifyDataSetChanged();
 			break;
 		case R.id.lin_order_managend:
-			
+			// 已完成
+			selectBtnFlag = 2;
+			changeBtnBg(selectBtnFlag);
+			dateList.clear();
+			for (int i = 0; i < 10; i++) {
+				dateList.add(new HashMap<String, String>());
+			}
+			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_com);
+			lv_order.setAdapter(orderAdapter);
+			orderAdapter.notifyDataSetChanged();
 			break;
 		default:
 			break;
@@ -125,6 +178,28 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 
 			}
 		}, 1000);
+	}
+	
+	private void changeBtnBg(int selectTag){
+		switch (selectTag) {
+		case 0:
+			lin_order_nomanage.setBackgroundColor(Color.rgb(208, 208, 208));
+			lin_order_manageing.setBackgroundColor(Color.rgb(223, 90, 55));
+			lin_order_managend.setBackgroundColor(Color.rgb(223, 90, 55));
+			break;
+		case 1:
+			lin_order_nomanage.setBackgroundColor(Color.rgb(223, 90, 55));
+			lin_order_manageing.setBackgroundColor(Color.rgb(208, 208, 208));
+			lin_order_managend.setBackgroundColor(Color.rgb(223, 90, 55));
+			break;
+		case 2:
+			lin_order_nomanage.setBackgroundColor(Color.rgb(223, 90, 55));
+			lin_order_manageing.setBackgroundColor(Color.rgb(223, 90, 55));
+			lin_order_managend.setBackgroundColor(Color.rgb(208, 208, 208));
+			break;
+		default:
+			break;
+		}
 	}
 
 }

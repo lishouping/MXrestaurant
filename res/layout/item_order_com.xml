@@ -84,6 +84,7 @@
                 android:layout_height="fill_parent" />
 
             <LinearLayout
+                android:id="@+id/lv_printorder"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="10dp"
@@ -92,7 +93,6 @@
                 android:background="@color/main_bg_color" >
 
                 <TextView
-                    android:id="@+id/tv_printorder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="打印订单"

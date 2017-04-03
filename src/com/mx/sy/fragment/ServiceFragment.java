@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +26,9 @@ public class ServiceFragment extends BaseFragment implements OnClickListener ,On
 	private ServiceAdapter serviceAdapter;
 	
 	PullToRefreshView mPullToRefreshView;
+	private int selectBtnFlag = 0;
+	
+	
 	@Override
 	protected int setLayoutResouceId() {
 		// TODO Auto-generated method stub
@@ -74,10 +78,25 @@ public class ServiceFragment extends BaseFragment implements OnClickListener ,On
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.lin_nomanage:
+			selectBtnFlag = 0;
+			changeBtnBg(selectBtnFlag);
+			dateList.clear();
+			for (int i = 0; i < 10; i++) {
+				dateList.add(new HashMap<String, String>());
+			}
 			
+			serviceAdapter = new ServiceAdapter(getActivity(), dateList, R.layout.item_servicemanage);
+			lv_service.setAdapter(serviceAdapter);
 			break;
 		case R.id.lin_processed:
-			
+			selectBtnFlag = 1;
+			changeBtnBg(selectBtnFlag);
+			dateList.clear();
+			for (int i = 0; i < 10; i++) {
+				dateList.add(new HashMap<String, String>());
+			}
+			serviceAdapter = new ServiceAdapter(getActivity(), dateList, R.layout.item_serviceprocess);
+			lv_service.setAdapter(serviceAdapter);
 			break;
 		default:
 			break;
@@ -114,6 +133,20 @@ public class ServiceFragment extends BaseFragment implements OnClickListener ,On
 
 			}
 		}, 1000);
+	}
+	private void changeBtnBg(int selectTag){
+		switch (selectTag) {
+		case 0:
+			lin_nomanage.setBackgroundColor(Color.rgb(208, 208, 208));
+			lin_processed.setBackgroundColor(Color.rgb(223, 90, 55));
+			break;
+		case 1:
+			lin_nomanage.setBackgroundColor(Color.rgb(223, 90, 55));
+			lin_processed.setBackgroundColor(Color.rgb(208, 208, 208));
+			break;
+		default:
+			break;
+		}
 	}
 
 }

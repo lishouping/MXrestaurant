@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
    <LinearLayout 
+       android:id="@+id/lin_class"
        android:layout_width="fill_parent"
        android:layout_height="45dp"
        android:background="#fff"
