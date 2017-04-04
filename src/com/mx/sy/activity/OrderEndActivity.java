@@ -60,7 +60,7 @@ public class OrderEndActivity extends BaseActivity{
 	@Override
 	public int bindLayout() {
 		// TODO Auto-generated method stub
-		return R.layout.activity_orderconduct;
+		return R.layout.activity_orderend;
 	}
 
 	@Override

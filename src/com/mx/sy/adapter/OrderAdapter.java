@@ -40,14 +40,6 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
 		if (itemID==R.layout.item_order_untreated) {
-			holder.getView(R.id.lv_push).setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					Toast.makeText(context, "点击了推送", Toast.LENGTH_SHORT).show();
-				}
-			});
 			holder.getView(R.id.lv_placeorder).setOnClickListener(new OnClickListener() {
 				
 				@Override

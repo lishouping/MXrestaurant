@@ -17,9 +17,8 @@ import android.widget.ListView;
 import com.mx.sy.R;
 import com.mx.sy.activity.OrderConductActivity;
 import com.mx.sy.activity.OrderEndActivity;
-import com.mx.sy.activity.OrderSubmitActivity;
+import com.mx.sy.activity.OrderUntreatedActivity;
 import com.mx.sy.adapter.OrderAdapter;
-import com.mx.sy.adapter.ServiceAdapter;
 import com.mx.sy.base.BaseFragment;
 import com.mx.sy.common.PullToRefreshView;
 import com.mx.sy.common.PullToRefreshView.OnFooterRefreshListener;
@@ -91,7 +90,7 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				if (selectBtnFlag==0) {
-					intent.setClass(mActivity, OrderSubmitActivity.class);
+					intent.setClass(mActivity, OrderUntreatedActivity.class);
 				}else if (selectBtnFlag==1) {
 					intent.setClass(mActivity, OrderConductActivity.class);
 				}else if (selectBtnFlag==2) {
