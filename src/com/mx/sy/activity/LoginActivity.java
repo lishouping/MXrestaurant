@@ -36,11 +36,12 @@ public class LoginActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btn_login:
-//			if (isNull()) {
-//				// 调用登录方法
-//			}
-			Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-			startActivity(intent);
+			if (isNull()) {
+				// 调用登录方法
+				userLogin();
+			}
+//			Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//			startActivity(intent);
 			break;
 
 		default:
@@ -106,11 +107,11 @@ public class LoginActivity extends BaseActivity {
 		showDilog("登录中");
 		//用户登录
 		AsyncHttpClient client = new AsyncHttpClient();
-		String url = ApiConfig.API_URL + "UserLogin";
+		String url = ApiConfig.API_URL + ApiConfig.userLoginUrl;
+		//&uname=test&pwd=000000
 		RequestParams params = new RequestParams();
-		params.put("username", edit_user.getText().toString());
-		params.put("password", edit_pass.getText().toString());
-		params.put("type", "1");//1安卓、2苹果、3WP、5其它
+		params.put("uname", edit_user.getText().toString());
+		params.put("pwd", edit_pass.getText().toString());
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -119,20 +120,19 @@ public class LoginActivity extends BaseActivity {
 					try {
 						String response = new String(arg2,"UTF-8");
 						JSONObject jsonObject = new JSONObject(response);
-						String message = jsonObject.getString("message");
-						String code = jsonObject.getString("code");
-						if (code.equals("1000")) {
-							JSONObject object = new JSONObject(jsonObject.getString("data"));
-							String userid = object.getString("userid");//用户id
-							String name = object.getString("name");//用户昵称
-							final String telephone = object.getString("telephone");//手机号码
-							String sex = object.getString("sex");//性别
-							String birthday = object.getString("birthday");//出生日期
-							preferences.edit().putString("userid", userid).commit();
-							preferences.edit().putString("name", name).commit();
-							preferences.edit().putString("telephone", telephone).commit();
-							preferences.edit().putString("sex", sex).commit();
-							preferences.edit().putString("birthday", birthday).commit();
+						String error = jsonObject.getString("error");
+						if (error.equals("false")) {
+							JSONObject object = new JSONObject(jsonObject.getString("msg"));
+							String userid = object.getString("uid");//用户id
+							String name = object.getString("shortname");//用户昵称
+							final String telephone = object.getString("phone");//手机号码
+//							String sex = object.getString("sex");//性别
+//							String birthday = object.getString("birthday");//出生日期
+//							preferences.edit().putString("userid", userid).commit();
+//							preferences.edit().putString("name", name).commit();
+//							preferences.edit().putString("telephone", telephone).commit();
+//							preferences.edit().putString("sex", sex).commit();
+//							preferences.edit().putString("birthday", birthday).commit();
 							Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 							startActivity(intent);
 							finish();
@@ -140,7 +140,7 @@ public class LoginActivity extends BaseActivity {
 							dissmissDilog();
 						}else {
 							btn_login.setClickable(true);
-							Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
 							dissmissDilog();
 						}
 

@@ -4,7 +4,7 @@ package com.mx.sy.api;
 //定义API 接口等调用
 public class ApiConfig {
 	
-	public static String API_URL = "http://192.168.18.115:8080";
+	public static String API_URL = "http://test.mxmenu.cn/";
 	
 	public static String getAbsoluteApiUrl(String partUrl) {
 		String url = partUrl;
@@ -13,5 +13,8 @@ public class ApiConfig {
 		}
 		return url;
 	}
+	
+	// 登录接口
+	public static String userLoginUrl = "index.php?ctrl=member&action=shoploginin&datatype=json&from=app";
 	
 }
