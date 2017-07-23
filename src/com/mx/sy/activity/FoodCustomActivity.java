@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.mx.sy.R;
 import com.mx.sy.adapter.DishesClassAdapter;
 import com.mx.sy.adapter.DishesNameAdapter;
+import com.mx.sy.adapter.ShoppingCarAdapter;
 import com.mx.sy.base.BaseActivity;
 
 /**
@@ -40,6 +43,17 @@ public class FoodCustomActivity extends BaseActivity{
 	
 	private Button btn_price_dis,btn_place_order;
 	
+	private ImageView imgshopingcar;//购物车按钮
+	private FrameLayout fram_shopingcar;
+	
+	private ListView lv_shcar;
+	private List<HashMap<String, String>> shopcarList;
+	private ShoppingCarAdapter shoppingCarAdapter;
+	
+	private boolean shopviewstate = false;
+	
+	
+	
 	@Override
 	public void widgetClick(View v) {
 		// TODO Auto-generated method stub
@@ -53,6 +67,15 @@ public class FoodCustomActivity extends BaseActivity{
 		case R.id.btn_place_order:
 			Intent intent = new Intent(getApplicationContext(),OrderSubmitActivity.class);
 			startActivity(intent);
+			break;
+		case R.id.imgshopingcar:
+			if (shopviewstate==false) {
+				fram_shopingcar.setVisibility(View.VISIBLE);
+				shopviewstate = true;
+			}else {
+				fram_shopingcar.setVisibility(View.GONE);
+				shopviewstate = false;
+			}
 			break;
 		default:
 			break;
@@ -88,12 +111,16 @@ public class FoodCustomActivity extends BaseActivity{
 		btn_price_dis = $(R.id.btn_price_dis);
 		btn_place_order = $(R.id.btn_place_order);
 		
+		imgshopingcar = $(R.id.imgshopingcar);
+		fram_shopingcar = $(R.id.fram_shopingcar);
+		
+		lv_shcar = $(R.id.lv_shcar);
 	}
 
 	@Override
 	protected void initdata() {
 		// TODO Auto-generated method stub
-		tv_title.setText("点餐页面");
+		tv_title.setText("点餐");
 		disclassList = new ArrayList<HashMap<String,String>>();
 		for (int i = 0; i < 4; i++) {
 			disclassList.add(new HashMap<String, String>());
@@ -119,6 +146,16 @@ public class FoodCustomActivity extends BaseActivity{
 		dishesNameAdapter = new DishesNameAdapter(getApplicationContext(), disNameList, R.layout.item_discname);
 		lv_dishesname.setAdapter(dishesNameAdapter);
 		
+		
+		shopcarList = new ArrayList<HashMap<String,String>>();
+		for (int i = 0; i < 10; i++) {
+			shopcarList.add(new HashMap<String, String>());
+		}
+		shoppingCarAdapter = new ShoppingCarAdapter(getApplicationContext(), shopcarList, R.layout.item_shoppingcar);
+		lv_shcar.setAdapter(shoppingCarAdapter);
+		
+		
+		
 	}
 
 	@Override
@@ -127,6 +164,7 @@ public class FoodCustomActivity extends BaseActivity{
 		ll_back.setOnClickListener(this);
 		btn_price_dis.setOnClickListener(this);
 		btn_place_order.setOnClickListener(this);
+		imgshopingcar.setOnClickListener(this);
 	}
 
 	@Override

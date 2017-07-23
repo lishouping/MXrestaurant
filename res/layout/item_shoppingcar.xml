@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:layout_marginLeft="5dp"
+                android:text="鱼香肉丝" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right" >
+			<TextView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:textSize="15sp"
+			     android:textColor="@color/text_color"
+			     android:layout_marginRight="20dp"
+			    android:text="￥23"/>
+            <LinearLayout 
+                android:id="@+id/lin_addfood"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:orientation="vertical"
+                android:background="@color/blue_btn_bg_color">
+                
+            </LinearLayout>
+            
+            <TextView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:textSize="15sp"
+			     android:textColor="@color/text_color"
+			     android:layout_marginLeft="5dp"
+			     android:layout_marginRight="5dp"
+			    android:text="2"/>
+            
+             <LinearLayout 
+                android:id="@+id/lin_minus"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:orientation="vertical"
+                android:layout_marginRight="5dp"
+                android:background="@color/blue_btn_bg_color">
+                
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

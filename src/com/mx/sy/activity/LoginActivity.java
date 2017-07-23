@@ -38,10 +38,10 @@ public class LoginActivity extends BaseActivity {
 		case R.id.btn_login:
 			if (isNull()) {
 				// 调用登录方法
-				userLogin();
+				//userLogin();
 			}
-//			Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//			startActivity(intent);
+			Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+			startActivity(intent);
 			break;
 
 		default:
