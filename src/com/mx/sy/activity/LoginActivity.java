@@ -38,10 +38,10 @@ public class LoginActivity extends BaseActivity {
 		case R.id.btn_login:
 			if (isNull()) {
 				// 调用登录方法
-				//userLogin();
+				userLogin();
 			}
-			Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-			startActivity(intent);
+//			Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//			startActivity(intent);
 			break;
 
 		default:
@@ -107,11 +107,11 @@ public class LoginActivity extends BaseActivity {
 		showDilog("登录中");
 		//用户登录
 		AsyncHttpClient client = new AsyncHttpClient();
-		String url = ApiConfig.API_URL + ApiConfig.userLoginUrl;
-		//&uname=test&pwd=000000
+		String url = ApiConfig.API_URL + ApiConfig.USERLOGIN_URL;
 		RequestParams params = new RequestParams();
-		params.put("uname", edit_user.getText().toString());
-		params.put("pwd", edit_pass.getText().toString());
+		params.put("username", edit_user.getText().toString());
+		params.put("password", edit_pass.getText().toString());
+		params.put("type", "4");//Number 1:商户，2:管理员，3:个人用户，4:超级管理员
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -120,8 +120,8 @@ public class LoginActivity extends BaseActivity {
 					try {
 						String response = new String(arg2,"UTF-8");
 						JSONObject jsonObject = new JSONObject(response);
-						String error = jsonObject.getString("error");
-						if (error.equals("false")) {
+						String CODE = jsonObject.getString("CODE");
+						if (CODE.equals("1000")) {
 							JSONObject object = new JSONObject(jsonObject.getString("msg"));
 							String userid = object.getString("uid");//用户id
 							String name = object.getString("shortname");//用户昵称
@@ -140,7 +140,7 @@ public class LoginActivity extends BaseActivity {
 							dissmissDilog();
 						}else {
 							btn_login.setClickable(true);
-							Toast.makeText(getApplicationContext(), jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), jsonObject.getString("MESSAGE"), Toast.LENGTH_SHORT).show();
 							dissmissDilog();
 						}
 
