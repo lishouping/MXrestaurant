@@ -21,6 +21,7 @@ import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
+import com.mx.sy.utils.CommonUtils;
 
 /**
  * @author Administrator
@@ -103,15 +104,81 @@ public class LoginActivity extends BaseActivity {
 			return true;
 		}
 	}
+	public void interfaceOnclick(View view){
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.addHeader("key", preferences.getString("loginkey", ""));
+		client.addHeader("id", preferences.getString("userid", ""));
+		String url = ApiConfig.API_URL + ApiConfig.SELECTCATEGORY_URL;
+		RequestParams params = new RequestParams();
+		params.put("shop_id", preferences.getString("shop_id", ""));
+		client.get(url+"?shop_id="+preferences.getString("shop_id", ""), new AsyncHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				if (arg0 == 200) {
+				try {
+					String response = new String(arg2,"UTF-8");
+					JSONObject jsonObject = new JSONObject(response);
+					Toast.makeText(getApplicationContext(), jsonObject.toString(), Toast.LENGTH_LONG).show();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					btn_login.setClickable(true);
+					Log.i("异常了", e + "");
+					Toast.makeText(getApplicationContext(), "服务器异常", Toast.LENGTH_SHORT).show();
+					dissmissDilog();
+				} 
+			}
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "服务器异常", Toast.LENGTH_SHORT).show();
+			}
+		});
+//		client.post(url, params, new AsyncHttpResponseHandler() {
+//
+//			@Override
+//			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+//				if (arg0 == 200) {
+//					try {
+//						String response = new String(arg2,"UTF-8");
+//						JSONObject jsonObject = new JSONObject(response);
+//						Toast.makeText(getApplicationContext(), jsonObject.toString(), Toast.LENGTH_LONG).show();
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//						btn_login.setClickable(true);
+//						Log.i("异常了", e + "");
+//						Toast.makeText(getApplicationContext(), "服务器异常", Toast.LENGTH_SHORT).show();
+//						dissmissDilog();
+//					} 
+//				}
+//
+//			}
+//
+//			@Override
+//			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+//				// TODO Auto-generated method stub
+//				Log.i("出错了", arg3 + "");
+//				Toast.makeText(getApplicationContext(), "服务器异常", Toast.LENGTH_SHORT).show();
+//				dissmissDilog();
+//			}
+//		});
+	}
+	
 	private void userLogin(){
 		showDilog("登录中");
 		//用户登录
 		AsyncHttpClient client = new AsyncHttpClient();
 		String url = ApiConfig.API_URL + ApiConfig.USERLOGIN_URL;
 		RequestParams params = new RequestParams();
-		params.put("username", edit_user.getText().toString());
+		//params.put("password", CommonUtils.md5(edit_pass.getText().toString()));
+		params.put("user_name", edit_user.getText().toString());
 		params.put("password", edit_pass.getText().toString());
-		params.put("type", "4");//Number 1:商户，2:管理员，3:个人用户，4:超级管理员
+		params.put("type", "2");//Number 1:商户，2:管理员，3:个人用户，4:超级管理员
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -122,20 +189,22 @@ public class LoginActivity extends BaseActivity {
 						JSONObject jsonObject = new JSONObject(response);
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
-							JSONObject object = new JSONObject(jsonObject.getString("msg"));
-							String userid = object.getString("uid");//用户id
-							String name = object.getString("shortname");//用户昵称
-							final String telephone = object.getString("phone");//手机号码
-//							String sex = object.getString("sex");//性别
-//							String birthday = object.getString("birthday");//出生日期
-//							preferences.edit().putString("userid", userid).commit();
-//							preferences.edit().putString("name", name).commit();
-//							preferences.edit().putString("telephone", telephone).commit();
-//							preferences.edit().putString("sex", sex).commit();
-//							preferences.edit().putString("birthday", birthday).commit();
-							Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-							startActivity(intent);
-							finish();
+							JSONObject object = new JSONObject(jsonObject.getString("DATA"));
+							
+							JSONObject object2 = new JSONObject(object.getString("waiter"));
+							
+							
+//							JSONObject object3 = new JSONObject(object2.getString("create_time"));
+							String user_id = object.getString("user_id");
+							String login_key = object.getString("login_key");
+							String shop_id = object2.getString("shop_id");
+							
+							preferences.edit().putString("userid", user_id).commit();
+							preferences.edit().putString("loginkey", login_key).commit();
+							preferences.edit().putString("shop_id", shop_id).commit();
+//							Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//							startActivity(intent);
+//							finish();
 
 							dissmissDilog();
 						}else {
