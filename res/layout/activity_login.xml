@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
 		android:src="@drawable/ic_login_logo" 
 		android:layout_marginTop="100dp"
+		android:onClick="interfaceOnclick"
 		/>
 	<TextView 
 	    android:layout_width="wrap_content"
@@ -31,6 +32,7 @@
             android:textColorHint="@color/text_color"
             android:textSize="16sp" 
             android:paddingLeft="5dp"
+            android:text="wanger"
             android:layout_marginTop="10dp"/>
 	<EditText
             android:id="@+id/edit_pass"
@@ -45,6 +47,8 @@
             android:textColorHint="@color/text_color"
             android:textSize="16sp" 
             android:paddingLeft="5dp"
+            android:text="wanger"
+            android:password="true"
             android:layout_marginTop="10dp"/>
 	
 	<Button
