@@ -36,27 +36,57 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mx.sy.activity.LoginActivity" >
+        <activity android:name="com.mx.sy.activity.LoginActivity"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.mx.sy.activity.MainActivity" >
+        <activity android:name="com.mx.sy.activity.MainActivity" 
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.mx.sy.activity.QrCodeActivity" >
+        <activity android:name="com.mx.sy.activity.QrCodeActivity"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.mx.sy.activity.MipcaActivityCapture" >
+        <activity android:name="com.mx.sy.activity.MipcaActivityCapture" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.mx.sy.dialog.ClassSelectDialog"
             android:theme="@style/transcutestyle" >
         </activity>
-        <activity android:name="com.mx.sy.activity.FoodCustomActivity" >
+        <activity android:name="com.mx.sy.activity.FoodCustomActivity"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.mx.sy.activity.OrderSubmitActivity" >
+        <activity android:name="com.mx.sy.activity.OrderSubmitActivity" 
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.mx.sy.activity.OrderConductActivity" >
+        <activity android:name="com.mx.sy.activity.OrderConductActivity" 
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.mx.sy.activity.OrderEndActivity" >
+        <activity android:name="com.mx.sy.activity.OrderEndActivity" 
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.mx.sy.activity.OrderUntreatedActivity" >
+        <activity android:name="com.mx.sy.activity.OrderUntreatedActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.mx.sy.activity.SalesStatisticsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.mx.sy.activity.ServiceStatisticsActivity" 
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.mx.sy.activity.PushSeetingActivity" 
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.mx.sy.activity.UserInfoActivity" 
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.mx.sy.activity.PrinterSeetingActivity" 
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.mx.sy.activity.FeedBackActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.mx.sy.activity.AboutUsActivity" 
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
