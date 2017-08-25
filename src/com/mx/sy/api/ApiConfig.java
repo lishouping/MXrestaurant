@@ -31,8 +31,10 @@ public class ApiConfig {
 	public static String REMOVECAR_URL = "/cart/removeCart";
 	// 查询桌台未结账订单
 	public static String GETORDER_URL = "/order/getOrder";
-	// 服务员提交订单 、结账都用这个接口
+	// 服务员提交订单 
 	public static String SAVEORDER_URL = "/order/saveOrder";
 	// 结账
+	public static String CHECK_URL = "/order/check";
+	// 取消订单
 	public static String CANCELORDER_URL = "/order/cancleOrder";
 }
