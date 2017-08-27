@@ -1,5 +1,7 @@
 package com.mx.sy.app;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.mx.sy.utils.ImageLoader;
 import com.mx.sy.utils.ImageLoader.Type;
 
@@ -10,6 +12,7 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		mLoader = ImageLoader.getInstance(3, Type.LIFO);
+		JPushInterface.init(this); // 初始化 JPush		
 	}
 
 }

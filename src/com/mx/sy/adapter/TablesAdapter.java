@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 
+import com.mx.sy.R;
 import com.mx.sy.base.CommonBaseAdapter;
 import com.mx.sy.base.CommonViewHolder;
 
@@ -25,7 +26,18 @@ public class TablesAdapter extends CommonBaseAdapter<HashMap<String, String>>{
 	@Override
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
-		
+		if (bean.get("table_status").equals("0")) {
+			holder.setText(R.id.tv_tablestate, "未使用");
+		}else if (bean.get("table_status").equals("1")) {
+			holder.setText(R.id.tv_tablestate, "使用中");
+		}else if (bean.get("table_status").equals("2")) {
+			holder.setText(R.id.tv_tablestate, "预定中");
+		}else if (bean.get("table_status").equals("3")) {
+			holder.setText(R.id.tv_tablestate, "占用中");
+		}else if (bean.get("table_status").equals("4")) {
+			holder.setText(R.id.tv_tablestate, "其他");
+		}
+		holder.setText(R.id.tv_tablename, bean.get("table_name"));
 	}
 
 }

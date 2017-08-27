@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.mx.sy.R;
 import com.mx.sy.base.CommonBaseAdapter;
 import com.mx.sy.base.CommonViewHolder;
+import com.mx.sy.utils.SendMessage;
 
 /**
 * <p>Title: MineUserAdapter<／p>
@@ -25,6 +26,7 @@ public class ShoppingCarAdapter extends CommonBaseAdapter<HashMap<String, String
 	private Context context;
 	private List<HashMap<String, String>> dateList;
 	private int itemID;
+	private SendMessage sendMessage;
 	public ShoppingCarAdapter(Context context, List<HashMap<String, String>> datas,
 			int itemID) {
 		super(context, datas, itemID);
@@ -32,19 +34,34 @@ public class ShoppingCarAdapter extends CommonBaseAdapter<HashMap<String, String
 		this.dateList = datas;
 		this.context = context;
 		this.itemID = itemID;
+		sendMessage = (SendMessage) context;
 	}
 
 	@Override
-	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
+	public void convert(final CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
+		holder.setText(R.id.tv_shopcar_goodname, bean.get("good_name"));
+		holder.setText(R.id.tv_shopcar_goodprice, "￥"+ bean.get("good_price"));
+		holder.setText(R.id.tv_shopcar_goodnumber, bean.get("good_num"));
+		
 		holder.getView(R.id.lin_addfood).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+				sendMessage.SendMsg(101,holder.getPosition());
 			}
 		});
+		
+		holder.getView(R.id.lin_minus).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				sendMessage.SendMsg(102,holder.getPosition());
+			}
+		});
+		
 //		holder.getConvertView().setBackgroundColor(Color.rgb(223, 90, 55));
 	}
 }

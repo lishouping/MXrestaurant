@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,12 +18,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
 import com.mx.sy.activity.OrderConductActivity;
 import com.mx.sy.activity.OrderEndActivity;
-import com.mx.sy.activity.OrderUntreatedActivity;
+import com.mx.sy.activity.OrderDetailedActivity;
 import com.mx.sy.adapter.OrderAdapter;
+import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseFragment;
 import com.mx.sy.common.PullToRefreshView;
 import com.mx.sy.common.PullToRefreshView.OnFooterRefreshListener;
@@ -39,7 +49,14 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 	
 	PullToRefreshView mPullToRefreshView;	
 	
+	private SharedPreferences preferences;
+	
 	private int selectBtnFlag = 0;
+	
+	int page = 1;
+	
+	int totalnum;
+	
 	
 	@Override
 	protected int setLayoutResouceId() {
@@ -76,12 +93,12 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 	protected void onLazyLoad() {
 		// TODO Auto-generated method stub
 		super.onLazyLoad();
+		
+		preferences = getActivity().getSharedPreferences("userinfo",
+				getActivity().MODE_PRIVATE);
+		
 		dateList = new ArrayList<HashMap<String,String>>();
-		for (int i = 0; i < 10; i++) {
-			dateList.add(new HashMap<String, String>());
-		}
 		orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_untreated);
-		lv_order.setAdapter(orderAdapter);
 		lv_order.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -90,15 +107,24 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				if (selectBtnFlag==0) {
-					intent.setClass(mActivity, OrderUntreatedActivity.class);
+					intent.setClass(mActivity, OrderDetailedActivity.class);
+					intent.putExtra("detailedpage", "1");
+					intent.putExtra("jsonobj", dateList.get(arg2).get("object"));
 				}else if (selectBtnFlag==1) {
-					intent.setClass(mActivity, OrderConductActivity.class);
+					intent.setClass(mActivity, OrderDetailedActivity.class);
+					intent.putExtra("detailedpage", "2");
+					intent.putExtra("jsonobj", dateList.get(arg2).get("object"));
 				}else if (selectBtnFlag==2) {
-					intent.setClass(mActivity, OrderEndActivity.class);
+					intent.setClass(mActivity, OrderDetailedActivity.class);
+					intent.putExtra("detailedpage", "3");
+					intent.putExtra("jsonobj", dateList.get(arg2).get("object"));
 				}
 				startActivity(intent);
 			}
 		});
+		
+		// 0 未处理，1已结账，2取消 -1顾客提交订单服务员未确认
+		geOrderInfo(-1);
 		
 	}
 
@@ -108,39 +134,30 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 		switch (v.getId()) {
 		case R.id.lin_order_nomanage:
 			// 未处理
+			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_untreated);
 			selectBtnFlag = 0;
 			changeBtnBg(selectBtnFlag);
 			dateList.clear();
-			for (int i = 0; i < 10; i++) {
-				dateList.add(new HashMap<String, String>());
-			}
-			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_untreated);
-			lv_order.setAdapter(orderAdapter);
-			orderAdapter.notifyDataSetChanged();
+			page = 1;
+			geOrderInfo(-1);
 			break;
 		case R.id.lin_order_manageing:
+			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_havingdinner);
 			// 正在用餐
 			selectBtnFlag = 1;
 			changeBtnBg(selectBtnFlag);
 			dateList.clear();
-			for (int i = 0; i < 10; i++) {
-				dateList.add(new HashMap<String, String>());
-			}
-			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_havingdinner);
-			lv_order.setAdapter(orderAdapter);
-			orderAdapter.notifyDataSetChanged();
+			page = 1;
+			geOrderInfo(0);
 			break;
 		case R.id.lin_order_managend:
+			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_com);
 			// 已完成
 			selectBtnFlag = 2;
 			changeBtnBg(selectBtnFlag);
 			dateList.clear();
-			for (int i = 0; i < 10; i++) {
-				dateList.add(new HashMap<String, String>());
-			}
-			orderAdapter = new OrderAdapter(getActivity(), dateList, R.layout.item_order_com);
-			lv_order.setAdapter(orderAdapter);
-			orderAdapter.notifyDataSetChanged();
+			page = 1;
+			geOrderInfo(1);
 			break;
 		default:
 			break;
@@ -154,9 +171,11 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 			public void run() {
 				// 下拉刷新
 				mPullToRefreshView.onHeaderRefreshComplete();
-//				page = 1;
-//				dateList.clear();
-//				getData();
+				page = 1;
+				selectBtnFlag = 0;
+				changeBtnBg(selectBtnFlag);
+				dateList.clear();
+				geOrderInfo(-1);
 			}
 		}, 1000);
 	}
@@ -167,13 +186,15 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 			@Override
 			public void run() {
 				// 上滑加载
-				mPullToRefreshView.onFooterRefreshComplete();
-//				if (page == pageIndex) {
-//					Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_LONG).show();
-//				}else {
-//					page++;
-//					getData();
-//				}
+				mPullToRefreshView.onFooterRefreshComplete();// 上滑加载
+				if (page == totalnum) {
+					Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_LONG)
+							.show();
+				} else {
+					page++;
+					geOrderInfo(-1);
+				}
+
 
 			}
 		}, 1000);
@@ -199,6 +220,85 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 		default:
 			break;
 		}
+	}
+	
+	public void geOrderInfo(final int orderstate) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.addHeader("key", preferences.getString("loginkey", ""));
+		client.addHeader("id", preferences.getString("userid", ""));
+		String url = ApiConfig.API_URL + ApiConfig.ORDERLISTFORWRITER;
+		RequestParams params = new RequestParams();
+		params.put("waiter_id", preferences.getString("business_id", ""));
+		params.put("page_no", page);
+		client.post(url, params, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				if (arg0 == 200) {
+					try {
+						String response = new String(arg2, "UTF-8");
+						JSONObject jsonObject = new JSONObject(response);
+						String CODE = jsonObject.getString("CODE");
+						if (CODE.equals("1000")) {
+							JSONArray jsonArray = new JSONArray(jsonObject
+									.getString("DATA"));
+							for (int i = 0; i < jsonArray.length(); i++) {
+								JSONObject object = jsonArray.getJSONObject(i);
+								String order_id = object.getString("order_id");
+								String order_num = object.getString("order_num");
+								String order_time=  object.getString("order_time");
+								String status = object.getString("status");
+								JSONObject tabobj = new JSONObject(object.getString("table"));
+								JSONObject writerobj = new JSONObject(object.getString("waiter"));
+								JSONObject cartobj = new JSONObject(object.getString("cart"));
+								
+								
+								String table_name = tabobj.getString("table_name");
+								String people_count = tabobj.getString("people_count");
+								String name = writerobj.getString("name");
+								
+								HashMap<String, String> map = new HashMap<String, String>();
+								map.put("order_id", order_id);
+								map.put("order_num", order_num);
+								map.put("order_time", order_time);
+								map.put("status", status);
+								map.put("table_name", table_name);
+								map.put("people_count", people_count);
+								map.put("name", name);
+								map.put("object", object+"");
+								dateList.add(map);
+							}
+							if (page==1) {
+								lv_order.setAdapter(orderAdapter);
+							}else {
+								orderAdapter.notifyDataSetChanged();
+							}
+							dissmissDilog();
+						} else {
+							Toast.makeText(getActivity(),
+									jsonObject.getString("MESSAGE"),
+									Toast.LENGTH_SHORT).show();
+						}
+
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						Toast.makeText(getActivity(), "服务器异常",
+								Toast.LENGTH_SHORT).show();
+						dissmissDilog();
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getActivity(), "服务器异常", Toast.LENGTH_LONG)
+						.show();
+			}
+		});
 	}
 
 }

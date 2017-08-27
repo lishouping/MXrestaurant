@@ -37,4 +37,14 @@ public class ApiConfig {
 	public static String CHECK_URL = "/order/check";
 	// 取消订单
 	public static String CANCELORDER_URL = "/order/cancleOrder";
+	// 服务员订单列表(分页，每页10条)
+	public static String ORDERLISTFORWRITER = "/order/getOrderListForWaiter";
+	// 查询服务列表(分页,每页10条)
+	public static String SELECTSERVICELIST = "/service/selectServiceListWaiter";
+	// 服务员处理服务
+	public static String TODOSERVICE = "/service/updateService";
+	// 查询单个服务
+	public static String SELECTONESERVICE = "/service/selectOneService";
+	// 服务员确认顾客订单
+	public static String CONFIRMORDER = "/order/confirmOrder";
 }

@@ -31,7 +31,8 @@
             android:layout_marginRight="5dp"
             android:text="推送"
             android:textColor="@color/blue_btn_bg_color"
-            android:textSize="18sp" />
+            android:textSize="18sp" 
+            android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout

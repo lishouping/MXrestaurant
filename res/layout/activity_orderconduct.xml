@@ -109,6 +109,7 @@
         android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/tv_ordertotal_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|right"
@@ -123,12 +124,12 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/btn_add_food"
+                android:id="@+id/btn_cancel_order"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@color/main_bg_color"
-                android:text="加菜"
+                android:text="取消订单"
                 android:textColor="@color/button_text_color"
                 android:textSize="13sp" 
                 android:layout_marginRight="10sp"/>
@@ -146,7 +147,7 @@
                 android:textSize="13sp" /> -->
 
             <Button
-                android:id="@+id/btn_sub_order"
+                android:id="@+id/btn_jiezhang_order"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"

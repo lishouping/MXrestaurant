@@ -34,6 +34,9 @@ public class OrderSubmitAdapter extends CommonBaseAdapter<HashMap<String, String
 	@Override
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
+		holder.setText(R.id.tv_orderfoodname, bean.get("good_name"));
+		holder.setText(R.id.tv_pricenum, bean.get("good_price")+"X"+bean.get("good_num"));
+		holder.setText(R.id.tv_totalprice, "￥"+bean.get("good_total_price"));
 //		holder.getConvertView().setBackgroundColor(Color.rgb(223, 90, 55));
 	}
 }

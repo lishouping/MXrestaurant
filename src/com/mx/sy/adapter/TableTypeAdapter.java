@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 
+import com.mx.sy.R;
 import com.mx.sy.base.CommonBaseAdapter;
 import com.mx.sy.base.CommonViewHolder;
 
@@ -25,7 +26,7 @@ public class TableTypeAdapter extends CommonBaseAdapter<HashMap<String, String>>
 	@Override
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
-		
+		holder.setText(R.id.tv_class, bean.get("tableusename"));
 	}
 
 }

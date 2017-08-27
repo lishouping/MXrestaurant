@@ -20,13 +20,13 @@ import com.mx.sy.base.CommonViewHolder;
 * @author lishp
 * @date 2017年4月2日
  */
-public class DishesClassAdapter extends CommonBaseAdapter<HashMap<String, String>>{
+public class DishesClassAdapter extends CommonBaseAdapter<HashMap<String, Object>>{
 	private Context context;
-	private List<HashMap<String, String>> dateList;
+	private List<HashMap<String, Object>> dateList;
 	private int itemID;
 	private int selectedPosition = 0;// 选中的位置
 	
-	public DishesClassAdapter(Context context, List<HashMap<String, String>> datas,
+	public DishesClassAdapter(Context context, List<HashMap<String, Object>> datas,
 			int itemID) {
 		super(context, datas, itemID);
 		// TODO Auto-generated constructor stub
@@ -38,14 +38,17 @@ public class DishesClassAdapter extends CommonBaseAdapter<HashMap<String, String
 	    selectedPosition = position;
 	}
 	@Override
-	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
+	public void convert(CommonViewHolder holder, HashMap<String, Object> bean) {
 		// TODO Auto-generated method stub
 		
 		int position = holder.getPosition();
 		if (selectedPosition == position) {
-			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(208, 208, 208));
-		} else {
 			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(223, 90, 55));
+		} else {
+			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(208, 208, 208));
 		}
+		
+		holder.setText(R.id.tv_class, bean.get("category_name")+"");
+		
 	}
 }

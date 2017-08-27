@@ -7,10 +7,12 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -32,7 +34,11 @@ public class MineFragment extends BaseFragment {
 
 	LayoutInflater inflater;
 	View view;
-
+	
+	private TextView tv_user_name;
+	
+	private SharedPreferences preferences;
+	
 	@Override
 	protected int setLayoutResouceId() {
 		// TODO Auto-generated method stub
@@ -53,6 +59,8 @@ public class MineFragment extends BaseFragment {
 		inflater = (LayoutInflater) getActivity().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 		view = inflater.inflate(R.layout.headview_mine, null);
+		
+		tv_user_name = (TextView) view.findViewById(R.id.tv_user_name);
 	}
 
 	@Override
@@ -60,6 +68,13 @@ public class MineFragment extends BaseFragment {
 		// TODO Auto-generated method stub
 		super.onLazyLoad();
 
+		preferences = getActivity().getSharedPreferences("userinfo",
+				getActivity().MODE_PRIVATE);
+		
+		
+		String name = preferences.getString("name", "");
+		tv_user_name.setText(name);
+		
 		// dateList = new ArrayList<HashMap<String,String>>();
 		mineUserAdapter = new MineUserAdapter(mActivity, makeDate(),
 				R.layout.item_mineuser);
@@ -119,41 +134,41 @@ public class MineFragment extends BaseFragment {
 
 		HashMap<String, Object> userInfoMap1 = new HashMap<String, Object>();
 		userInfoMap1.put("content", "销售统计");
-		userInfoMap1.put("contentImg", R.drawable.ic_launcher);
+		userInfoMap1.put("contentImg", R.drawable.ic_arraw_right);
 		dateList.add(userInfoMap1);
 
 		HashMap<String, Object> userInfoMap2 = new HashMap<String, Object>();
 		userInfoMap2.put("content", "服务统计");
-		userInfoMap2.put("contentImg", R.drawable.ic_login_logo);
+		userInfoMap2.put("contentImg", R.drawable.ic_arraw_right);
 		dateList.add(userInfoMap2);
 
 		HashMap<String, Object> userInfoMap3 = new HashMap<String, Object>();
 		userInfoMap3.put("content", "推送消息");
-		userInfoMap3.put("contentImg", R.drawable.ic_login_logo);
+		userInfoMap3.put("contentImg", R.drawable.ic_arraw_right);
 		dateList.add(userInfoMap3);
 
 		HashMap<String, Object> userInfoMap4 = new HashMap<String, Object>();
 		userInfoMap4.put("content", "个人信息");
-		userInfoMap4.put("contentImg", R.drawable.ic_login_logo);
+		userInfoMap4.put("contentImg", R.drawable.ic_arraw_right);
 		dateList.add(userInfoMap4);
 
 		HashMap<String, Object> userInfoMap5 = new HashMap<String, Object>();
 		userInfoMap5.put("content", "打印机设置");
-		userInfoMap5.put("contentImg", R.drawable.ic_login_logo);
+		userInfoMap5.put("contentImg", R.drawable.ic_arraw_right);
 		dateList.add(userInfoMap5);
 
 		HashMap<String, Object> userInfoMap6 = new HashMap<String, Object>();
 		userInfoMap6.put("content", "打印模板");
-		userInfoMap6.put("contentImg", R.drawable.ic_login_logo);
+		userInfoMap6.put("contentImg", R.drawable.ic_arraw_right);
 
 		HashMap<String, Object> userInfoMap7 = new HashMap<String, Object>();
 		userInfoMap7.put("content", "意见反馈");
-		userInfoMap7.put("contentImg", R.drawable.ic_login_logo);
+		userInfoMap7.put("contentImg", R.drawable.ic_arraw_right);
 		dateList.add(userInfoMap7);
 
 		HashMap<String, Object> userInfoMap8 = new HashMap<String, Object>();
 		userInfoMap8.put("content", "关于我们");
-		userInfoMap8.put("contentImg", R.drawable.ic_login_logo);
+		userInfoMap8.put("contentImg", R.drawable.ic_arraw_right);
 		dateList.add(userInfoMap8);
 
 		return dateList;

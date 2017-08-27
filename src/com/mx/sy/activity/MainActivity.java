@@ -1,6 +1,9 @@
 package com.mx.sy.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -162,5 +165,45 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// iv_survey.setImageResource(R.drawable.cp_survey_not_press);
 		// iv_information.setImageResource(R.drawable.cp_information_not_press);
 	}
+	
+	//接受广播刷新页面
+		// for receive customer msg from jpush server
+		private MessageReceiver mMessageReceiver;
+		public static final String MESSAGE_RECEIVED_ACTION = "com.cpjw.bj.MESSAGE_RECEIVED_ACTION";
+		public static final String KEY_TITLE = "title";
+		public static final String KEY_MESSAGE = "message";
+		public static final String KEY_EXTRAS = "extras";
+
+
+		public void registerMessageReceiver() {
+			mMessageReceiver = new MessageReceiver();
+			IntentFilter filter = new IntentFilter();
+			filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+			filter.addAction(MESSAGE_RECEIVED_ACTION);
+			registerReceiver(mMessageReceiver, filter);
+		}
+
+		public class MessageReceiver extends BroadcastReceiver {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+					//刷新通知列表
+					//				setChioceItem(1);
+					onResume();
+					// 返回的时候需要刷新列表数据
+					/*
+					String messge = intent.getStringExtra(KEY_MESSAGE);
+					String extras = intent.getStringExtra(KEY_EXTRAS);
+					StringBuilder showMsg = new StringBuilder();
+					showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+					if (!ExampleUtil.isEmpty(extras)) {
+						showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+					}
+					setCostomMsg(showMsg.toString());
+					 */
+				}
+			}
+		}
 
 }
