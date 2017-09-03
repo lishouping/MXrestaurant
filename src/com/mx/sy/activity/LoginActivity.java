@@ -136,17 +136,7 @@ public class LoginActivity extends BaseActivity {
 						if (CODE.equals("1000")) {
 							
 												
-							//设置极光推送别名
-							JPushInterface.setAlias(getApplicationContext(),"15566059932", new TagAliasCallback() {
-
-								@Override
-								public void gotResult(int arg0, String arg1,Set<String> arg2) {
-									if (arg0 == 0) {
-										Log.i("--------------------", "极光别名设置成功" );
-									}
-								}
-
-							});
+							
 							
 							JSONObject object = new JSONObject(jsonObject
 									.getString("DATA"));
@@ -157,6 +147,7 @@ public class LoginActivity extends BaseActivity {
 							// JSONObject object3 = new
 							// JSONObject(object2.getString("create_time"));
 							String user_id = object.getString("user_id");
+							String alias = object.getString("alias");
 							String login_key = object.getString("login_key");
 							String shop_id = object2.getString("shop_id");
 							String name = object2.getString("name");
@@ -170,6 +161,18 @@ public class LoginActivity extends BaseActivity {
 									.commit();
 							preferences.edit().putString("name", name).commit();
 							preferences.edit().putString("business_id", business_id).commit();
+							
+							//设置极光推送别名
+							JPushInterface.setAlias(getApplicationContext(),alias, new TagAliasCallback() {
+
+								@Override
+								public void gotResult(int arg0, String arg1,Set<String> arg2) {
+									if (arg0 == 0) {
+										Log.i("--------------------", "极光别名设置成功" );
+									}
+								}
+
+							});
 							
 							Intent intent = new Intent(getApplicationContext(),
 									MainActivity.class);

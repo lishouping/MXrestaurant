@@ -41,7 +41,7 @@ public class OrderConductActivity extends BaseActivity {
 
 	private TextView tv_order_num, tv_table_num, tv_person_no, tv_service_time,
 			tv_ordertotal_price;
-	private Button btn_sub_order, btn_add_food;
+	private Button btn_jiezhang_order, btn_cancel_order;
 
 	private TNKListView lv_order_dinner;
 	private List<HashMap<String, String>> dateList;
@@ -60,12 +60,12 @@ public class OrderConductActivity extends BaseActivity {
 		case R.id.ll_back:
 			finish();
 			break;
-		case R.id.btn_sub_order:
+		case R.id.btn_jiezhang_order:
 
 			check();
 
 			break;
-		case R.id.btn_add_food:
+		case R.id.btn_cancel_order:
 			cancleOrder();
 			break;
 		default:
@@ -102,8 +102,8 @@ public class OrderConductActivity extends BaseActivity {
 		tv_person_no = $(R.id.tv_person_no);
 		tv_service_time = $(R.id.tv_service_time);
 		tv_ordertotal_price = $(R.id.tv_ordertotal_price);
-		btn_sub_order = $(R.id.btn_sub_order);
-		btn_add_food = $(R.id.btn_add_food);
+		btn_jiezhang_order = $(R.id.btn_jiezhang_order);
+		btn_cancel_order = $(R.id.btn_cancel_order);
 	}
 
 	@Override
@@ -165,8 +165,8 @@ public class OrderConductActivity extends BaseActivity {
 	public void setListener() {
 		// TODO Auto-generated method stub
 		ll_back.setOnClickListener(this);
-		btn_sub_order.setOnClickListener(this);
-		btn_add_food.setOnClickListener(this);
+		btn_jiezhang_order.setOnClickListener(this);
+		btn_cancel_order.setOnClickListener(this);
 	}
 
 	@Override
