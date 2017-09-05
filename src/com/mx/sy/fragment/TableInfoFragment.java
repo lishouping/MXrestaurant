@@ -78,11 +78,18 @@ public class TableInfoFragment extends BaseFragment implements
 
 		preferences = getActivity().getSharedPreferences("userinfo",
 				getActivity().MODE_PRIVATE);
+	}
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		if (dateList.size()==0) {
+		}else {
+			dateList.clear();
+		}
 		showDilog("加载中");
 		getTableInfo();
-
+		super.onResume();
 	}
-
 	@Override
 	protected void initView() {
 		// TODO Auto-generated method stub
@@ -136,7 +143,6 @@ public class TableInfoFragment extends BaseFragment implements
 				mPullToRefreshView.onHeaderRefreshComplete();
 				dateList.clear();
 				getTableInfo();
-				tablesAdapter.notifyDataSetChanged();
 			}
 		}, 1000);
 	}
@@ -151,7 +157,6 @@ public class TableInfoFragment extends BaseFragment implements
 				mPullToRefreshView.onFooterRefreshComplete();
 				dateList.clear();
 				getTableInfo();
-				tablesAdapter.notifyDataSetChanged();
 			}
 		}, 1000);
 	}
@@ -250,6 +255,7 @@ public class TableInfoFragment extends BaseFragment implements
 								}
 							}
 							gri_tables.setAdapter(tablesAdapter);
+							tablesAdapter.notifyDataSetChanged();
 							dissmissDilog();
 						} else {
 							Toast.makeText(getActivity(),

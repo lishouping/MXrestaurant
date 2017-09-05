@@ -201,6 +201,13 @@ public class OrderSubmitActivity extends BaseActivity {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
+							Intent intent = new Intent();
+							intent.setClass(getApplicationContext(), OrderConductActivity.class);
+							intent.putExtra("table_id", table_id);
+							intent.putExtra("table_name", table_name);
+							startActivity(intent);
+							FoodCustomActivity.inActivity.finish();
+							finish();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),

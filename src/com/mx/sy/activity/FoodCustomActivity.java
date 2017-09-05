@@ -38,6 +38,7 @@ import com.mx.sy.utils.SendMessage;
  * @author lishouping 点餐页面
  */
 public class FoodCustomActivity extends BaseActivity implements SendMessage {
+	public static FoodCustomActivity inActivity; 
 	private LinearLayout ll_back;
 	private TextView tv_title;
 
@@ -71,7 +72,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 	String good_id;
 	String cart_id;
 	
-	JSONObject intentJsonObject;
+	JSONObject intentJsonObject = null;
 
 	@Override
 	public void widgetClick(View v) {
@@ -84,13 +85,17 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 
 			break;
 		case R.id.btn_place_order:
-			Intent intent = new Intent(getApplicationContext(),
-					OrderSubmitActivity.class);
-			intent.putExtra("cart_id", cart_id);
-			intent.putExtra("table_id", table_id);
-			intent.putExtra("table_name", table_name);
-			intent.putExtra("intentJsonObject", intentJsonObject+"");
-			startActivity(intent);
+			if (intentJsonObject==null) {
+				Toast.makeText(getApplicationContext(), "您还没有点餐", Toast.LENGTH_SHORT).show();
+			}else {
+				Intent intent = new Intent(getApplicationContext(),
+						OrderSubmitActivity.class);
+				intent.putExtra("cart_id", cart_id);
+				intent.putExtra("table_id", table_id);
+				intent.putExtra("table_name", table_name);
+				intent.putExtra("intentJsonObject", intentJsonObject+"");
+				startActivity(intent);
+			}
 			break;
 		case R.id.imgshopingcar:
 			if (shopviewstate == false) {
@@ -149,6 +154,8 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		lin_delshpingcar = $(R.id.lin_delshpingcar);
 
 		lv_shcar = $(R.id.lv_shcar);
+		
+		inActivity = this;
 	}
 
 	@Override
