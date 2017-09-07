@@ -40,6 +40,10 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    
+      <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    
 
     <application
         android:name="com.mx.sy.app.MyApplication"
@@ -68,10 +72,19 @@
             android:name="com.mx.sy.activity.QrCodeActivity"
             android:screenOrientation="portrait" >
         </activity>
+         <activity
+            android:name="com.mx.sy.activity.PrintActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="com.mx.sy.activity.MipcaActivityCapture"
             android:screenOrientation="portrait" >
         </activity>
+         <activity android:name="com.mx.sy.activity.DeviceListActivity"
+              android:label="@string/select_device" 
+              android:theme="@android:style/Theme.Dialog">
+         </activity>
+   
         <activity
             android:name="com.mx.sy.dialog.ClassSelectDialog"
             android:theme="@style/transcutestyle" >
