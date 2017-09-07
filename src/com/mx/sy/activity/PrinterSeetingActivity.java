@@ -1,8 +1,10 @@
 package com.mx.sy.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,12 +21,17 @@ import com.mx.sy.base.BaseActivity;
 public class PrinterSeetingActivity extends BaseActivity{
 	private LinearLayout ll_back;
 	private TextView tv_title;
+	private Button btn_print_test;
 	@Override
 	public void widgetClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.ll_back:
 			finish();
+			break;
+		case R.id.btn_print_test:
+			Intent intent = new Intent(getApplicationContext(),PrintActivity.class);
+			startActivity(intent);
 			break;
 		}
 	}
@@ -44,7 +51,7 @@ public class PrinterSeetingActivity extends BaseActivity{
 	@Override
 	public int bindLayout() {
 		// TODO Auto-generated method stub
-		return R.layout.activity_aboutus;
+		return R.layout.activity_printerseeting;
 	}
 
 	@Override
@@ -52,6 +59,7 @@ public class PrinterSeetingActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		ll_back = $(R.id.ll_back);
 		tv_title = $(R.id.tv_title);
+		btn_print_test = $(R.id.btn_print_test);
 	}
 
 	@Override
@@ -71,5 +79,4 @@ public class PrinterSeetingActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
