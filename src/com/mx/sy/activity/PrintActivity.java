@@ -1,9 +1,5 @@
 package com.mx.sy.activity;
 
-import com.mx.sy.R;
-import com.zj.btsdk.BluetoothService;
-import com.zj.btsdk.PrintPic;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -14,9 +10,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mx.sy.R;
+import com.zj.btsdk.BluetoothService;
+import com.zj.btsdk.PrintPic;
 
 /**
 * <p>Title: PrintActivity<／p>
@@ -37,13 +41,15 @@ public class PrintActivity extends Activity{
 	BluetoothService mService = null;
 	BluetoothDevice con_dev = null;
 	private static final int REQUEST_CONNECT_DEVICE = 1;  //获取设备消息
-	
+	private LinearLayout ll_back;
+	private TextView tv_title;
 	
 	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
 		mService = new BluetoothService(this, mHandler);
 		//蓝牙不可用退出程序
@@ -51,6 +57,18 @@ public class PrintActivity extends Activity{
             Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             finish();
 		}		
+		
+		ll_back = (LinearLayout) findViewById(R.id.ll_back);
+		ll_back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		tv_title = (TextView) findViewById(R.id.tv_title);
+		tv_title.setText("打印小票");
 	}
 
     @Override

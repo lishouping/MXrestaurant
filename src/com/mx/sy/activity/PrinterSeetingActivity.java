@@ -72,6 +72,7 @@ public class PrinterSeetingActivity extends BaseActivity{
 	public void setListener() {
 		// TODO Auto-generated method stub
 		ll_back.setOnClickListener(this);
+		btn_print_test.setOnClickListener(this);
 	}
 
 	@Override
