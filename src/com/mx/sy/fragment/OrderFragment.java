@@ -125,7 +125,7 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 		});
 		
 		// 0 未处理，1已结账，2取消 -1顾客提交订单服务员未确认
-		geOrderInfo(-1);
+		//geOrderInfo(-1);
 		
 	}
 
@@ -210,7 +210,23 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 			}
 		}, 1000);
 	}
-	
+	@Override
+	public void onResume() {
+		if (selectBtnFlag==0) {
+			dateList.clear();
+			page = 1;
+			geOrderInfo(-1);
+		}else if (selectBtnFlag==1) {
+			dateList.clear();
+			page = 1;
+			geOrderInfo(0);
+		}else if (selectBtnFlag==2) {
+			dateList.clear();
+			page = 1;
+			geOrderInfo(1);
+		}
+		super.onResume();
+	}
 	private void changeBtnBg(int selectTag){
 		switch (selectTag) {
 		case 0:

@@ -54,11 +54,11 @@ public class OrderDetailedActivity extends BaseActivity{
 	
 	// 未处理页面
 	private Button btn_add_food;//加菜
-	private Button btn_writing_food;//叫起
+	private Button btn_cancel_order;//取消订单
 	private Button btn_sub_order;//确认下单
 	
 	// 用餐中
-	private Button btn_cancel_order;//取消订单
+	private Button btn_addfood_order;//添加菜品
 	private Button btn_jiezhang_order;//结账
 	
 	// 已完成
@@ -70,6 +70,9 @@ public class OrderDetailedActivity extends BaseActivity{
 	
 	private SharedPreferences preferences;
 	private String order_id;
+	
+	private String table_id;
+	private String table_name;
 	@Override
 	public void initParms(Bundle parms) {
 		// TODO Auto-generated method stub
@@ -114,10 +117,10 @@ public class OrderDetailedActivity extends BaseActivity{
 		
 		if (detailedpage.equals("1")) {//未处理
 			btn_add_food = $(R.id.btn_add_food);
-			btn_writing_food = $(R.id.btn_writing_food);
+			btn_cancel_order = $(R.id.btn_cancel_order);
 			btn_sub_order = $(R.id.btn_sub_order);
 		}else if (detailedpage.equals("2")) {//正在用餐
-			btn_cancel_order = $(R.id.btn_cancel_order);
+			btn_addfood_order = $(R.id.btn_addfood_order);
 			btn_jiezhang_order = $(R.id.btn_jiezhang_order);
 		}else if (detailedpage.equals("3")) {//已完成
 			btn_dayin_order = $(R.id.btn_dayin_order);
@@ -135,10 +138,16 @@ public class OrderDetailedActivity extends BaseActivity{
 			finish();
 			break;
 		case R.id.btn_add_food:
-
+			Intent intent = new Intent(getApplicationContext(),FoodCustomActivity.class);
+			intent.putExtra("table_id",table_id);
+			intent.putExtra("table_name", table_name);
+			startActivity(intent);
 			break;
-		case R.id.btn_writing_food:
-
+		case R.id.btn_addfood_order:
+			Intent intent1 = new Intent(getApplicationContext(),FoodCustomActivity.class);
+			intent1.putExtra("table_id",table_id);
+			intent1.putExtra("table_name", table_name);
+			startActivity(intent1);
 			break;
 		case R.id.btn_sub_order:
 			new SweetAlertDialog(OrderDetailedActivity.this, SweetAlertDialog.NORMAL_TYPE)
@@ -288,10 +297,10 @@ public class OrderDetailedActivity extends BaseActivity{
 		ll_back.setOnClickListener(this);
 		if (detailedpage.equals("1")) {//未处理
 			btn_add_food.setOnClickListener(this);
-			btn_writing_food.setOnClickListener(this);
 			btn_sub_order.setOnClickListener(this);
-		}else if (detailedpage.equals("2")) {//正在用餐
 			btn_cancel_order.setOnClickListener(this);
+		}else if (detailedpage.equals("2")) {//正在用餐
+			btn_addfood_order.setOnClickListener(this);
 			btn_jiezhang_order.setOnClickListener(this);
 		}else if (detailedpage.equals("3")) {//已完成
 			btn_dayin_order.setOnClickListener(this);
@@ -308,6 +317,7 @@ public class OrderDetailedActivity extends BaseActivity{
 		try {
 			JSONObject object = new JSONObject(objs);
 		    order_id = object.getString("order_id");
+		    table_id = object.getString("table_id");
 			String order_num = object.getString("order_num");
 			String order_time = null;
 			JSONObject writerobj = null;
@@ -322,7 +332,7 @@ public class OrderDetailedActivity extends BaseActivity{
 			}
 			JSONObject cartobj = new JSONObject(object.getString("cart"));
 			
-			String table_name = tabobj.getString("table_name");
+		    table_name = tabobj.getString("table_name");
 			String people_count = tabobj.getString("people_count");
 			
 			tv_order_num.setText("订单编号:"+order_num);

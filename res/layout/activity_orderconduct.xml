@@ -124,15 +124,16 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/btn_cancel_order"
+                android:id="@+id/btn_addfood_order"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@color/main_bg_color"
-                android:text="取消订单"
+                android:text="加菜"
                 android:textColor="@color/button_text_color"
                 android:textSize="13sp" 
-                android:layout_marginRight="10sp"/>
+                android:layout_marginRight="10sp"
+                />
 
             <!-- <Button
                 android:id="@+id/btn_writing_food"

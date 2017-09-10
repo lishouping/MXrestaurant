@@ -156,16 +156,22 @@
                 android:text="加菜"
                 android:textColor="@color/button_text_color" />
 
+            <View
+                android:layout_width="10dp"
+                android:layout_height="fill_parent" />
+
             <Button
-                android:id="@+id/btn_writing_food"
+                android:id="@+id/btn_cancel_order"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@color/main_bg_color"
-                android:text="叫起"
+                android:text="取消订单"
                 android:textColor="@color/button_text_color" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="fill_parent" />
 
             <Button
                 android:id="@+id/btn_sub_order"
