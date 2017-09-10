@@ -32,7 +32,6 @@
             android:textColorHint="@color/text_color"
             android:textSize="16sp" 
             android:paddingLeft="5dp"
-            android:text="wanger"
             android:layout_marginTop="10dp"/>
 	<EditText
             android:id="@+id/edit_pass"
@@ -47,7 +46,6 @@
             android:textColorHint="@color/text_color"
             android:textSize="16sp" 
             android:paddingLeft="5dp"
-            android:text="wanger"
             android:password="true"
             android:layout_marginTop="10dp"/>
 	
