@@ -317,11 +317,12 @@ public class TableInfoFragment extends BaseFragment implements
 						dateList.add(map4);
 					}
 				}
-				tablesAdapter.notifyDataSetChanged();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		tablesAdapter.notifyDataSetChanged();
 	}
 
 	// 根据餐桌分区进行选择
@@ -346,11 +347,11 @@ public class TableInfoFragment extends BaseFragment implements
 						map4.put("table_id", table_id);
 						dateList.add(map4);
 					}
-					tablesAdapter.notifyDataSetChanged();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		tablesAdapter.notifyDataSetChanged();
 	}
 }
