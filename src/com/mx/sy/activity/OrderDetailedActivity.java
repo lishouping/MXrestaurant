@@ -141,7 +141,7 @@ public class OrderDetailedActivity extends BaseActivity{
 
 			break;
 		case R.id.btn_sub_order:
-			new SweetAlertDialog(getApplicationContext(), SweetAlertDialog.NORMAL_TYPE)
+			new SweetAlertDialog(OrderDetailedActivity.this, SweetAlertDialog.NORMAL_TYPE)
             .setTitleText("确定要提交订单吗？")
             //.setContentText("Won't be able to recover this file!")
             .setCancelText("取消")
@@ -162,7 +162,7 @@ public class OrderDetailedActivity extends BaseActivity{
             }).show();
 			break;
 		case R.id.btn_cancel_order:
-			new SweetAlertDialog(getApplicationContext(), SweetAlertDialog.NORMAL_TYPE)
+			new SweetAlertDialog(OrderDetailedActivity.this, SweetAlertDialog.NORMAL_TYPE)
             .setTitleText("确定要取消订单吗？")
             //.setContentText("Won't be able to recover this file!")
             .setCancelText("取消")
@@ -183,14 +183,57 @@ public class OrderDetailedActivity extends BaseActivity{
             }).show();
 			break;
 		case R.id.btn_jiezhang_order:
-			check();
+			new SweetAlertDialog(OrderDetailedActivity.this, SweetAlertDialog.NORMAL_TYPE)
+            .setTitleText("确定要结算订单吗？")
+            //.setContentText("Won't be able to recover this file!")
+            .setCancelText("取消")
+            .setConfirmText("确定")
+            .showCancelButton(true)
+            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                	sDialog.cancel();
+                	check();
+                }
+            })
+            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                    sDialog.cancel();
+                }
+            }).show();
 			break;
 		case R.id.btn_dayin_order:
-
+			new SweetAlertDialog(OrderDetailedActivity.this, SweetAlertDialog.NORMAL_TYPE)
+            .setTitleText("确定要打印订单？")
+            //.setContentText("Won't be able to recover this file!")
+            .setCancelText("取消")
+            .setConfirmText("确定")
+            .showCancelButton(true)
+            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                	sDialog.cancel();
+                	Intent intent = new Intent(getApplicationContext(),PrintActivity.class);
+                	startActivity(intent);
+                }
+            })
+            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                    sDialog.cancel();
+                }
+            }).show();
 			break;
 		default:
 			break;
 		}
+	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		
+		super.onResume();
 	}
 	@Override
 	protected void initdata() {
@@ -243,6 +286,16 @@ public class OrderDetailedActivity extends BaseActivity{
 	public void setListener() {
 		// TODO Auto-generated method stub
 		ll_back.setOnClickListener(this);
+		if (detailedpage.equals("1")) {//未处理
+			btn_add_food.setOnClickListener(this);
+			btn_writing_food.setOnClickListener(this);
+			btn_sub_order.setOnClickListener(this);
+		}else if (detailedpage.equals("2")) {//正在用餐
+			btn_cancel_order.setOnClickListener(this);
+			btn_jiezhang_order.setOnClickListener(this);
+		}else if (detailedpage.equals("3")) {//已完成
+			btn_dayin_order.setOnClickListener(this);
+		}
 	}
 
 	@Override
@@ -256,15 +309,21 @@ public class OrderDetailedActivity extends BaseActivity{
 			JSONObject object = new JSONObject(objs);
 		    order_id = object.getString("order_id");
 			String order_num = object.getString("order_num");
-			String order_time=  object.getString("order_time");
+			String order_time = null;
+			JSONObject writerobj = null;
 			String status = object.getString("status");
 			JSONObject tabobj = new JSONObject(object.getString("table"));
-			JSONObject writerobj = new JSONObject(object.getString("waiter"));
+			if (detailedpage.equals("1")) {
+				 order_time=  object.getString("create_time");
+			}else {
+				 order_time=  object.getString("order_time");
+				 writerobj = new JSONObject(object.getString("waiter"));
+				 String name = writerobj.getString("name");
+			}
 			JSONObject cartobj = new JSONObject(object.getString("cart"));
 			
 			String table_name = tabobj.getString("table_name");
 			String people_count = tabobj.getString("people_count");
-			String name = writerobj.getString("name");
 			
 			tv_order_num.setText("订单编号:"+order_num);
 			tv_table_num.setText("桌号:"+table_name);

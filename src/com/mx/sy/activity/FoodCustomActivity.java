@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,12 +34,13 @@ import com.mx.sy.adapter.ShoppingCarAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
 import com.mx.sy.utils.SendMessage;
+import com.zhh.shoppingcartanimation.view.ShoppingCartAnimationView;
 
 /**
  * @author lishouping 点餐页面
  */
 public class FoodCustomActivity extends BaseActivity implements SendMessage {
-	public static FoodCustomActivity inActivity; 
+	public static FoodCustomActivity inActivity;
 	private LinearLayout ll_back;
 	private TextView tv_title;
 
@@ -71,7 +73,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 	String table_name;
 	String good_id;
 	String cart_id;
-	
+
 	JSONObject intentJsonObject = null;
 
 	@Override
@@ -85,27 +87,34 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 
 			break;
 		case R.id.btn_place_order:
-			if (intentJsonObject==null) {
-				Toast.makeText(getApplicationContext(), "您还没有点餐", Toast.LENGTH_SHORT).show();
-			}else {
+			if (intentJsonObject == null) {
+				Toast.makeText(getApplicationContext(), "您还没有点餐",
+						Toast.LENGTH_SHORT).show();
+			} else {
 				Intent intent = new Intent(getApplicationContext(),
 						OrderSubmitActivity.class);
 				intent.putExtra("cart_id", cart_id);
 				intent.putExtra("table_id", table_id);
 				intent.putExtra("table_name", table_name);
-				intent.putExtra("intentJsonObject", intentJsonObject+"");
+				intent.putExtra("intentJsonObject", intentJsonObject + "");
 				startActivity(intent);
 			}
 			break;
 		case R.id.imgshopingcar:
-			if (shopviewstate == false) {
-				fram_shopingcar.setVisibility(View.VISIBLE);
-				shopviewstate = true;
-				getCart();
+			if (intentJsonObject == null) {
+				Toast.makeText(getApplicationContext(), "您还没有点餐",
+						Toast.LENGTH_SHORT).show();
 			} else {
-				fram_shopingcar.setVisibility(View.GONE);
-				shopviewstate = false;
+				if (shopviewstate == false) {
+					fram_shopingcar.setVisibility(View.VISIBLE);
+					shopviewstate = true;
+					getCart();
+				} else {
+					fram_shopingcar.setVisibility(View.GONE);
+					shopviewstate = false;
+				}
 			}
+
 			break;
 		case R.id.lin_delshpingcar:
 			deleteCart();
@@ -154,7 +163,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		lin_delshpingcar = $(R.id.lin_delshpingcar);
 
 		lv_shcar = $(R.id.lv_shcar);
-		
+
 		inActivity = this;
 	}
 
@@ -355,6 +364,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 	// 查询购物车/cart/getCart
 	public void getCart() {
 		shopcarList.clear();
+		shoppingCarAdapter.notifyDataSetChanged();
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("key", preferences.getString("loginkey", ""));
 		client.addHeader("id", preferences.getString("userid", ""));
@@ -404,7 +414,6 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 								shopcarList.add(map);
 							}
 							lv_shcar.setAdapter(shoppingCarAdapter);
-							shoppingCarAdapter.notifyDataSetChanged();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
@@ -575,6 +584,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 			}
 		});
 	}
+
 	@Override
 	public void SendMsg(int pos, Object object) {
 		// TODO Auto-generated method stub

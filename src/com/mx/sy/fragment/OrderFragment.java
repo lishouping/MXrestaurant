@@ -33,6 +33,7 @@ import com.mx.sy.base.BaseFragment;
 import com.mx.sy.common.PullToRefreshView;
 import com.mx.sy.common.PullToRefreshView.OnFooterRefreshListener;
 import com.mx.sy.common.PullToRefreshView.OnHeaderRefreshListener;
+import com.mx.sy.utils.SendMessage;
 
 /**
 * <p>Title: OrderFragment<／p>
@@ -172,10 +173,14 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 				// 下拉刷新
 				mPullToRefreshView.onHeaderRefreshComplete();
 				page = 1;
-				selectBtnFlag = 0;
-				changeBtnBg(selectBtnFlag);
 				dateList.clear();
-				geOrderInfo(-1);
+				if (selectBtnFlag ==0) {
+					geOrderInfo(-1);
+				}else if (selectBtnFlag==1) {
+					geOrderInfo(0);
+				}else if (selectBtnFlag==2) {
+					geOrderInfo(1);
+				}
 			}
 		}, 1000);
 	}
@@ -192,7 +197,13 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 							.show();
 				} else {
 					page++;
-					geOrderInfo(-1);
+					if (selectBtnFlag ==0) {
+						geOrderInfo(-1);
+					}else if (selectBtnFlag==1) {
+						geOrderInfo(0);
+					}else if (selectBtnFlag==2) {
+						geOrderInfo(1);
+					}
 				}
 
 
@@ -228,7 +239,10 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 		client.addHeader("id", preferences.getString("userid", ""));
 		String url = ApiConfig.API_URL + ApiConfig.ORDERLISTFORWRITER;
 		RequestParams params = new RequestParams();
-		params.put("waiter_id", preferences.getString("business_id", ""));
+		if (selectBtnFlag==0) {
+		}else {
+			params.put("waiter_id", preferences.getString("business_id", ""));
+		}
 		params.put("page_no", page);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
@@ -245,34 +259,59 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 									.getString("DATA"));
 							for (int i = 0; i < jsonArray.length(); i++) {
 								JSONObject object = jsonArray.getJSONObject(i);
-								String order_id = object.getString("order_id");
-								String order_num = object.getString("order_num");
-								String order_time=  object.getString("order_time");
 								String status = object.getString("status");
-								JSONObject tabobj = new JSONObject(object.getString("table"));
-								JSONObject writerobj = new JSONObject(object.getString("waiter"));
-								JSONObject cartobj = new JSONObject(object.getString("cart"));
+								if (orderstate==Integer.parseInt(status)) {
+									String order_id = object.getString("order_id");
+									String order_num = object.getString("order_num");
+									String table_id = object.getString("table_id");
+									String order_time = null;
+									if (selectBtnFlag==0) {
+										order_time=  object.getString("create_time");
+									}else {
+									    order_time=  object.getString("order_time");
+									}
+									
+									JSONObject tabobj = new JSONObject(object.getString("table"));
+									JSONObject writerobj = null;
+									String name = null;
+									if (selectBtnFlag==0) {
+									   
+									}else {
+										 writerobj = new JSONObject(object.getString("waiter"));
+										 name = writerobj.getString("name");
+									}
+									
+									JSONObject cartobj = new JSONObject(object.getString("cart"));
+									
+									
+									String table_name = tabobj.getString("table_name");
+									String people_count = tabobj.getString("people_count");
 								
-								
-								String table_name = tabobj.getString("table_name");
-								String people_count = tabobj.getString("people_count");
-								String name = writerobj.getString("name");
-								
-								HashMap<String, String> map = new HashMap<String, String>();
-								map.put("order_id", order_id);
-								map.put("order_num", order_num);
-								map.put("order_time", order_time);
-								map.put("status", status);
-								map.put("table_name", table_name);
-								map.put("people_count", people_count);
-								map.put("name", name);
-								map.put("object", object+"");
-								dateList.add(map);
+									
+									HashMap<String, String> map = new HashMap<String, String>();
+									map.put("table_id", table_id);
+									map.put("order_id", order_id);
+									map.put("order_num", order_num);
+									map.put("order_time", order_time);
+									map.put("status", status);
+									map.put("table_name", table_name);
+									map.put("people_count", people_count);
+									if (selectBtnFlag==0) {
+										map.put("name", "");
+									}else {
+										map.put("name", name);
+									}
+									map.put("object", object+"");
+									dateList.add(map);
+								}
 							}
 							if (page==1) {
 								lv_order.setAdapter(orderAdapter);
 							}else {
 								orderAdapter.notifyDataSetChanged();
+							}
+							if (dateList.size()==0) {
+								Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
 							}
 							dissmissDilog();
 						} else {

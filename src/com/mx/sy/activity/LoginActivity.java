@@ -79,6 +79,12 @@ public class LoginActivity extends BaseActivity {
 		edit_user = $(R.id.edit_user);
 		edit_pass = $(R.id.edit_pass);
 		btn_login = $(R.id.btn_login);
+		
+		String username = preferences.getString("username", "");
+		String password = preferences.getString("password", "");
+		
+		edit_user.setText(username);
+		edit_pass.setText(password);
 	}
 
 	@Override
@@ -146,14 +152,14 @@ public class LoginActivity extends BaseActivity {
 
 							// JSONObject object3 = new
 							// JSONObject(object2.getString("create_time"));
-							String user_id = object.getString("user_id");
+							//String user_id = object.getString("user_id");
 							String alias = object.getString("alias");
 							String login_key = object.getString("login_key");
 							String shop_id = object2.getString("shop_id");
 							String name = object2.getString("name");
 							String business_id = object.getString("business_id");
 
-							preferences.edit().putString("userid", user_id)
+							preferences.edit().putString("userid", business_id)
 									.commit();
 							preferences.edit().putString("loginkey", login_key)
 									.commit();
@@ -161,6 +167,9 @@ public class LoginActivity extends BaseActivity {
 									.commit();
 							preferences.edit().putString("name", name).commit();
 							preferences.edit().putString("business_id", business_id).commit();
+							
+							preferences.edit().putString("username", edit_user.getText().toString()).commit();
+							preferences.edit().putString("password", edit_pass.getText().toString()).commit();
 							
 							//设置极光推送别名
 							JPushInterface.setAlias(getApplicationContext(),alias, new TagAliasCallback() {

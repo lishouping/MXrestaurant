@@ -39,6 +39,7 @@ import com.mx.sy.dialog.ClassSelectDialog;
  */
 public class TableInfoFragment extends BaseFragment implements
 		OnHeaderRefreshListener, OnFooterRefreshListener, OnClickListener {
+	public static int isrefresh = 0;
 	public static int TABLE_STATE = 100;
 	public static int TABLE_CLASS = 101;
 
@@ -78,16 +79,20 @@ public class TableInfoFragment extends BaseFragment implements
 
 		preferences = getActivity().getSharedPreferences("userinfo",
 				getActivity().MODE_PRIVATE);
+		
 	}
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
-		if (dateList.size()==0) {
-		}else {
-			dateList.clear();
+		if (isrefresh==1) {
+			if (dateList.size()==0) {
+			}else {
+				dateList.clear();
+			}
+			showDilog("加载中");
+			getTableInfo();
+			isrefresh = 0;
 		}
-		showDilog("加载中");
-		getTableInfo();
 		super.onResume();
 	}
 	@Override
@@ -130,7 +135,12 @@ public class TableInfoFragment extends BaseFragment implements
 				}
 			}
 		});
-
+		if (dateList.size()==0) {
+		}else {
+			dateList.clear();
+		}
+		showDilog("加载中");
+		getTableInfo();
 	}
 
 	@Override
@@ -143,6 +153,8 @@ public class TableInfoFragment extends BaseFragment implements
 				mPullToRefreshView.onHeaderRefreshComplete();
 				dateList.clear();
 				getTableInfo();
+				btn_table_state.setText("餐桌状态");
+				btn_table_class.setText("餐桌位置");
 			}
 		}, 1000);
 	}

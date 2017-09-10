@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -29,6 +30,7 @@ import com.mx.sy.adapter.OrderSubmitAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
 import com.mx.sy.dialog.SweetAlertDialog;
+import com.mx.sy.fragment.TableInfoFragment;
 import com.mx.sy.utils.CommonUtils;
 import com.tnktech.weight.TNKListView;
 
@@ -59,6 +61,7 @@ public class OrderConductActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.ll_back:
 			finish();
+			TableInfoFragment.isrefresh = 1;
 			break;
 		case R.id.btn_jiezhang_order:
 
@@ -340,6 +343,7 @@ public class OrderConductActivity extends BaseActivity {
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
 							finish();
+							TableInfoFragment.isrefresh = 1;
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
@@ -364,5 +368,15 @@ public class OrderConductActivity extends BaseActivity {
 			}
 		});
 	}
-
+	@Override    
+    public boolean onKeyDown(int keyCode, KeyEvent event) {    
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {    
+             System.out.println("按下了back键   onKeyDown()");     
+             TableInfoFragment.isrefresh = 1;
+             return super.onKeyDown(keyCode, event);    
+        }else {    
+        	return super.onKeyDown(keyCode, event);    
+        }    
+            
+    }    
 }

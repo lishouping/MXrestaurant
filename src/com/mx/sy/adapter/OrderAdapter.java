@@ -20,11 +20,13 @@ import com.mx.sy.R;
 import com.mx.sy.activity.FoodCustomActivity;
 import com.mx.sy.activity.LoginActivity;
 import com.mx.sy.activity.OrderConductActivity;
+import com.mx.sy.activity.PrintActivity;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.CommonBaseAdapter;
 import com.mx.sy.base.CommonViewHolder;
 import com.mx.sy.dialog.SweetAlertDialog;
 import com.mx.sy.utils.CommonUtils;
+import com.mx.sy.utils.SendMessage;
 
 /**
 * <p>Title: OrderAdapter<／p>
@@ -50,7 +52,7 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 	}
 
 	@Override
-	public void convert(CommonViewHolder holder, final HashMap<String, String> bean) {
+	public void convert(final CommonViewHolder holder, final HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
 		if (itemID==R.layout.item_order_untreated) {
 			
@@ -74,7 +76,7 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 	                    @Override
 	                    public void onClick(SweetAlertDialog sDialog) {
 	                    	sDialog.cancel();
-	                    	submitOrder(bean.get("order_id"));
+	                    	submitOrder(bean.get("order_id"),holder.getPosition());
 	                    }
 	                })
 	                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -99,6 +101,8 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent(context,FoodCustomActivity.class);
+					intent.putExtra("table_id", bean.get("table_id"));
+					intent.putExtra("table_name", bean.get("table_name"));
 					context.startActivity(intent);
 				}
 				});
@@ -109,7 +113,8 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 					public void onClick(View arg0) {
 						// TODO Auto-generated method stub
 						Toast.makeText(context, "点击了结账", Toast.LENGTH_SHORT).show();
-						check(bean.get("order_id"));
+						check(bean.get("order_id"),holder.getPosition());
+						
 					}
 				});
 				
@@ -134,6 +139,8 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 	                    @Override
 	                    public void onClick(SweetAlertDialog sDialog) {
 	                    	sDialog.cancel();
+	                    	Intent intent = new Intent(context,PrintActivity.class);
+	                    	context.startActivity(intent);
 	                    }
 	                })
 	                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -148,7 +155,7 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 	}
 	
 	// 服务员确认顾客订单
-		public void submitOrder(String order_id) {
+		public void submitOrder(String order_id,final int pos) {
 			AsyncHttpClient client = new AsyncHttpClient();
 			client.addHeader("key", preferences.getString("loginkey", ""));
 			client.addHeader("id", preferences.getString("userid", ""));
@@ -171,6 +178,8 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 								Toast.makeText(context,
 										jsonObject.getString("MESSAGE"),
 										Toast.LENGTH_SHORT).show();
+								dateList.remove(pos);
+								notifyDataSetChanged();
 							} else {
 								Toast.makeText(context,
 										jsonObject.getString("MESSAGE"),
@@ -197,7 +206,7 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 		
 
 		// 结账/order/check
-		public void check(String orderid) {
+		public void check(String orderid ,final int pos) {
 			AsyncHttpClient client = new AsyncHttpClient();
 			client.addHeader("key", preferences.getString("loginkey", ""));
 			client.addHeader("id", preferences.getString("userid", ""));
@@ -218,6 +227,9 @@ public class OrderAdapter  extends CommonBaseAdapter<HashMap<String, String>>{
 								Toast.makeText(context,
 										jsonObject.getString("MESSAGE"),
 										Toast.LENGTH_SHORT).show();
+								dateList.remove(pos);
+								notifyDataSetChanged();
+								
 							} else {
 								Toast.makeText(context,
 										jsonObject.getString("MESSAGE"),

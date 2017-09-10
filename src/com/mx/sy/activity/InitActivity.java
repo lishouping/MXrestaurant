@@ -77,6 +77,7 @@ public class InitActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
 		startActivity(intent);
+		finish();
 	}
 	@Override
 	public View bindView() {

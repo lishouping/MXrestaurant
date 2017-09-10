@@ -19,6 +19,7 @@ import android.widget.ListView;
 import com.mx.sy.R;
 import com.mx.sy.activity.AboutUsActivity;
 import com.mx.sy.activity.FeedBackActivity;
+import com.mx.sy.activity.OrderConductActivity;
 import com.mx.sy.activity.PrinterSeetingActivity;
 import com.mx.sy.activity.PushSeetingActivity;
 import com.mx.sy.activity.SalesStatisticsActivity;
@@ -26,6 +27,7 @@ import com.mx.sy.activity.ServiceStatisticsActivity;
 import com.mx.sy.activity.UserInfoActivity;
 import com.mx.sy.adapter.MineUserAdapter;
 import com.mx.sy.base.BaseFragment;
+import com.mx.sy.dialog.SweetAlertDialog;
 
 public class MineFragment extends BaseFragment {
 	private ListView lv_mine_user;
@@ -91,35 +93,73 @@ public class MineFragment extends BaseFragment {
 				case 1:
 					//销售统计
 					intent.setClass(getActivity(), SalesStatisticsActivity.class);
+					startActivity(intent);
 					break;
 				case 2:
 					//服务统计
 					intent.setClass(getActivity(), ServiceStatisticsActivity.class);
+					startActivity(intent);
 					break; 
 				case 3:
 					//推送消息
 					intent.setClass(getActivity(), PushSeetingActivity.class);
+					startActivity(intent);
 					break;
 				case 4:
 					//个人信息
 					intent.setClass(getActivity(), UserInfoActivity.class);
+					startActivity(intent);
 					break;
 				case 5:
 					//打印机设置
 					intent.setClass(getActivity(), PrinterSeetingActivity.class);
+					startActivity(intent);
 					break;
 				case 6:
 					// 意见反馈
 					intent.setClass(getActivity(), FeedBackActivity.class);
+					startActivity(intent);
 					break;
 				case 7:
 					// 关于我们
 					intent.setClass(getActivity(), AboutUsActivity.class);
+					startActivity(intent);
+					break;
+				case 8:
+					System.out.println("");
+					// 退出登录
+					new SweetAlertDialog(getActivity(),
+							SweetAlertDialog.NORMAL_TYPE)
+							.setTitleText("确定要退出登录吗？")
+							// .setContentText("Won't be able to recover this file!")
+							.setCancelText("取消")
+							.setConfirmText("确定")
+							.showCancelButton(true)
+							.setConfirmClickListener(
+									new SweetAlertDialog.OnSweetClickListener() {
+										@Override
+										public void onClick(
+												SweetAlertDialog sDialog) {
+											
+											preferences.edit().putString("username", "").commit();
+											preferences.edit().putString("password", "").commit();
+											
+											sDialog.cancel();
+											getActivity().finish();
+										}
+									})
+							.setCancelClickListener(
+									new SweetAlertDialog.OnSweetClickListener() {
+										@Override
+										public void onClick(
+												SweetAlertDialog sDialog) {
+											sDialog.cancel();
+										}
+									}).show();
 					break;
 				default:
 					break;
 				}
-				startActivity(intent);
 			}
 		});
 	}
@@ -170,6 +210,11 @@ public class MineFragment extends BaseFragment {
 		userInfoMap8.put("content", "关于我们");
 		userInfoMap8.put("contentImg", R.drawable.ic_arraw_right);
 		dateList.add(userInfoMap8);
+		
+		HashMap<String, Object> userInfoMap9 = new HashMap<String, Object>();
+		userInfoMap9.put("content", "退出登录");
+		userInfoMap9.put("contentImg", R.drawable.ic_arraw_right);
+		dateList.add(userInfoMap9);
 
 		return dateList;
 	}

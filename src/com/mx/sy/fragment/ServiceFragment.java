@@ -126,14 +126,14 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 			@Override
 			public void run() {
 				// 下拉刷新
-				serviceAdapter = new ServiceAdapter(getActivity(), dateList,
-						R.layout.item_servicemanage);
-				mPullToRefreshView.onHeaderRefreshComplete();
+				 mPullToRefreshView.onHeaderRefreshComplete();
 				 page = 1;
-				 selectBtnFlag = 0;
-				 changeBtnBg(selectBtnFlag);
 				 dateList.clear();
-				 getSertice(0);
+				 if (selectBtnFlag==0) {
+					 getSertice(0);
+				 }else if (selectBtnFlag==1) {
+					 getSertice(1);
+				 }
 			}
 		}, 1000);
 	}
@@ -150,8 +150,11 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 					Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_LONG)
 							.show();
 				} else {
-					page++;
-					getSertice(1);
+					if (selectBtnFlag==0) {
+						 getSertice(0);
+					 }else if (selectBtnFlag==1) {
+						 getSertice(1);
+					 }
 				}
 
 			}

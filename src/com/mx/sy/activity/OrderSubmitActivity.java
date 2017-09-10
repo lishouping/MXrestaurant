@@ -185,6 +185,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		String url = ApiConfig.API_URL + ApiConfig.SAVEORDER_URL;
 		RequestParams params = new RequestParams();
 		params.put("cart_id", cart_id);
+		params.put("waiter_id", preferences.getString("business_id", ""));
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
