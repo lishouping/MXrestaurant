@@ -24,6 +24,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
@@ -32,11 +33,13 @@ import com.mx.sy.zxing.view.ViewfinderView;
 import com.mx.sy.zxingdcoding.CaptureActivityHandler;
 import com.mx.sy.zxingdcoding.InactivityTimer;
 import com.mx.syj.zxing.camera.CameraManager;
+
 /**
  * Initial the camera
+ * 
  * @author Ryan.Tang
  */
-public class MipcaActivityCapture extends Activity implements Callback  {
+public class MipcaActivityCapture extends Activity implements Callback {
 
 	private CaptureActivityHandler handler;
 	private ViewfinderView viewfinderView;
@@ -56,12 +59,12 @@ public class MipcaActivityCapture extends Activity implements Callback  {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_capture);
-		//ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
+		// ViewUtil.addTopView(getApplicationContext(), this,
+		// R.string.scan_card);
 		CameraManager.init(getApplication());
 
-
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-		
+
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		tv_title.setText("扫码点餐");
 
@@ -123,11 +126,24 @@ public class MipcaActivityCapture extends Activity implements Callback  {
 		playBeepSoundAndVibrate();
 		String resultString = result.getText();
 		// 取到结果处理
-		
-		
-		
-	}
 
+		String[] args = resultString.split("&");
+
+		String table_id = args[1];
+		String[] taidargs = table_id.split("=");
+		String tableid = taidargs[1];
+
+		String table_name = args[2].substring(0, args[2].lastIndexOf("#"));
+		String[] tabnam = table_name.split("=");
+		String tablename = tabnam[1];
+
+		Intent intent = new Intent();
+		intent.setClass(getApplicationContext(), FoodCustomActivity.class);
+		intent.putExtra("table_id", tableid);
+		intent.putExtra("table_name", tablename);
+		startActivity(intent);
+
+	}
 	private void initCamera(SurfaceHolder surfaceHolder) {
 		try {
 			CameraManager.get().openDriver(surfaceHolder);
@@ -221,7 +237,7 @@ public class MipcaActivityCapture extends Activity implements Callback  {
 		}
 	};
 
-	//监听手机返回键
+	// 监听手机返回键
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
