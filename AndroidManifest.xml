@@ -68,6 +68,11 @@
             android:name="com.mx.sy.activity.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
+          <service android:name="com.mx.sy.service.PendingRemindedService" >
+        </service>
+
+        <receiver android:name="com.mx.sy.service.AlarmReceiver" >
+        </receiver>
         <activity
             android:name="com.mx.sy.activity.QrCodeActivity"
             android:screenOrientation="portrait" >
