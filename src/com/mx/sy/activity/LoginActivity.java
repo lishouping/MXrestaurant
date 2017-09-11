@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
@@ -24,7 +23,7 @@ import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
-import com.mx.sy.utils.CommonUtils;
+import com.mx.sy.service.PendingRemindedService;
 
 /**
  * @author Administrator 登录页面
@@ -182,6 +181,8 @@ public class LoginActivity extends BaseActivity {
 								}
 
 							});
+							Intent intent1 = new Intent(LoginActivity.this, PendingRemindedService.class);
+							startService(intent1);
 							
 							Intent intent = new Intent(getApplicationContext(),
 									MainActivity.class);
