@@ -391,7 +391,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 							String total_price = object
 									.getString("total_price");
 
-							tv_shopingcar_totalprice.setText(total_price);
+							tv_shopingcar_totalprice.setText("￥"+total_price);
 							tv_tableinfo_number.setText(total_num);
 
 							JSONArray jsonArray = object
@@ -463,6 +463,8 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
+						}else if (CODE.equals("10000")) {
+							getCart();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),

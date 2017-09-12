@@ -14,11 +14,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ import com.tnktech.weight.TNKListView;
  * @author lishouping 订单未处理详情页面
  */
 public class OrderDetailedActivity extends BaseActivity {
+	public static OrderDetailedActivity initactivitActivity;
 	private LinearLayout ll_back;
 	private TextView tv_title;
 	private TNKListView lv_order_dinner;
@@ -124,7 +127,7 @@ public class OrderDetailedActivity extends BaseActivity {
 		} else if (detailedpage.equals("3")) {// 已完成
 			btn_dayin_order = $(R.id.btn_dayin_order);
 		}
-
+		initactivitActivity = this;
 		preferences = getSharedPreferences("userinfo",
 				LoginActivity.MODE_PRIVATE);
 
@@ -258,7 +261,7 @@ public class OrderDetailedActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-
+		getOrderDeatiledByOrderNum();
 		super.onResume();
 	}
 
@@ -272,43 +275,59 @@ public class OrderDetailedActivity extends BaseActivity {
 		lv_order_dinner.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			public void onItemClick(AdapterView<?> arg0, View arg1, final int position,
 					long arg3) {
 				// TODO Auto-generated method stub
+				
+				if (detailedpage.equals("1") || detailedpage.equals("2")) {// 未处理
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						OrderDetailedActivity.this);
+				builder.setIcon(R.drawable.ic_launcher);
+				builder.setTitle("选择一个操作");
+				// 指定下拉列表的显示数据
+				final String[] cities = { "划菜", "退菜" };
+				// 设置一个下拉的列表选择项
+				builder.setItems(cities,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								if (which == 0) {// 划菜
+									String cart_good_id = dateList.get(position).get("cart_good_id");
+									updateGoodsIfUp(cart_good_id);
+								} else {// 退菜
+									LayoutInflater factory = LayoutInflater.from(OrderDetailedActivity.this);   
+									 final View textEntryView = factory.inflate(R.layout.return_food_dialog, null);   
+								        final EditText text_editnumbe = (EditText) textEntryView.findViewById(R.id.text_editnumbe);   
+								        final EditText text_editprice = (EditText)textEntryView.findViewById(R.id.text_editprice);   
+								        AlertDialog.Builder ad1 = new AlertDialog.Builder(OrderDetailedActivity.this);   
+								        ad1.setTitle("退菜");   
+								        ad1.setIcon(android.R.drawable.ic_dialog_info);   
+								        ad1.setView(textEntryView);   
+								        ad1.setPositiveButton("保存", new DialogInterface.OnClickListener() {   
+								            public void onClick(DialogInterface dialog, int i) { 
+								            	String cart_goods_id = dateList.get(position).get("cart_good_id");
+								            	String number = text_editnumbe.getText().toString();
+								            	String price = text_editprice.getText().toString();
+								            	returnGoods(cart_goods_id,number,price);
+								            }   
+								        });   
+								        ad1.setNegativeButton("关闭", new DialogInterface.OnClickListener() {   
+								            public void onClick(DialogInterface dialog, int i) {   
+								     
+								            }   
+								        });   
+								        ad1.show();// 显示对话框  
+								}
+							}
+						});
+				builder.show();
 
 			}
+			}
 		});
-		lv_order_dinner
-				.setOnItemLongClickListener(new OnItemLongClickListener() {
-					@Override
-					public boolean onItemLongClick(AdapterView<?> parent,
-							View view, final int position, long id) {
-						AlertDialog.Builder builder = new AlertDialog.Builder(
-								OrderDetailedActivity.this);
-						builder.setIcon(R.drawable.ic_launcher);
-						builder.setTitle("选择一个操作");
-						// 指定下拉列表的显示数据
-						final String[] cities = { "划菜", "退菜" };
-						// 设置一个下拉的列表选择项
-						builder.setItems(cities,
-								new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-										if (which == 0) {// 划菜
-											String cart_good_id = dateList.get(position).get("cart_good_id");
-											updateGoodsIfUp(cart_good_id);
-										} else {// 退菜
-
-										}
-									}
-								});
-						builder.show();
-
-						return true;
-					}
-
-				});
+		
 	}
 
 	@Override
@@ -330,12 +349,15 @@ public class OrderDetailedActivity extends BaseActivity {
 	@Override
 	public void doBusiness(Context mContext) {
 		// TODO Auto-generated method stub
-		getOrderDeatiledByOrderNum();
 		// getOrderDeatiled();
 
 	}
 
 	public void getOrderDeatiledByOrderNum() {
+		if (dateList.size()>0) {
+			dateList.clear();
+			orderSubmitAdapter.notifyDataSetChanged();
+		}
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("key", preferences.getString("loginkey", ""));
 		client.addHeader("id", preferences.getString("userid", ""));
@@ -431,58 +453,6 @@ public class OrderDetailedActivity extends BaseActivity {
 		});
 
 	}
-
-	// public void getOrderDeatiled(){
-	// try {
-	// JSONObject object = new JSONObject(objs);
-	// order_id = object.getString("order_id");
-	// table_id = object.getString("table_id");
-	// String order_num = object.getString("order_num");
-	// String order_time = null;
-	// JSONObject writerobj = null;
-	// String status = object.getString("status");
-	// JSONObject tabobj = new JSONObject(object.getString("table"));
-	// if (detailedpage.equals("1")) {
-	// order_time= object.getString("create_time");
-	// }else {
-	// order_time= object.getString("order_time");
-	// writerobj = new JSONObject(object.getString("waiter"));
-	// String name = writerobj.getString("name");
-	// }
-	// JSONObject cartobj = new JSONObject(object.getString("cart"));
-	//
-	// table_name = tabobj.getString("table_name");
-	// String people_count = tabobj.getString("people_count");
-	//
-	// tv_order_num.setText("订单编号:"+order_num);
-	// tv_table_num.setText("桌号:"+table_name);
-	// tv_person_no.setText("用餐人数:"+people_count);
-	// tv_service_time.setText("创建时间:"+CommonUtils.getStrTime(order_time));
-	//
-	// String total_price = cartobj.getString("total_price");
-	// tv_ordertotal_price.setText("总计:"+total_price+"元");
-	//
-	// JSONArray jsonArray = cartobj.getJSONArray("goods_set");
-	// for (int i = 0; i < jsonArray.length(); i++) {
-	// JSONObject object2 = jsonArray.getJSONObject(i);
-	// HashMap<String, String> map = new HashMap<String, String>();
-	// map.put("good_id", object2.getString("good_id"));
-	// map.put("pre_price", object2.getString("pre_price"));
-	// map.put("good_id", object2.getString("good_id"));
-	// map.put("good_name", object2.getString("good_name"));
-	// map.put("good_price", object2.getString("good_price"));
-	// map.put("good_num", object2.getString("good_num"));
-	// map.put("good_total_price",
-	// object2.getString("good_total_price"));
-	// dateList.add(map);
-	// }
-	// lv_order_dinner.setAdapter(orderSubmitAdapter);
-	//
-	// } catch (JSONException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
 
 	// 服务员确认顾客订单
 	public void submitOrder() {
@@ -648,6 +618,7 @@ public class OrderDetailedActivity extends BaseActivity {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
+							getOrderDeatiledByOrderNum();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
@@ -673,15 +644,15 @@ public class OrderDetailedActivity extends BaseActivity {
 	}
 
 	// 退菜
-	public void returnGoods() {
+	public void returnGoods(String cart_goods_id,String num,String price) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("key", preferences.getString("loginkey", ""));
 		client.addHeader("id", preferences.getString("userid", ""));
 		String url = ApiConfig.API_URL + ApiConfig.RETURNGOODS;
 		RequestParams params = new RequestParams();
-		params.put("cart_goods_id", "");
-		params.put("num", order_id);
-		params.put("price", order_id);
+		params.put("cart_goods_id", cart_goods_id);
+		params.put("num", num);
+		params.put("price", price);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -694,6 +665,7 @@ public class OrderDetailedActivity extends BaseActivity {
 
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
+							getOrderDeatiledByOrderNum();
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();

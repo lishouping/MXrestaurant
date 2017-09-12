@@ -26,6 +26,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
+import com.mx.sy.adapter.OrderConductAdapter;
 import com.mx.sy.adapter.OrderSubmitAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
@@ -38,6 +39,7 @@ import com.tnktech.weight.TNKListView;
  * @author lishouping 订单进行中页面 可以进行退菜，加菜 结账操作
  */
 public class OrderConductActivity extends BaseActivity {
+	public static OrderConductActivity inActivity;
 	private LinearLayout ll_back;
 	private TextView tv_title;
 
@@ -47,7 +49,7 @@ public class OrderConductActivity extends BaseActivity {
 
 	private TNKListView lv_order_dinner;
 	private List<HashMap<String, String>> dateList;
-	private OrderSubmitAdapter orderSubmitAdapter;
+	private OrderConductAdapter orderSubmitAdapter;
 
 	private SharedPreferences preferences;
 
@@ -111,6 +113,8 @@ public class OrderConductActivity extends BaseActivity {
 		tv_ordertotal_price = $(R.id.tv_ordertotal_price);
 		btn_jiezhang_order = $(R.id.btn_jiezhang_order);
 		btn_addfood_order = $(R.id.btn_addfood_order);
+		
+		inActivity = this;
 	}
 
 	@Override
@@ -118,7 +122,7 @@ public class OrderConductActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		tv_title.setText("订单详情");
 		dateList = new ArrayList<HashMap<String, String>>();
-		orderSubmitAdapter = new OrderSubmitAdapter(getApplicationContext(),
+		orderSubmitAdapter = new OrderConductAdapter(getApplicationContext(),
 				dateList, R.layout.item_order_foodlv);
 
 		lv_order_dinner.setOnItemClickListener(new OnItemClickListener() {
@@ -186,9 +190,20 @@ public class OrderConductActivity extends BaseActivity {
 		Intent intent = getIntent();
 		table_id = intent.getStringExtra("table_id");
 		table_name = intent.getStringExtra("table_name");
+		
+		
 
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		if (dateList.size()>0) {
+			dateList.clear();
+			orderSubmitAdapter.notifyDataSetChanged();
+		}
 		getOrder();
-
+		super.onResume();
 	}
 
 	// 查询桌台未结账订单/order/getOrder
