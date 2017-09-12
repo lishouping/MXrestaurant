@@ -73,6 +73,7 @@ public class OrderDetailedActivity extends BaseActivity{
 	
 	private String table_id;
 	private String table_name;
+	private String order_num;
 	@Override
 	public void initParms(Bundle parms) {
 		// TODO Auto-generated method stub
@@ -90,6 +91,7 @@ public class OrderDetailedActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		
 		Intent intent = getIntent();
+		order_num = intent.getStringExtra("order_num");
 		detailedpage = intent.getStringExtra("detailedpage");
 		objs = intent.getStringExtra("jsonobj");
 		if (detailedpage.equals("1")) {//未处理
@@ -264,26 +266,7 @@ public class OrderDetailedActivity extends BaseActivity{
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     final int position, long id) {
-            	new SweetAlertDialog(OrderDetailedActivity.this, SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("确定要删除菜品吗？")
-                //.setContentText("Won't be able to recover this file!")
-                .setCancelText("取消")
-                .setConfirmText("确定")
-                .showCancelButton(true)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                    	dateList.remove(position);
-                    	orderSubmitAdapter.notifyDataSetChanged();
-                    	sDialog.cancel();
-                    }
-                })
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.cancel();
-                    }
-                }).show();
+            	
             	
                 return true;
             }
@@ -310,60 +293,146 @@ public class OrderDetailedActivity extends BaseActivity{
 	@Override
 	public void doBusiness(Context mContext) {
 		// TODO Auto-generated method stub
-		getOrderDeatiled();
+		getOrderDeatiledByOrderNum();
+		//getOrderDeatiled();
 		
 	}
-	public void getOrderDeatiled(){
-		try {
-			JSONObject object = new JSONObject(objs);
-		    order_id = object.getString("order_id");
-		    table_id = object.getString("table_id");
-			String order_num = object.getString("order_num");
-			String order_time = null;
-			JSONObject writerobj = null;
-			String status = object.getString("status");
-			JSONObject tabobj = new JSONObject(object.getString("table"));
-			if (detailedpage.equals("1")) {
-				 order_time=  object.getString("create_time");
-			}else {
-				 order_time=  object.getString("order_time");
-				 writerobj = new JSONObject(object.getString("waiter"));
-				 String name = writerobj.getString("name");
+	
+	public void getOrderDeatiledByOrderNum(){
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.addHeader("key", preferences.getString("loginkey", ""));
+		client.addHeader("id", preferences.getString("userid", ""));
+		String url = ApiConfig.API_URL + ApiConfig.GETORDERBYNO;
+		RequestParams params = new RequestParams();
+		params.put("order_num", order_num);
+		client.post(url, params, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				if (arg0 == 200) {
+					try {
+						String response = new String(arg2, "UTF-8");
+						JSONObject jsonObject = new JSONObject(response);
+						String CODE = jsonObject.getString("CODE");
+						if (CODE.equals("1000")) {
+							JSONObject object = new JSONObject(jsonObject
+									.getString("DATA"));
+						    order_id = object.getString("order_id");
+						    table_id = object.getString("table_id");
+							String order_num = object.getString("order_num");
+							String order_time = null;
+							JSONObject tabobj = new JSONObject(object.getString("table"));
+							if (detailedpage.equals("1")) {
+								 order_time=  object.getString("create_time");
+							}else {
+								 order_time=  object.getString("order_time");
+							}
+							JSONObject cartobj = new JSONObject(object.getString("cart"));
+							
+						    table_name = tabobj.getString("table_name");
+							String people_count = tabobj.getString("people_count");
+							
+							tv_order_num.setText("订单编号:"+order_num);
+							tv_table_num.setText("桌号:"+table_name);
+							tv_person_no.setText("用餐人数:"+people_count);
+							tv_service_time.setText("创建时间:"+CommonUtils.getStrTime(order_time));
+							
+							String total_price = cartobj.getString("total_price");
+							tv_ordertotal_price.setText("总计:"+total_price+"元");
+							
+							JSONArray jsonArray = cartobj.getJSONArray("goods_set");
+							for (int i = 0; i < jsonArray.length(); i++) {
+								JSONObject object2 = jsonArray.getJSONObject(i);
+								HashMap<String, String> map = new HashMap<String, String>();
+								map.put("cart_good_id", object2.getString("cart_good_id"));
+								map.put("good_id", object2.getString("good_id"));
+								map.put("pre_price", object2.getString("pre_price"));
+								map.put("good_id", object2.getString("good_id"));
+								map.put("good_name", object2.getString("good_name"));
+								map.put("good_price", object2.getString("good_price"));
+								map.put("good_num", object2.getString("good_num"));
+								map.put("good_total_price",
+										object2.getString("good_total_price"));
+								dateList.add(map);
+							}
+							lv_order_dinner.setAdapter(orderSubmitAdapter);
+							
+						} else {
+							Toast.makeText(getApplicationContext(),
+									jsonObject.getString("MESSAGE"),
+									Toast.LENGTH_SHORT).show();
+						}
+
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
-			JSONObject cartobj = new JSONObject(object.getString("cart"));
-			
-		    table_name = tabobj.getString("table_name");
-			String people_count = tabobj.getString("people_count");
-			
-			tv_order_num.setText("订单编号:"+order_num);
-			tv_table_num.setText("桌号:"+table_name);
-			tv_person_no.setText("用餐人数:"+people_count);
-			tv_service_time.setText("创建时间:"+CommonUtils.getStrTime(order_time));
-			
-			String total_price = cartobj.getString("total_price");
-			tv_ordertotal_price.setText("总计:"+total_price+"元");
-			
-			JSONArray jsonArray = cartobj.getJSONArray("goods_set");
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject object2 = jsonArray.getJSONObject(i);
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("good_id", object2.getString("good_id"));
-				map.put("pre_price", object2.getString("pre_price"));
-				map.put("good_id", object2.getString("good_id"));
-				map.put("good_name", object2.getString("good_name"));
-				map.put("good_price", object2.getString("good_price"));
-				map.put("good_num", object2.getString("good_num"));
-				map.put("good_total_price",
-						object2.getString("good_total_price"));
-				dateList.add(map);
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "服务器异常", Toast.LENGTH_LONG)
+						.show();
 			}
-			lv_order_dinner.setAdapter(orderSubmitAdapter);
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		});
+	
 	}
+	
+//	public void getOrderDeatiled(){
+//		try {
+//			JSONObject object = new JSONObject(objs);
+//		    order_id = object.getString("order_id");
+//		    table_id = object.getString("table_id");
+//			String order_num = object.getString("order_num");
+//			String order_time = null;
+//			JSONObject writerobj = null;
+//			String status = object.getString("status");
+//			JSONObject tabobj = new JSONObject(object.getString("table"));
+//			if (detailedpage.equals("1")) {
+//				 order_time=  object.getString("create_time");
+//			}else {
+//				 order_time=  object.getString("order_time");
+//				 writerobj = new JSONObject(object.getString("waiter"));
+//				 String name = writerobj.getString("name");
+//			}
+//			JSONObject cartobj = new JSONObject(object.getString("cart"));
+//			
+//		    table_name = tabobj.getString("table_name");
+//			String people_count = tabobj.getString("people_count");
+//			
+//			tv_order_num.setText("订单编号:"+order_num);
+//			tv_table_num.setText("桌号:"+table_name);
+//			tv_person_no.setText("用餐人数:"+people_count);
+//			tv_service_time.setText("创建时间:"+CommonUtils.getStrTime(order_time));
+//			
+//			String total_price = cartobj.getString("total_price");
+//			tv_ordertotal_price.setText("总计:"+total_price+"元");
+//			
+//			JSONArray jsonArray = cartobj.getJSONArray("goods_set");
+//			for (int i = 0; i < jsonArray.length(); i++) {
+//				JSONObject object2 = jsonArray.getJSONObject(i);
+//				HashMap<String, String> map = new HashMap<String, String>();
+//				map.put("good_id", object2.getString("good_id"));
+//				map.put("pre_price", object2.getString("pre_price"));
+//				map.put("good_id", object2.getString("good_id"));
+//				map.put("good_name", object2.getString("good_name"));
+//				map.put("good_price", object2.getString("good_price"));
+//				map.put("good_num", object2.getString("good_num"));
+//				map.put("good_total_price",
+//						object2.getString("good_total_price"));
+//				dateList.add(map);
+//			}
+//			lv_order_dinner.setAdapter(orderSubmitAdapter);
+//			
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 
 	// 服务员确认顾客订单

@@ -110,14 +110,17 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 				if (selectBtnFlag==0) {
 					intent.setClass(mActivity, OrderDetailedActivity.class);
 					intent.putExtra("detailedpage", "1");
+					intent.putExtra("order_num", dateList.get(arg2).get("order_num"));
 					intent.putExtra("jsonobj", dateList.get(arg2).get("object"));
 				}else if (selectBtnFlag==1) {
 					intent.setClass(mActivity, OrderDetailedActivity.class);
 					intent.putExtra("detailedpage", "2");
+					intent.putExtra("order_num", dateList.get(arg2).get("order_num"));
 					intent.putExtra("jsonobj", dateList.get(arg2).get("object"));
 				}else if (selectBtnFlag==2) {
 					intent.setClass(mActivity, OrderDetailedActivity.class);
 					intent.putExtra("detailedpage", "3");
+					intent.putExtra("order_num", dateList.get(arg2).get("order_num"));
 					intent.putExtra("jsonobj", dateList.get(arg2).get("object"));
 				}
 				startActivity(intent);
