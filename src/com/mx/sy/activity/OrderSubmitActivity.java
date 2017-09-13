@@ -195,8 +195,12 @@ public class OrderSubmitActivity extends BaseActivity {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
-							OrderConductActivity.inActivity.finish();
-							OrderDetailedActivity.initactivitActivity.finish();
+							if (OrderConductActivity.inActivity!=null) {
+								OrderConductActivity.inActivity.finish();
+							}
+							if (OrderDetailedActivity.initactivitActivity!=null) {
+								OrderDetailedActivity.initactivitActivity.finish();
+							}
 							Intent intent = new Intent();
 							intent.setClass(getApplicationContext(),
 									OrderConductActivity.class);

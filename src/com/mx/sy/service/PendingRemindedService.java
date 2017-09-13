@@ -31,6 +31,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
@@ -59,11 +60,12 @@ public class PendingRemindedService extends Service {
 		
 		preferences = this.getSharedPreferences("userinfo",  
 	             MODE_PRIVATE); 
-		if (isloading==0) {
-			isloading = 1;
-		}else {
-			userLogin();
-		}
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				userLogin();
+			}
+		}, 1000 * 60 * 20);
 		
 		
 		AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
