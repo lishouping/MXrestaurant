@@ -168,6 +168,7 @@ public class OrderDetailedActivity extends BaseActivity {
 								public void onClick(SweetAlertDialog sDialog) {
 									sDialog.cancel();
 									submitOrder();
+									finish();
 								}
 							})
 					.setCancelClickListener(
