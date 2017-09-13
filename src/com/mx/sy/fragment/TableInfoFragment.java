@@ -298,6 +298,7 @@ public class TableInfoFragment extends BaseFragment implements
 	// 根据餐桌状态进行选择
 	private void setTableStatesInfo(String className) {
 		dateList.clear();
+		tablesAdapter.notifyDataSetChanged();
 		for (int i = 0; i < daList.size(); i++) {
 			try {
 				String area_id = daList.get(i).get("area_id").toString();
@@ -322,14 +323,14 @@ public class TableInfoFragment extends BaseFragment implements
 				e.printStackTrace();
 			}
 		}
-		tablesAdapter.notifyDataSetChanged();
+		gri_tables.setAdapter(tablesAdapter);
 	}
 
 	// 根据餐桌分区进行选择
 	@SuppressLint("NewApi")
 	private void setTableAirInfo(String className) {
-
 		dateList.clear();
+		tablesAdapter.notifyDataSetChanged();
 		for (int i = 0; i < daList.size(); i++) {
 			try {
 				String area_id = daList.get(i).get("area_id").toString();
@@ -352,6 +353,6 @@ public class TableInfoFragment extends BaseFragment implements
 				e.printStackTrace();
 			}
 		}
-		tablesAdapter.notifyDataSetChanged();
+		gri_tables.setAdapter(tablesAdapter);
 	}
 }
