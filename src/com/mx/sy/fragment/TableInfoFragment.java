@@ -88,6 +88,7 @@ public class TableInfoFragment extends BaseFragment implements
 			if (dateList.size()==0) {
 			}else {
 				dateList.clear();
+				tablesAdapter.notifyDataSetChanged();
 			}
 			showDilog("加载中");
 			getTableInfo();
@@ -267,7 +268,6 @@ public class TableInfoFragment extends BaseFragment implements
 								}
 							}
 							gri_tables.setAdapter(tablesAdapter);
-							tablesAdapter.notifyDataSetChanged();
 							dissmissDilog();
 						} else {
 							Toast.makeText(getActivity(),
