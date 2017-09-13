@@ -138,11 +138,11 @@ public class MyReceiver extends BroadcastReceiver {
 			JSONObject jsonObject = new JSONObject(extras);
 //			String contentid = jsonObject.getString("contentid");
 //			String oldid = jsonObject.getString("oldid");
-			String pendingType = jsonObject.getString("pendingType");//0-会议提醒 1-非会议提醒 2-再次提醒
-			String state = jsonObject.getString("state");
-			String pendingTime = "";
-			String pendingTitle = "";
-			String pendingContent = "";
+//			String pendingType = jsonObject.getString("pendingType");//0-会议提醒 1-非会议提醒 2-再次提醒
+//			String state = jsonObject.getString("state");
+//			String pendingTime = "";
+//			String pendingTitle = "";
+//			String pendingContent = "";
 //			try {
 //				pendingTime = jsonObject.getString("pendingTime").substring(0, jsonObject.getString("pendingTime").length()-2);//待办事情时间
 //				pendingTitle = jsonObject.getString("Title");//待办事情标题
@@ -154,9 +154,9 @@ public class MyReceiver extends BroadcastReceiver {
 			
 			NotificationCompat.Builder mBuilder = new Builder(context);  
 			mBuilder.setContentIntent(getDefalutIntent(PendingIntent.FLAG_UPDATE_CURRENT,context,bundle));
-			mBuilder.setContentText(pendingContent);
-			mBuilder.setSmallIcon(R.drawable.ic_launcher);
-			mBuilder.setContentTitle(pendingTitle + "提醒");
+			mBuilder.setContentText("");
+			mBuilder.setSmallIcon(R.drawable.ic_login_logo);
+			mBuilder.setContentTitle("" + "提醒");
 			mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 			mBuilder.setOngoing(false);
 			Notification notify = mBuilder.build();  
@@ -178,20 +178,20 @@ public class MyReceiver extends BroadcastReceiver {
 	}
 
 	private PendingIntent getDefalutIntent(int flags, Context context,Bundle bundle) {
-		String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-		String type = bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE);
-		String contentid = "";
-		String template = "";
-		String pendingType = "";//0-会议提醒 1-非会议提醒 2-再次提醒
-		try {
-			JSONObject jsonObject = new JSONObject(extras);
-			contentid = jsonObject.getString("contentid");
-			template = jsonObject.getString("template");
-			pendingType = jsonObject.getString("pendingType");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+//		String type = bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE);
+//		String contentid = "";
+//		String template = "";
+//		String pendingType = "";//0-会议提醒 1-非会议提醒 2-再次提醒
+//		try {
+//			JSONObject jsonObject = new JSONObject(extras);
+//			contentid = jsonObject.getString("contentid");
+//			template = jsonObject.getString("template");
+//			pendingType = jsonObject.getString("pendingType");
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		Intent transferIntent = new Intent();
 		transferIntent.setClass(context, LoginActivity.class);
