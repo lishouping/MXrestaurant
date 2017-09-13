@@ -168,7 +168,6 @@ public class OrderDetailedActivity extends BaseActivity {
 								public void onClick(SweetAlertDialog sDialog) {
 									sDialog.cancel();
 									submitOrder();
-									finish();
 								}
 							})
 					.setCancelClickListener(
@@ -193,6 +192,7 @@ public class OrderDetailedActivity extends BaseActivity {
 								public void onClick(SweetAlertDialog sDialog) {
 									sDialog.cancel();
 									cancleOrder();
+									finish();
 								}
 							})
 					.setCancelClickListener(
@@ -479,6 +479,7 @@ public class OrderDetailedActivity extends BaseActivity {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
+							finish();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
@@ -525,6 +526,7 @@ public class OrderDetailedActivity extends BaseActivity {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
+							finish();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
@@ -571,6 +573,7 @@ public class OrderDetailedActivity extends BaseActivity {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
+							finish();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
