@@ -65,8 +65,6 @@ public class OrderDetailedActivity extends BaseActivity {
 
 	private TextView tv_ordertotal_price;
 
-	String objs;
-
 	private SharedPreferences preferences;
 	private String order_id;
 
@@ -93,7 +91,6 @@ public class OrderDetailedActivity extends BaseActivity {
 		Intent intent = getIntent();
 		order_num = intent.getStringExtra("order_num");
 		detailedpage = intent.getStringExtra("detailedpage");
-		objs = intent.getStringExtra("jsonobj");
 		if (detailedpage.equals("1")) {// 未处理
 			return R.layout.activity_orderuntreated;
 		} else if (detailedpage.equals("2")) {// 正在用餐
