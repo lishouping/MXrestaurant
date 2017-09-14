@@ -78,6 +78,10 @@
             android:screenOrientation="portrait" >
         </activity>
          <activity
+            android:name="com.mx.sy.activity.ServiceDetailedActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
             android:name="com.mx.sy.activity.PrintActivity"
             android:screenOrientation="portrait" >
         </activity>
