@@ -238,6 +238,7 @@ public class OrderSubmitActivity extends BaseActivity {
 	// 查询购物车/cart/getCart
 		public void getCart() {
 			if (dateList.size()>0) {
+				dateList.clear();
 				orderSubmitAdapter.notifyDataSetChanged();
 			}
 			AsyncHttpClient client = new AsyncHttpClient();
