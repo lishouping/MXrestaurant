@@ -8,11 +8,14 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -69,6 +72,19 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 		lin_processed = findViewById(R.id.lin_processed);
 		lin_processed.setOnClickListener(this);
 		lv_service = findViewById(R.id.lv_service);
+		lv_service.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.putExtra("service_id", dateList.get(position).get("service_id"));
+				intent.putExtra("service_state", dateList.get(position).get("status"));
+				intent.putExtra("content", "餐桌:"+dateList.get(position).get("table_name")+dateList.get(position).get("service_content"));
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -89,9 +105,20 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 		serviceAdapter = new ServiceAdapter(getActivity(), dateList,
 				R.layout.item_servicemanage);
 
-		getSertice(0);
 	}
-
+	@Override
+	public void onResume() {
+		if (dateList.size()>0) {
+			dateList.clear();
+			serviceAdapter.notifyDataSetChanged();
+		}
+		 if (selectBtnFlag==0) {
+			 getSertice(0);
+		 }else if (selectBtnFlag==1) {
+			 getSertice(1);
+		 }
+		super.onResume();
+	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -219,7 +246,6 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 									map.put("status", status);
 									map.put("create_time", create_time);
 									map.put("receive_time", receive_time);
-									map.put("status", status);
 									map.put("table_name", table_name);
 									map.put("name", name);
 									dateList.add(map);

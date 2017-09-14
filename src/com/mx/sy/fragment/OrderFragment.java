@@ -262,7 +262,7 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 		}else {
 			params.put("waiter_id", preferences.getString("business_id", ""));
 		}
-		params.put("Status", orderstate);
+		params.put("status", orderstate);
 		params.put("page_no", page);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
