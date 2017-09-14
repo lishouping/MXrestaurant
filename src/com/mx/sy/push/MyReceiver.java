@@ -23,6 +23,7 @@ import com.mx.sy.R;
 import com.mx.sy.activity.LoginActivity;
 import com.mx.sy.activity.MainActivity;
 import com.mx.sy.activity.OrderDetailedActivity;
+import com.mx.sy.activity.ServiceDetailedActivity;
 
 /**
  * 自定义接收器
@@ -86,6 +87,16 @@ public class MyReceiver extends BroadcastReceiver {
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			context.startActivity(i);
+
+//			// 打开自定义的Activity
+//			Intent ni = new Intent(context, ServiceDetailedActivity.class);
+//			ni.putExtra("service_id", "1");
+//			ni.putExtra("service_state", order_id);
+//			intent.putExtra("content", "餐桌:"+""+"服务");
+//			ni.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			ni.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+//					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//			context.startActivity(ni);
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {
