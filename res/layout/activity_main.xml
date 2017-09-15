@@ -38,9 +38,9 @@
 
                 <ImageView
                     android:id="@+id/iv_tableinfo"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/tabbar1_cur" />
 
                 <TextView
                     android:id="@+id/tv_tableinfo"
@@ -48,7 +48,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tab_tableinfo"
                     android:textColor="@color/text_color"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,9 +86,9 @@
 
                 <ImageView
                     android:id="@+id/iv_service"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/tabbar2" />
 
                 <TextView
                     android:id="@+id/tv_service"
@@ -95,7 +96,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tab_service"
                     android:textColor="@color/text_color"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,17 +134,18 @@
 
                 <ImageView
                     android:id="@+id/iv_saoma"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/tabbar3" />
 
                 <TextView
                     android:id="@+id/tv_saoma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tab_saoma"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/text_color"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -179,17 +182,18 @@
 
                 <ImageView
                     android:id="@+id/iv_order"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/tabbar4" />
 
                 <TextView
                     android:id="@+id/tv_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tab_order"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/text_color"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -226,9 +230,9 @@
 
                 <ImageView
                     android:id="@+id/iv_mine"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/tabbar5" />
 
                 <TextView
                     android:id="@+id/tv_mine"
@@ -236,7 +240,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tab_mine"
                     android:textColor="@color/text_color"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout

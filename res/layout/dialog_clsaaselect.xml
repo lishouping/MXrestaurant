@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="请选择"
-            android:textSize="20sp"
+            android:textSize="18sp"
              />
     </LinearLayout>
 
@@ -27,6 +27,8 @@
         android:layout_height="fill_parent"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
+        android:dividerHeight="0.5dp"
+        android:divider="@color/text_color"
          android:background="@color/sweet_dialog_bg_color"
         android:layout_marginRight="20dp" >
     </ListView>

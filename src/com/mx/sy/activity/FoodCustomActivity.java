@@ -118,6 +118,8 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 			break;
 		case R.id.lin_delshpingcar:
 			deleteCart();
+			fram_shopingcar.setVisibility(View.GONE);
+			shopviewstate = false;
 			getCart();
 			break;
 		default:
@@ -421,6 +423,11 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
+						tv_tableinfo_number.setText("0");
+						fram_shopingcar.setVisibility(View.GONE);
+						shopviewstate = false;
+						intentJsonObject = null;
+						tv_shopingcar_totalprice.setText("￥0");
 						e.printStackTrace();
 						dissmissDilog();
 					}

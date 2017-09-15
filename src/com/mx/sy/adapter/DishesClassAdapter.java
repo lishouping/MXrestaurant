@@ -43,9 +43,11 @@ public class DishesClassAdapter extends CommonBaseAdapter<HashMap<String, Object
 		
 		int position = holder.getPosition();
 		if (selectedPosition == position) {
-			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(223, 90, 55));
+			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(255, 255, 255));
+			holder.getView(R.id.select_color).setBackgroundColor(Color.rgb(251, 139, 57));
 		} else {
-			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(208, 208, 208));
+			holder.getView(R.id.lin_class).setBackgroundColor(Color.rgb(244, 244, 245));
+			holder.getView(R.id.select_color).setBackgroundColor(Color.rgb(244, 244, 245));
 		}
 		
 		holder.setText(R.id.tv_class, bean.get("category_name")+"");

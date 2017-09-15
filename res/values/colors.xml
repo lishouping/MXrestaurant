@@ -20,9 +20,19 @@
     <color name="material_blue_grey_95">#ff21272b</color>
     <color name="material_deep_teal_20">#ff80cbc4</color>
     <color name="material_deep_teal_50">#ff009688</color>
-    <color name="main_bg_color">#DF5A37</color>
+    <color name="main_bg_color">#4F91F4</color>
+    <color name="tab_bg_color">#1E8AE8</color>
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_mask">#60000000</color>
     <color name="possible_result_points">#c0ffff00</color>
-
+    <color name="tab_top_bg">#E9ECF1</color>
+    
+    <color name="red_color">#FF515D</color>
+    <color name="yuding_color">#FF9C54</color>
+    <color name="zhanyong_color">#63C786</color>
+ 	<color name="other_color">#74ACFB</color>
+ 	<color name="useing_color">#FF5F6B</color>
+ 	
+ 	<color name="price_color">#FF3E41</color>
+ 	<color name="suborder_color">#FB8B39</color>
 </resources>

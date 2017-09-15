@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     <LinearLayout 
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:orientation="horizontal"
         android:background="#fff"
         android:gravity="center">
@@ -20,7 +20,8 @@
                 android:id="@+id/tv_goods_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
+                android:textColor="#000000"
+                android:textSize="13sp"
                 android:layout_marginLeft="5dp"
                 android:text="鱼香肉丝" />
         </LinearLayout>
@@ -33,8 +34,8 @@
 			    android:id="@+id/tv_goods_price"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:textSize="15sp"
-			     android:textColor="@color/text_color"
+			    android:textSize="13sp"
+			     android:textColor="@color/price_color"
 			    android:text="￥23"/>
             <LinearLayout 
                 android:id="@+id/lin_addfood"
@@ -43,7 +44,7 @@
                 android:layout_marginRight="15dip"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical"
-                android:background="@color/blue_btn_bg_color">
+                android:background="@drawable/icon_add">
                 
             </LinearLayout>
         </LinearLayout>

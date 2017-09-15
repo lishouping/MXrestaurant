@@ -74,6 +74,11 @@ public class CommonViewHolder {
         ((TextView) getView(resourceId)).setText(resid);
         return this;
     }
+    public CommonViewHolder setTextColor(int resourceId,int color ) {
+        ((TextView) getView(resourceId)).setTextColor(color);
+        return this;
+    }
+    
     /**
      * 为ImageView设置Bitmap
      * @param resourceId

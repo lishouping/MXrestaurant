@@ -14,44 +14,68 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="1dp"
             android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/btn_table_state"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@color/main_bg_color"
-                android:text="餐桌状态"
-                android:textColor="@color/sweet_dialog_bg_color" />
+                android:background="@color/tab_top_bg"
+                android:orientation="horizontal" 
+                android:gravity="center">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:background="@color/sweet_dialog_bg_color" />
-
-            <Button
-                android:id="@+id/btn_table_class"
+                <Button
+                    android:id="@+id/btn_table_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="餐桌状态"
+                    android:background="@null"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_color" />
+                <ImageView 
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/nav_icon"/>
+            </LinearLayout>
+            
+            
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@color/main_bg_color"
-                android:text="餐桌位置"
-                android:textColor="@color/sweet_dialog_bg_color" />
+                android:background="@color/tab_top_bg"
+                android:orientation="horizontal" 
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_table_class"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="餐桌分类"
+                    android:background="@null"
+                     android:textSize="14sp"
+                    android:textColor="@color/text_color" />
+                <ImageView 
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/nav_icon"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <GridView
             android:id="@+id/gri_tables"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:horizontalSpacing="10dp"
-            android:scrollbars="none"
             android:numColumns="4"
+            android:scrollbars="none"
             android:verticalSpacing="10dp" >
         </GridView>
     </com.mx.sy.common.PullToRefreshView>

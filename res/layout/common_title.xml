@@ -25,7 +25,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textColor="@color/button_text_color"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <LinearLayout
         android:id="@+id/ll_right"

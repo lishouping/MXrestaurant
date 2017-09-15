@@ -25,6 +25,8 @@ import com.mx.sy.fragment.TableInfoFragment;
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private LinearLayout ll_back;
 	private TextView tv_title;
+	
+	private TextView tv_tableinfo,tv_service,tv_order,tv_mine;
 
 	private FrameLayout fragment, fl_tableinfo, fl_service, fl_saoma, fl_order,
 			fl_mine;
@@ -86,6 +88,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		fl_saoma = (FrameLayout) findViewById(R.id.fl_saoma);
 		fl_order = (FrameLayout) findViewById(R.id.fl_order);
 		fl_mine = (FrameLayout) findViewById(R.id.fl_mine);
+		
+		tv_tableinfo = (TextView) findViewById(R.id.tv_tableinfo);
+		tv_service = (TextView) findViewById(R.id.tv_service);
+		tv_order = (TextView) findViewById(R.id.tv_order);
+		tv_mine = (TextView) findViewById(R.id.tv_mine);
 
 		fl_tableinfo.setOnClickListener(this);
 		fl_service.setOnClickListener(this);
@@ -121,28 +128,28 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		clearChioce();
 		switch (index) {
 		case 1:
-			// tv_tableinfo.setTextColor(getApplication().getResources().getColor(R.color.common_title_bg));
-			// iv_notice.setImageResource(R.drawable.ic_launcher);
+			tv_tableinfo.setTextColor(getApplication().getResources().getColor(R.color.tab_bg_color));
+			iv_tableinfo.setImageResource(R.drawable.tabbar1_cur);
 			tableInfoFragment = new TableInfoFragment();
 			ft.replace(R.id.fragment, tableInfoFragment);
 			break;
 		case 2:
-			// tv_meeting.setTextColor(getApplication().getResources().getColor(R.color.common_title_bg));
-			// iv_meeting.setImageResource(R.drawable.ic_launcher);
+			 tv_service.setTextColor(getApplication().getResources().getColor(R.color.tab_bg_color));
+			iv_service.setImageResource(R.drawable.tabbar2_cur);
 			serviceFragment = new ServiceFragment();
 			ft.replace(R.id.fragment, serviceFragment);
 
 			break;
 		case 3:
-			// tv_survey.setTextColor(getApplication().getResources().getColor(R.color.common_title_bg));
-			// iv_survey.setImageResource(R.drawable.ic_launcher);
+			tv_order.setTextColor(getApplication().getResources().getColor(R.color.tab_bg_color));
+			iv_order.setImageResource(R.drawable.tabbar4_cur);
 			orderFragment = new OrderFragment();
 			ft.replace(R.id.fragment, orderFragment);
 
 			break;
 		case 4:
-			// tv_information.setTextColor(getApplication().getResources().getColor(R.color.common_title_bg));
-			// iv_information.setImageResource(R.drawable.ic_launcher);
+		    tv_mine.setTextColor(getApplication().getResources().getColor(R.color.tab_bg_color));
+			iv_mine.setImageResource(R.drawable.tabbar5_cur);
 			mineFragment = new MineFragment();
 			ft.replace(R.id.fragment, mineFragment);
 			break;
@@ -156,14 +163,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	// 重置所有fragment
 	private void clearChioce() {
-		// tv_notice.setTextColor(getApplication().getResources().getColor(R.color.common_text_gray_bg));
-		// tv_meeting.setTextColor(getApplication().getResources().getColor(R.color.common_text_gray_bg));
-		// tv_survey.setTextColor(getApplication().getResources().getColor(R.color.common_text_gray_bg));
-		// tv_information.setTextColor(getApplication().getResources().getColor(R.color.common_text_gray_bg));
-		// iv_notice.setImageResource(R.drawable.cp_notice_not_press);
-		// iv_meeting.setImageResource(R.drawable.cp_meeting_not_press);
-		// iv_survey.setImageResource(R.drawable.cp_survey_not_press);
-		// iv_information.setImageResource(R.drawable.cp_information_not_press);
+		 tv_tableinfo.setTextColor(getApplication().getResources().getColor(R.color.text_color));
+		 tv_service.setTextColor(getApplication().getResources().getColor(R.color.text_color));
+		 tv_order.setTextColor(getApplication().getResources().getColor(R.color.text_color));
+		 tv_mine.setTextColor(getApplication().getResources().getColor(R.color.text_color));
+		 iv_tableinfo.setImageResource(R.drawable.tabbar1);
+		 iv_service.setImageResource(R.drawable.tabbar2);
+		 iv_order.setImageResource(R.drawable.tabbar4);
+		 iv_mine.setImageResource(R.drawable.tabbar5);
 	}
 	
 	//接受广播刷新页面

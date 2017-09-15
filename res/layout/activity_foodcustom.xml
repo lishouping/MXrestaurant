@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="#fff">
 
     <include layout="@layout/common_title" />
 
@@ -20,48 +21,43 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1.01"
-                android:background="@color/gray_btn_bg_color"
+                android:background="@color/tab_top_bg"
                 android:gravity="center" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:text="分类" />
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:background="@color/text_color" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@color/gray_btn_bg_color"
+                android:background="@color/tab_top_bg"
                 android:gravity="center" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                     android:textSize="12sp"
                     android:text="菜品名称" />
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:background="@color/text_color" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@color/gray_btn_bg_color"
+                android:background="@color/tab_top_bg"
                 android:gravity="center" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                     android:textSize="12sp"
                     android:text="价格" />
             </LinearLayout>
         </LinearLayout>
@@ -85,18 +81,16 @@
                         android:id="@+id/lv_dishesclass"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
+                        android:dividerHeight="0.5dp"
                         android:layout_weight="1" >
                     </ListView>
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="fill_parent"
-                        android:background="@color/text_color" />
 
                     <ListView
                         android:id="@+id/lv_dishesname"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
+                        android:dividerHeight="0.5dp"
                         android:layout_weight="2" >
                     </ListView>
                 </LinearLayout>
@@ -150,7 +144,8 @@
                         <ListView
                             android:id="@+id/lv_shcar"
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" >
+                            android:layout_height="fill_parent" 
+                            android:dividerHeight="0.5dp">
                         </ListView>
                     </LinearLayout>
                 </FrameLayout>
@@ -158,18 +153,20 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/text_color" />
+                android:layout_height="0.5dp"
+                android:background="#f4f4f5" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_height="53dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <LinearLayout
                     android:layout_width="50dp"
-                    android:layout_height="50dp" >
+                    android:layout_height="50dp"
+                    android:layout_marginTop="2dp" 
+                    android:layout_marginLeft="15dp">
 
                     <FrameLayout
                         android:layout_width="fill_parent"
@@ -184,7 +181,7 @@
                                 android:id="@+id/imgshopingcar"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_login_logo" />
+                                android:src="@drawable/icon_shopping" />
 
                             <LinearLayout
                                 android:id="@+id/ll_tableinfo_number"
@@ -199,7 +196,7 @@
                                     android:layout_height="fill_parent"
                                     android:gravity="center"
                                     android:text="0"
-                                    android:textColor="@color/button_text_color"
+                                    android:textColor="#fff"
                                     android:textSize="10sp" />
                             </LinearLayout>
                         </LinearLayout>
@@ -210,14 +207,14 @@
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:gravity="center|right" >
+                    android:gravity="center" >
 
                     <TextView
                         android:id="@+id/tv_shopingcar_totalprice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/price_color"
                         android:text="￥0" />
                 </LinearLayout>
 
@@ -237,12 +234,12 @@
 
                 <Button
                     android:id="@+id/btn_place_order"
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="fill_parent"
-                    android:background="@color/main_bg_color"
+                    android:background="@color/suborder_color"
                     android:text="去下单"
                     android:textColor="@color/sweet_dialog_bg_color"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
