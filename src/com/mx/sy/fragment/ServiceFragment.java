@@ -24,6 +24,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
+import com.mx.sy.activity.ServiceDetailedActivity;
 import com.mx.sy.adapter.ServiceAdapter;
 import com.mx.sy.adapter.TablesAdapter;
 import com.mx.sy.api.ApiConfig;
@@ -78,11 +79,13 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				intent.putExtra("service_id", dateList.get(position).get("service_id"));
-				intent.putExtra("service_state", dateList.get(position).get("status"));
-				intent.putExtra("content", "餐桌:"+dateList.get(position).get("table_name")+dateList.get(position).get("service_content"));
-				startActivity(intent);
+				if (selectBtnFlag==1) {
+					Intent intent = new Intent(getActivity(),ServiceDetailedActivity.class);
+					intent.putExtra("service_id", dateList.get(position).get("service_id"));
+					intent.putExtra("service_state", dateList.get(position).get("status"));
+					intent.putExtra("content", "餐桌:"+dateList.get(position).get("table_name")+"    服务:"+dateList.get(position).get("service_content"));
+					startActivity(intent);
+				}
 			}
 		});
 	}

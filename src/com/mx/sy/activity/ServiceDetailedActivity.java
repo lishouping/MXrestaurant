@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,9 @@ public class ServiceDetailedActivity extends BaseActivity {
 	private String service_id;
 	private String service_state;
 	private String content;
+	
+	private LinearLayout ll_back;
+	private TextView tv_title;
 
 	@Override
 	public void widgetClick(View v) {
@@ -46,7 +50,9 @@ public class ServiceDetailedActivity extends BaseActivity {
 		case R.id.btn_subservice:
 			todoSertice();
 			break;
-
+		case R.id.ll_back:
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -59,6 +65,8 @@ public class ServiceDetailedActivity extends BaseActivity {
 		service_id = intent.getStringExtra("service_id");
 		service_state = intent.getStringExtra("service_state");
 		content = intent.getStringExtra("content");
+		
+		
 	}
 
 	@Override
@@ -76,12 +84,19 @@ public class ServiceDetailedActivity extends BaseActivity {
 	@Override
 	public void initView(View view) {
 		// TODO Auto-generated method stub
+		ll_back = $(R.id.ll_back);
+		tv_title = $(R.id.tv_title);
+		tv_title.setText("未处理服务");
+		
 		tv_service_content = $(R.id.tv_service_content);
 		tv_service_states = $(R.id.tv_service_states);
 		btn_subservice = $(R.id.btn_subservice);
 
 		preferences = getSharedPreferences("userinfo",
 				LoginActivity.MODE_PRIVATE);
+		
+		tv_service_states.setText("服务状态:未处理");
+		tv_service_content.setText(content);
 	}
 
 	@Override
@@ -94,6 +109,7 @@ public class ServiceDetailedActivity extends BaseActivity {
 	public void setListener() {
 		// TODO Auto-generated method stub
 		btn_subservice.setOnClickListener(this);
+		ll_back.setOnClickListener(this);
 	}
 
 	@Override

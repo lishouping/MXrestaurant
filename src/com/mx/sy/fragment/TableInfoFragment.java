@@ -33,6 +33,7 @@ import com.mx.sy.common.PullToRefreshView;
 import com.mx.sy.common.PullToRefreshView.OnFooterRefreshListener;
 import com.mx.sy.common.PullToRefreshView.OnHeaderRefreshListener;
 import com.mx.sy.dialog.ClassSelectDialog;
+import com.mx.sy.dialog.SweetAlertDialog;
 
 /**
  * @author Administrator 桌台信息
@@ -133,6 +134,30 @@ public class TableInfoFragment extends BaseFragment implements
 					intent.putExtra("table_id", dateList.get(position).get("table_id"));
 					intent.putExtra("table_name", dateList.get(position).get("table_name"));
 					startActivity(intent);
+				}else if (dateList.get(position).get("table_status").equals("2")) {//顾客预订
+					new SweetAlertDialog(getActivity(),
+							SweetAlertDialog.NORMAL_TYPE)
+							.setTitleText("预订信息")
+						    .setContentText("")
+							.setCancelText("取消")
+							.setConfirmText("确定")
+							.showCancelButton(true)
+							.setConfirmClickListener(
+									new SweetAlertDialog.OnSweetClickListener() {
+										@Override
+										public void onClick(
+												SweetAlertDialog sweetAlertDialog) {
+											sweetAlertDialog.cancel();
+										}
+									})
+							.setCancelClickListener(
+									new SweetAlertDialog.OnSweetClickListener() {
+										@Override
+										public void onClick(
+												SweetAlertDialog sweetAlertDialog) {
+											sweetAlertDialog.cancel();
+										}
+									}).show();
 				}
 			}
 		});
