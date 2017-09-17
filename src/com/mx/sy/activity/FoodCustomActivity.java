@@ -467,9 +467,6 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
 							getCart();
-							Toast.makeText(getApplicationContext(),
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
 						}else if (CODE.equals("10000")) {
 							getCart();
 						} else {
@@ -518,9 +515,6 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
 							getCart();
-							Toast.makeText(getApplicationContext(),
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
@@ -566,9 +560,6 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
 							getCart();
-							Toast.makeText(getApplicationContext(),
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
@@ -608,7 +599,6 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 			good_id = shopcarList.get(select).get("good_id");
 			addCart();
 		}
-		getCart();
 	}
 
 }

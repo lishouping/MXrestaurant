@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.mx.sy.R;
 import com.mx.sy.base.CommonBaseAdapter;
@@ -33,8 +35,12 @@ public class MineUserAdapter extends CommonBaseAdapter<HashMap<String, Object>>{
 	@Override
 	public void convert(CommonViewHolder holder, HashMap<String, Object> bean) {
 		// TODO Auto-generated method stub
+		if (holder.getPosition()==3) {
+			LinearLayout linearLay = holder.getView(R.id.lin_headminuser);
+			linearLay.setVisibility(View.VISIBLE);
+		}
 		holder.setText(R.id.tv_mine_content, bean.get("content")+"");
-		ImageView imageView = holder.getView(R.id.img_type);
-		imageView.setBackgroundResource((Integer) bean.get("contentImg"));
+		ImageView imageView1 = holder.getView(R.id.img_type_mine);
+		imageView1.setBackgroundResource((Integer) bean.get("mytypeImg"));
 	}
 }

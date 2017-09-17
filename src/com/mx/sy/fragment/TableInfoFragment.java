@@ -177,7 +177,9 @@ public class TableInfoFragment extends BaseFragment implements
 			public void run() {
 				// 下拉刷新
 				mPullToRefreshView.onHeaderRefreshComplete();
+				daList.clear();
 				dateList.clear();
+				tablesAdapter.notifyDataSetChanged();
 				getTableInfo();
 				btn_table_state.setText("餐桌状态");
 				btn_table_class.setText("餐桌位置");
@@ -193,7 +195,9 @@ public class TableInfoFragment extends BaseFragment implements
 			public void run() {
 				// 上滑加载
 				mPullToRefreshView.onFooterRefreshComplete();
+				daList.clear();
 				dateList.clear();
+				tablesAdapter.notifyDataSetChanged();
 				getTableInfo();
 			}
 		}, 1000);

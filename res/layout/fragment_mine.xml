@@ -2,12 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="#E9ECF1">
 
     <ListView 
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:id="@+id/lv_mine_user"
         ></ListView>
-
+	<Button 
+	    android:id="@+id/btn_signout"
+	    android:layout_width="fill_parent"
+	    android:layout_margin="15dp"
+	    android:layout_height="35dp"
+	    android:textSize="13sp"
+	    android:textColor="#fff"
+	    android:background="@drawable/red_button_background"
+	    android:text="退出登录"/>
 </LinearLayout>

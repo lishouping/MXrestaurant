@@ -35,4 +35,6 @@
  	
  	<color name="price_color">#FF3E41</color>
  	<color name="suborder_color">#FB8B39</color>
+ 	
+ 	<color name="circle_mine">#D2E0F7</color>
 </resources>
