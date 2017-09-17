@@ -34,6 +34,7 @@ import com.mx.sy.common.PullToRefreshView.OnFooterRefreshListener;
 import com.mx.sy.common.PullToRefreshView.OnHeaderRefreshListener;
 import com.mx.sy.dialog.ClassSelectDialog;
 import com.mx.sy.dialog.SweetAlertDialog;
+import com.tnktech.weight.TNKGridView;
 
 /**
  * @author Administrator 桌台信息
@@ -44,7 +45,7 @@ public class TableInfoFragment extends BaseFragment implements
 	public static int TABLE_STATE = 100;
 	public static int TABLE_CLASS = 101;
 
-	private GridView gri_tables;
+	private TNKGridView gri_tables;
 	private List<HashMap<String, String>> dateList;
 	private TablesAdapter tablesAdapter;
 

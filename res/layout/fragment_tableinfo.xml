@@ -5,67 +5,67 @@
     android:background="@color/sweet_dialog_bg_color"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@color/tab_top_bg"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_table_state"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:text="餐桌状态"
+                android:textColor="@color/text_color"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/nav_icon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@color/tab_top_bg"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_table_class"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:text="餐桌分类"
+                android:textColor="@color/text_color"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/nav_icon" />
+        </LinearLayout>
+    </LinearLayout>
+
     <com.mx.sy.common.PullToRefreshView
         android:id="@+id/pullrefresh_table"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal" >
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@color/tab_top_bg"
-                android:orientation="horizontal" 
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btn_table_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:text="餐桌状态"
-                    android:background="@null"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_color" />
-                <ImageView 
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/nav_icon"/>
-            </LinearLayout>
-            
-            
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@color/tab_top_bg"
-                android:orientation="horizontal" 
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btn_table_class"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:text="餐桌分类"
-                    android:background="@null"
-                     android:textSize="14sp"
-                    android:textColor="@color/text_color" />
-                <ImageView 
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/nav_icon"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <GridView
+        <com.tnktech.weight.TNKGridView
             android:id="@+id/gri_tables"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -77,7 +77,7 @@
             android:numColumns="4"
             android:scrollbars="none"
             android:verticalSpacing="10dp" >
-        </GridView>
+        </com.tnktech.weight.TNKGridView>
     </com.mx.sy.common.PullToRefreshView>
 
 </LinearLayout>
