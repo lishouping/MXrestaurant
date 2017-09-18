@@ -401,7 +401,7 @@ public class OrderDetailedActivity extends BaseActivity {
 
 							String total_price = cartobj
 									.getString("total_price");
-							tv_ordertotal_price.setText("总计:" + total_price
+							tv_ordertotal_price.setText(total_price
 									+ "元");
 
 							JSONArray jsonArray = cartobj

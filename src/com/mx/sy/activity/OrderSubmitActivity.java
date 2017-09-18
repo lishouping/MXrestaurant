@@ -264,7 +264,7 @@ public class OrderSubmitActivity extends BaseActivity {
 								cart_id = object.getString("cart_id");
 								String total_num = object.getString("total_num");
 								String total_price = object.getString("total_price");
-								tv_subtotalprice.setText("总计:" + total_price + "元");
+								tv_subtotalprice.setText(total_price + "元");
 								JSONArray jsonArray = object.getJSONArray("goods_set");
 								for (int i = 0; i < jsonArray.length(); i++) {
 									JSONObject object2 = jsonArray.getJSONObject(i);
