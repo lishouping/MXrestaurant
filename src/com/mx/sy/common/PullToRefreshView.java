@@ -303,7 +303,10 @@ public class PullToRefreshView extends LinearLayout {
 			} else if (mPullState == PULL_UP_STATE) {
 				// PullToRefreshView执行上拉
 				Log.i(TAG, "pull up!parent view move!");
-				footerPrepareToRefresh(deltaY);
+				if (ishidfootview==0) {
+					footerPrepareToRefresh(deltaY);
+				}
+				
 			}
 			mLastMotionY = y;
 			break;
@@ -322,7 +325,10 @@ public class PullToRefreshView extends LinearLayout {
 				if (Math.abs(topMargin) >= mHeaderViewHeight
 						+ mFooterViewHeight) {
 					// 开始执行footer 刷新
-					footerRefreshing();
+					if (ishidfootview==0) {
+						footerRefreshing();
+					}
+					
 				} else {
 					// 还没有执行刷新，重新隐藏
 					setHeaderTopMargin(-mHeaderViewHeight);

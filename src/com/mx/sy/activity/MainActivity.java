@@ -56,6 +56,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.fl_tableinfo:
 			setChioceItem(1);
+			PullToRefreshView.ishidfootview = 1;
 			break;
 		case R.id.fl_service:
 			setChioceItem(2);
