@@ -3,11 +3,10 @@ package com.mx.sy.fragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -18,8 +17,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -44,6 +43,8 @@ import com.mx.sy.utils.SendMessage;
  */
 public class OrderFragment extends BaseFragment implements OnClickListener ,OnFooterRefreshListener,OnHeaderRefreshListener{
 	private LinearLayout lin_order_nomanage,lin_order_manageing,lin_order_managend;
+	private TextView tv_order_nomanage,tv_order_manageing,tv_order_managend;
+	private View viw_order_nomanage,viw_order_manageing,viw_order_managend;
 	private ListView lv_order;
 	private List<HashMap<String, String>> dateList;
 	private OrderAdapter orderAdapter;
@@ -86,6 +87,14 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 		lin_order_managend = findViewById(R.id.lin_order_managend);
 		lin_order_managend.setOnClickListener(this);
 		lv_order = findViewById(R.id.lv_order);
+		
+		tv_order_nomanage = findViewById(R.id.tv_order_nomanage);
+		tv_order_manageing = findViewById(R.id.tv_order_manageing);
+		tv_order_managend = findViewById(R.id.tv_order_managend);
+		
+		viw_order_nomanage = findViewById(R.id.viw_order_nomanage);
+		viw_order_manageing = findViewById(R.id.viw_order_manageing);
+		viw_order_managend = findViewById(R.id.viw_order_managend);
 	}
 	@Override
 	protected void initData(Bundle arguments) {
@@ -235,19 +244,37 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 	private void changeBtnBg(int selectTag){
 		switch (selectTag) {
 		case 0:
-			lin_order_nomanage.setBackgroundColor(Color.rgb(208, 208, 208));
-			lin_order_manageing.setBackgroundColor(Color.rgb(223, 90, 55));
-			lin_order_managend.setBackgroundColor(Color.rgb(223, 90, 55));
+			tv_order_nomanage.setTextColor(Color.rgb(79, 145, 244));
+			viw_order_nomanage.setBackgroundResource(R.color.main_bg_color);
+			
+			tv_order_manageing.setTextColor(Color.rgb(0, 0, 0));
+			viw_order_manageing.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			
+			tv_order_managend.setTextColor(Color.rgb(0, 0, 0));
+			viw_order_managend.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			
 			break;
 		case 1:
-			lin_order_nomanage.setBackgroundColor(Color.rgb(223, 90, 55));
-			lin_order_manageing.setBackgroundColor(Color.rgb(208, 208, 208));
-			lin_order_managend.setBackgroundColor(Color.rgb(223, 90, 55));
+			tv_order_manageing.setTextColor(Color.rgb(79, 145, 244));
+			viw_order_manageing.setBackgroundResource(R.color.main_bg_color);
+			
+			tv_order_nomanage.setTextColor(Color.rgb(0, 0, 0));
+			viw_order_nomanage.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			
+			tv_order_managend.setTextColor(Color.rgb(0, 0, 0));
+			viw_order_managend.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			
 			break;
 		case 2:
-			lin_order_nomanage.setBackgroundColor(Color.rgb(223, 90, 55));
-			lin_order_manageing.setBackgroundColor(Color.rgb(223, 90, 55));
-			lin_order_managend.setBackgroundColor(Color.rgb(208, 208, 208));
+			tv_order_managend.setTextColor(Color.rgb(79, 145, 244));
+			viw_order_managend.setBackgroundResource(R.color.main_bg_color);
+			
+			tv_order_nomanage.setTextColor(Color.rgb(0, 0, 0));
+			viw_order_nomanage.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			
+			tv_order_manageing.setTextColor(Color.rgb(0, 0, 0));
+			viw_order_manageing.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			
 			break;
 		default:
 			break;

@@ -40,7 +40,8 @@ public class OrderSubmitAdapter extends CommonBaseAdapter<HashMap<String, String
 			holder.setText(R.id.tv_orderfoodname, bean.get("good_name"));
 		}
 		//holder.setText(R.id.tv_orderfoodname, bean.get("good_name"));
-		holder.setText(R.id.tv_pricenum, bean.get("good_price")+"X"+bean.get("good_num"));
+		holder.setText(R.id.tv_pricenum,"￥"+ bean.get("good_price"));
+		holder.setText(R.id.number,"X"+bean.get("good_num"));
 		holder.setText(R.id.tv_totalprice, "￥"+bean.get("good_total_price"));
 //		holder.getConvertView().setBackgroundColor(Color.rgb(223, 90, 55));
 	}
