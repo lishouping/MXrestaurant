@@ -22,64 +22,104 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@color/gray_btn_bg_color"
-                android:orientation="vertical"
+                android:background="@color/sweet_dialog_bg_color"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center" >
+
+                    <TextView
+                        android:id="@+id/tv_order_nomanage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未处理"
+                        android:textSize="14sp"
+                        android:textColor="@color/main_bg_color" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viw_order_nomanage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/main_bg_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_order_manageing"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                >
-                <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/button_text_color"
-                    android:text="未处理"/>
+                android:orientation="vertical" >
+
+                 <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center" >
+
+                    <TextView
+                        android:id="@+id/tv_order_manageing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="正在用餐"
+                        android:textSize="14sp"
+                        android:textColor="@color/sweet_tab_black" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viw_order_manageing"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/sweet_dialog_bg_color" />
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:background="@color/sweet_dialog_bg_color" />
-
             <LinearLayout
-                 android:id="@+id/lin_order_manageing"
+                android:id="@+id/lin_order_managend"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@color/main_bg_color"
-                android:orientation="vertical"
-                android:gravity="center" 
-                   >
-                 <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/button_text_color"
-                    android:text="正在用餐"/>
-            </LinearLayout>
-             <View
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:background="@color/sweet_dialog_bg_color" />
+                android:gravity="center"
+                android:orientation="vertical" >
 
-            <LinearLayout
-                 android:id="@+id/lin_order_managend"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@color/main_bg_color"
-                android:orientation="vertical"
-                android:gravity="center" 
-                   >
-                 <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/button_text_color"
-                    android:text="已完成"/>
+                 <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center" >
+
+                    <TextView
+                        android:id="@+id/tv_order_managend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已完成"
+                        android:textSize="14sp"
+                        android:textColor="@color/sweet_tab_black" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viw_order_managend"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/sweet_dialog_bg_color" />
             </LinearLayout>
         </LinearLayout>
-		<ListView 
-		    android:id="@+id/lv_order"
+		<View 
 		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    ></ListView>
-       
+		    android:layout_height="0.5dp"
+		    android:background="@color/circle_mine"
+		    />
+        <ListView
+            android:id="@+id/lv_order"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+        </ListView>
     </com.mx.sy.common.PullToRefreshView>
 
 </LinearLayout>

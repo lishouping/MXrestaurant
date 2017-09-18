@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/sweet_dialog_bg_color" >
     <include layout="@layout/common_title"/>
     <ScrollView 
         android:layout_width="fill_parent"
@@ -18,12 +19,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/shape_login_bg">
+        android:background="@color/orderde_co">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:orientation="horizontal"
+            android:gravity="center|left"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp" >
 
@@ -53,6 +55,58 @@
         android:layout_weight="1"
         android:orientation="vertical"
         >
+        <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.2"
+                        android:text="菜品信息"
+                        android:textColor="@color/suborder_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.2"
+                        android:text="单价"
+                        android:textColor="@color/suborder_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.2"
+                        android:text="数量"
+                        android:textColor="@color/suborder_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_totalprice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="价格"
+                        android:textColor="@color/suborder_color"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                
+                <View 
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/orderde_co"
+                    />
         <com.tnktech.weight.TNKListView
             android:id="@+id/lv_order_dinner"
             android:layout_width="fill_parent"
@@ -92,19 +146,34 @@
         android:layout_height="70dp"
         android:orientation="vertical"
         >
-        <TextView 
-            android:id="@+id/tv_subtotalprice"
-            android:layout_width="wrap_content"
+         <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="总计:123.00元"
-            android:layout_gravity="center_horizontal|right"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="5dp"/>
+            android:gravity="center|right"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|right"
+                android:layout_marginRight="5dp"
+                android:text="总计:"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_subtotalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/red_color"
+                android:textSize="13sp" />
+        </LinearLayout>
         <LinearLayout 
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
             <Button 
                 android:id="@+id/btn_add_food"
                 android:layout_width="0dip"
@@ -112,7 +181,8 @@
                 android:layout_weight="1"
                 android:textColor="@color/button_text_color"
                 android:text="加菜"
-                android:background="@color/main_bg_color"/>
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/shape_blule_btnbg"/>
             <View 
                 android:layout_width="5dp"
                 android:layout_height="fill_parent"/>
@@ -133,8 +203,9 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="确认下单"
+                android:layout_marginRight="5dp"
                  android:textColor="@color/button_text_color"
-                android:background="@color/main_bg_color"/>
+                android:background="@drawable/shape_yeallo_btnbg"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

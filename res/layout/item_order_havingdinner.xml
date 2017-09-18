@@ -19,7 +19,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:text="服务编号:MX2017u812892189"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -34,7 +34,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="桌号:200"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_havemeals"
@@ -43,7 +43,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="用餐人数:12"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
             <TextView
                 android:id="@+id/tv_havingdinner"
                 android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="服务员:小金"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:text="下单时间:2017-09-09 22:00"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -77,7 +77,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:background="@color/main_bg_color"
+                android:background="@drawable/shape_blule_btnbg"
                 android:gravity="center" >
 
                 <TextView
@@ -99,7 +99,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:background="@color/main_bg_color" >
+                android:background="@drawable/shape_yeallo_btnbg" >
 
                 <TextView
                     android:layout_width="wrap_content"
