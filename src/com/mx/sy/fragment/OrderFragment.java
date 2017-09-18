@@ -59,6 +59,7 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 	int totalnum;
 	
 	
+	
 	@Override
 	protected int setLayoutResouceId() {
 		// TODO Auto-generated method stub
@@ -68,6 +69,7 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 	protected void loadDate() {
 		// TODO Auto-generated method stub
 		super.loadDate();
+		
 		mPullToRefreshView = (PullToRefreshView) getActivity().findViewById(R.id.pullrefresh_order);
 		mPullToRefreshView.setOnHeaderRefreshListener(this);
 		mPullToRefreshView.setOnFooterRefreshListener(this);

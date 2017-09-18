@@ -125,6 +125,8 @@ public class PullToRefreshView extends LinearLayout {
 	 * 最后更新时间
 	 */
 	 private String mLastUpdateTime;
+	 
+	 public static int ishidfootview = 0;
 
 	public PullToRefreshView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -205,7 +207,11 @@ public class PullToRefreshView extends LinearLayout {
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		// footer view 在此添加保证添加到linearlayout中的最后
-		addFooterView();
+		if (ishidfootview==0) {
+			addFooterView();
+		}else {
+		}
+		
 		initContentAdapterView();
 	}
 

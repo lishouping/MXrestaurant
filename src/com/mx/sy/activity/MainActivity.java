@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mx.sy.R;
+import com.mx.sy.common.PullToRefreshView;
 import com.mx.sy.fragment.MineFragment;
 import com.mx.sy.fragment.OrderFragment;
 import com.mx.sy.fragment.ServiceFragment;
@@ -64,6 +65,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.fl_order:
+			PullToRefreshView.ishidfootview = 0;
 			setChioceItem(3);
 			break;
 		case R.id.fl_mine:

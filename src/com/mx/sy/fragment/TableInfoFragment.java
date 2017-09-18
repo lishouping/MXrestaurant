@@ -68,6 +68,7 @@ public class TableInfoFragment extends BaseFragment implements
 	protected void loadDate() {
 		// TODO Auto-generated method stub
 		super.loadDate();
+		PullToRefreshView.ishidfootview = 1;
 		mPullToRefreshView = (PullToRefreshView) getActivity().findViewById(
 				R.id.pullrefresh_table);
 		mPullToRefreshView.setOnHeaderRefreshListener(this);

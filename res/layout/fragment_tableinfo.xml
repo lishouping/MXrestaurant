@@ -68,7 +68,8 @@
         <com.tnktech.weight.TNKGridView
             android:id="@+id/gri_tables"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -78,6 +79,10 @@
             android:scrollbars="none"
             android:verticalSpacing="10dp" >
         </com.tnktech.weight.TNKGridView>
+        <View 
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="#fff"/>
     </com.mx.sy.common.PullToRefreshView>
 
 </LinearLayout>
