@@ -33,7 +33,7 @@
                 android:id="@+id/tv_table_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="5dp"
                 android:text="桌号:200"
                 android:textSize="15sp" />
@@ -65,7 +65,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="15dp"
                         android:layout_weight="1.2"
                         android:text="菜品信息"
                         android:textColor="@color/suborder_color"
@@ -77,6 +77,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_weight="0.2"
                         android:text="单价"
+                         android:gravity="center"
                         android:textColor="@color/suborder_color"
                         android:textSize="12sp" />
 
@@ -87,6 +88,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_weight="0.2"
                         android:text="数量"
+                         android:gravity="center"
                         android:textColor="@color/suborder_color"
                         android:textSize="12sp" />
 
@@ -124,7 +126,7 @@
         	<TextView 
         	    android:layout_width="wrap_content"
         	    android:layout_height="wrap_content"
-        	    android:layout_marginLeft="5dp"
+        	    android:layout_marginLeft="15dp"
         	    android:textSize="15sp"
         	    android:text="备注:"/>
         	<EditText 
