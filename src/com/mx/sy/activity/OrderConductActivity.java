@@ -243,7 +243,7 @@ public class OrderConductActivity extends BaseActivity {
 									.getString("cart"));
 							String total_price = cartobj
 									.getString("total_price");
-							tv_ordertotal_price.setText("总计:" + total_price
+							tv_ordertotal_price.setText(total_price
 									+ "元");
 							JSONArray jsonArray = cartobj
 									.getJSONArray("goods_set");
