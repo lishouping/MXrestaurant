@@ -196,6 +196,8 @@ public class TableInfoFragment extends BaseFragment implements
 				getTableInfo();
 				btn_table_state.setText("餐桌状态");
 				btn_table_class.setText("餐桌位置");
+				classAierPos = "";
+				classNamePos = "";
 			}
 		}, 1000);
 	}
