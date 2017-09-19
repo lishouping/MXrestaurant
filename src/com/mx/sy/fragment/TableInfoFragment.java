@@ -58,6 +58,9 @@ public class TableInfoFragment extends BaseFragment implements
 	// 装在位置List
 	private List<HashMap<String, Object>> daList = new ArrayList<HashMap<String, Object>>();
 
+	String classNamePos = "";
+	String classAierPos = "";
+
 	@Override
 	protected int setLayoutResouceId() {
 		// TODO Auto-generated method stub
@@ -82,14 +85,15 @@ public class TableInfoFragment extends BaseFragment implements
 
 		preferences = getActivity().getSharedPreferences("userinfo",
 				getActivity().MODE_PRIVATE);
-		
+
 	}
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
-		if (isrefresh==1) {
-			if (dateList.size()==0) {
-			}else {
+		if (isrefresh == 1) {
+			if (dateList.size() == 0) {
+			} else {
 				dateList.clear();
 				tablesAdapter.notifyDataSetChanged();
 			}
@@ -99,6 +103,7 @@ public class TableInfoFragment extends BaseFragment implements
 		}
 		super.onResume();
 	}
+
 	@Override
 	protected void initView() {
 		// TODO Auto-generated method stub
@@ -126,21 +131,27 @@ public class TableInfoFragment extends BaseFragment implements
 				// TODO Auto-generated method stub
 
 				Intent intent = new Intent();
-				if (dateList.get(position).get("table_status").equals("0")) {//未使用
+				if (dateList.get(position).get("table_status").equals("0")) {// 未使用
 					intent.setClass(getActivity(), FoodCustomActivity.class);
-					intent.putExtra("table_id", dateList.get(position).get("table_id"));
-					intent.putExtra("table_name", dateList.get(position).get("table_name"));
+					intent.putExtra("table_id",
+							dateList.get(position).get("table_id"));
+					intent.putExtra("table_name",
+							dateList.get(position).get("table_name"));
 					startActivity(intent);
-				}else if (dateList.get(position).get("table_status").equals("1")) {//正常使用中
+				} else if (dateList.get(position).get("table_status")
+						.equals("1")) {// 正常使用中
 					intent.setClass(getActivity(), OrderConductActivity.class);
-					intent.putExtra("table_id", dateList.get(position).get("table_id"));
-					intent.putExtra("table_name", dateList.get(position).get("table_name"));
+					intent.putExtra("table_id",
+							dateList.get(position).get("table_id"));
+					intent.putExtra("table_name",
+							dateList.get(position).get("table_name"));
 					startActivity(intent);
-				}else if (dateList.get(position).get("table_status").equals("2")) {//顾客预订
+				} else if (dateList.get(position).get("table_status")
+						.equals("2")) {// 顾客预订
 					new SweetAlertDialog(getActivity(),
 							SweetAlertDialog.NORMAL_TYPE)
 							.setTitleText("预订信息")
-						    .setContentText("")
+							.setContentText("")
 							.setCancelText("取消")
 							.setConfirmText("确定")
 							.showCancelButton(true)
@@ -163,8 +174,8 @@ public class TableInfoFragment extends BaseFragment implements
 				}
 			}
 		});
-		if (dateList.size()==0) {
-		}else {
+		if (dateList.size() == 0) {
+		} else {
 			dateList.clear();
 		}
 		showDilog("加载中");
@@ -231,17 +242,17 @@ public class TableInfoFragment extends BaseFragment implements
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == TABLE_STATE) {
 			btn_table_state.setText(data.getStringExtra("className"));
-			
+
 			String className = data.getStringExtra("className");
 			if (className.equals("未使用")) {
 				setTableStatesInfo("0");
-			}else if (className.equals("使用中")) {
+			} else if (className.equals("使用中")) {
 				setTableStatesInfo("1");
-			}else if (className.equals("预定中")) {
+			} else if (className.equals("预定中")) {
 				setTableStatesInfo("2");
-			}else if (className.equals("占用中")) {
+			} else if (className.equals("占用中")) {
 				setTableStatesInfo("3");
-			}else if (className.equals("其他")) {
+			} else if (className.equals("其他")) {
 				setTableStatesInfo("4");
 			}
 		} else if (resultCode == TABLE_CLASS) {
@@ -328,6 +339,8 @@ public class TableInfoFragment extends BaseFragment implements
 
 	// 根据餐桌状态进行选择
 	private void setTableStatesInfo(String className) {
+		classNamePos = className;
+
 		dateList.clear();
 		tablesAdapter.notifyDataSetChanged();
 		for (int i = 0; i < daList.size(); i++) {
@@ -341,15 +354,26 @@ public class TableInfoFragment extends BaseFragment implements
 					String table_name = object2.getString("table_name");// 餐桌名
 					String table_status = object2.getString("table_status");// 餐桌状态
 					String table_id = object2.getString("table_id");
-					if (className.equals(table_status)) {
-						HashMap<String, String> map4 = new HashMap<String, String>();
-						map4.put("table_name", table_name);
-						map4.put("table_status", table_status);
-						map4.put("table_id", table_id);
-						dateList.add(map4);
+					if (classNamePos.equals("") || classAierPos.equals("")) {
+						if (className.equals(table_status)) {
+							HashMap<String, String> map4 = new HashMap<String, String>();
+							map4.put("table_name", table_name);
+							map4.put("table_status", table_status);
+							map4.put("table_id", table_id);
+							dateList.add(map4);
+						}
+					}else {
+						if (className.equals(table_status)
+								&& area_name.equals(classAierPos)) {
+							HashMap<String, String> map4 = new HashMap<String, String>();
+							map4.put("table_name", table_name);
+							map4.put("table_status", table_status);
+							map4.put("table_id", table_id);
+							dateList.add(map4);
+						}
 					}
 				}
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -360,6 +384,7 @@ public class TableInfoFragment extends BaseFragment implements
 	// 根据餐桌分区进行选择
 	@SuppressLint("NewApi")
 	private void setTableAirInfo(String className) {
+		classAierPos = className;
 		dateList.clear();
 		tablesAdapter.notifyDataSetChanged();
 		for (int i = 0; i < daList.size(); i++) {
@@ -367,19 +392,33 @@ public class TableInfoFragment extends BaseFragment implements
 				String area_id = daList.get(i).get("area_id").toString();
 				String area_name = daList.get(i).get("area_name").toString();
 				JSONArray array = (JSONArray) daList.get(i).get("tableinfo");
-				if (className.equals(area_name)) {
-					for (int j = 0; j < array.length(); j++) {
-						JSONObject object2 = array.getJSONObject(j);
-						String table_name = object2.getString("table_name");// 餐桌名
-						String table_status = object2.getString("table_status");// 餐桌状态
-						String table_id = object2.getString("table_id");
-						HashMap<String, String> map4 = new HashMap<String, String>();
-						map4.put("table_name", table_name);
-						map4.put("table_status", table_status);
-						map4.put("table_id", table_id);
-						dateList.add(map4);
+
+				for (int j = 0; j < array.length(); j++) {
+					JSONObject object2 = array.getJSONObject(j);
+					String table_name = object2.getString("table_name");// 餐桌名
+					String table_status = object2.getString("table_status");// 餐桌状态
+					String table_id = object2.getString("table_id");
+					if (classNamePos.equals("") || classAierPos.equals("")) {
+						if (className.equals(area_name)) {
+							HashMap<String, String> map4 = new HashMap<String, String>();
+							map4.put("table_name", table_name);
+							map4.put("table_status", table_status);
+							map4.put("table_id", table_id);
+							dateList.add(map4);
+						}
+					}else {
+						if (className.equals(area_name)&&classNamePos.equals(table_status)) {
+							HashMap<String, String> map4 = new HashMap<String, String>();
+							map4.put("table_name", table_name);
+							map4.put("table_status", table_status);
+							map4.put("table_id", table_id);
+							dateList.add(map4);
+
+						}
 					}
+					
 				}
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

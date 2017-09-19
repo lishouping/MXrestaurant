@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -36,6 +37,9 @@ import com.mx.sy.common.PullToRefreshView.OnHeaderRefreshListener;
 public class ServiceFragment extends BaseFragment implements OnClickListener,
 		OnFooterRefreshListener, OnHeaderRefreshListener {
 	private LinearLayout lin_nomanage, lin_processed;
+	private TextView tv_nomanage, tv_processed;
+	private View viw_nomanage, viw_processed;
+	
 	private ListView lv_service;
 	private List<HashMap<String, String>> dateList;
 	private ServiceAdapter serviceAdapter;
@@ -72,6 +76,13 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 		lin_nomanage.setOnClickListener(this);
 		lin_processed = findViewById(R.id.lin_processed);
 		lin_processed.setOnClickListener(this);
+		
+		tv_nomanage = findViewById(R.id.tv_nomanage);
+		tv_processed = findViewById(R.id.tv_processed);
+		
+		viw_nomanage = findViewById(R.id.viw_nomanage);
+		viw_processed = findViewById(R.id.viw_processed);
+		
 		lv_service = findViewById(R.id.lv_service);
 		lv_service.setOnItemClickListener(new OnItemClickListener() {
 
@@ -194,12 +205,18 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 	private void changeBtnBg(int selectTag) {
 		switch (selectTag) {
 		case 0:
-			lin_nomanage.setBackgroundColor(Color.rgb(208, 208, 208));
-			lin_processed.setBackgroundColor(Color.rgb(223, 90, 55));
+			tv_nomanage.setTextColor(Color.rgb(79, 145, 244));
+			viw_nomanage.setBackgroundResource(R.color.main_bg_color);
+			
+			tv_processed.setTextColor(Color.rgb(0, 0, 0));
+			viw_processed.setBackgroundResource(R.color.sweet_dialog_bg_color);
 			break;
 		case 1:
-			lin_nomanage.setBackgroundColor(Color.rgb(223, 90, 55));
-			lin_processed.setBackgroundColor(Color.rgb(208, 208, 208));
+			tv_nomanage.setTextColor(Color.rgb(0, 0, 0));
+			viw_nomanage.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			
+			tv_processed.setTextColor(Color.rgb(79, 145, 244));
+			viw_processed.setBackgroundResource(R.color.main_bg_color);
 			break;
 		default:
 			break;
