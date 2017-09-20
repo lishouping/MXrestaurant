@@ -29,6 +29,7 @@ import com.mx.sy.adapter.MineUserAdapter;
 import com.mx.sy.base.BaseFragment;
 import com.mx.sy.common.RoundedImageView;
 import com.mx.sy.dialog.SweetAlertDialog;
+import com.mx.sy.push.SettingActivity;
 
 public class MineFragment extends BaseFragment {
 	private ListView lv_mine_user;
@@ -144,7 +145,7 @@ public class MineFragment extends BaseFragment {
 					break; 
 				case 3:
 					//推送消息
-					intent.setClass(getActivity(), PushSeetingActivity.class);
+					intent.setClass(getActivity(),SettingActivity.class);
 					startActivity(intent);
 					break;
 				case 4:
