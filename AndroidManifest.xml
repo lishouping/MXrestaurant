@@ -120,6 +120,10 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.mx.sy.push.SettingActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.mx.sy.activity.SalesStatisticsActivity"
             android:screenOrientation="portrait" >
         </activity>
