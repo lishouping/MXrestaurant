@@ -55,4 +55,8 @@ public class ApiConfig {
 	public static String UPDATEGOODSPRICE = "/cart/updateGoodsPrice";
 	//退菜
 	public static String RETURNGOODS = "/cart/returnGoods";
+	//换桌
+	public static String CHANGETABLES = "/tableservice/changeTable";
+	//打印
+	public static String DOPRINT = "/printer/doPrinter";
 }
