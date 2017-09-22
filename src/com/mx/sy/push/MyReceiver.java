@@ -66,38 +66,45 @@ public class MyReceiver extends BroadcastReceiver {
 			Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
 			String order_id = null;
+			String tyep = "";
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+			
+			String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
+			String content = bundle.getString(JPushInterface.EXTRA_ALERT);
+			
 			try {
 				JSONObject jsonObject = new JSONObject(extras);
 				String key = jsonObject
 						.getString("androidNotification extras key");
 				JSONObject jsonObject2 = new JSONObject(key);
 				order_id = jsonObject2.getString("id");
+				tyep = jsonObject2.getString("type");
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			// 打开自定义的Activity
-			Intent i = new Intent(context, OrderDetailedActivity.class);
-			i.putExtra("detailedpage", "1");
-			i.putExtra("order_num", order_id);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			context.startActivity(i);
-
-//			// 打开自定义的Activity
-//			Intent ni = new Intent(context, ServiceDetailedActivity.class);
-//			ni.putExtra("service_id", "1");
-//			ni.putExtra("service_state", order_id);
-//			intent.putExtra("content", "餐桌:"+""+"服务");
-//			ni.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//			ni.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-//					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//			context.startActivity(ni);
-
+			
+			if (tyep.equals("1")) {//订单
+				// 打开自定义的Activity
+				Intent i = new Intent(context, OrderDetailedActivity.class);
+				i.putExtra("detailedpage", "1");
+				i.putExtra("order_num", order_id);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+						| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				context.startActivity(i);
+			}else if (tyep.equals("2")) {//服务
+				// 打开自定义的Activity
+				Intent ni = new Intent(context, ServiceDetailedActivity.class);
+				ni.putExtra("service_id", order_id);
+				ni.putExtra("service_state", order_id);
+				ni.putExtra("content", "服务需求："+content);
+				ni.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				ni.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+						| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				context.startActivity(ni);
+			}
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {
 			Log.d(TAG,

@@ -9,7 +9,10 @@
         android:id="@+id/btn_print_test"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:text="打印测试" 
+        android:background="@drawable/shape_yeallo_btnbg"
+        android:textSize="13sp"
+        android:textColor="#fff"
+		android:layout_margin="10dp"        
+        android:text="蓝牙打印测试" 
      />
-
 </LinearLayout>

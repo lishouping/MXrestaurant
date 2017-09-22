@@ -32,6 +32,7 @@ import com.mx.sy.R;
 import com.mx.sy.adapter.OrderSubmitAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
+import com.mx.sy.dialog.PrintOrderDialog;
 import com.mx.sy.dialog.SweetAlertDialog;
 import com.mx.sy.utils.CommonUtils;
 import com.tnktech.weight.TNKListView;
@@ -227,20 +228,17 @@ public class OrderDetailedActivity extends BaseActivity {
 		case R.id.btn_dayin_order:
 			new SweetAlertDialog(OrderDetailedActivity.this,
 					SweetAlertDialog.NORMAL_TYPE)
-					.setTitleText("确定要打印订单？")
+					.setTitleText("选择打印方式!")
 					// .setContentText("Won't be able to recover this file!")
-					.setCancelText("取消")
-					.setConfirmText("确定")
+					.setCancelText("网络")
+					.setConfirmText("蓝牙")
 					.showCancelButton(true)
 					.setConfirmClickListener(
 							new SweetAlertDialog.OnSweetClickListener() {
 								@Override
 								public void onClick(SweetAlertDialog sDialog) {
 									sDialog.cancel();
-									Intent intent = new Intent(
-											getApplicationContext(),
-											PrintActivity.class);
-									startActivity(intent);
+									getPrintContentByOrder(1);
 								}
 							})
 					.setCancelClickListener(
@@ -248,6 +246,7 @@ public class OrderDetailedActivity extends BaseActivity {
 								@Override
 								public void onClick(SweetAlertDialog sDialog) {
 									sDialog.cancel();
+									getPrintContentByOrder(0);
 								}
 							}).show();
 			break;
@@ -273,59 +272,83 @@ public class OrderDetailedActivity extends BaseActivity {
 		lv_order_dinner.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, final int position,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					final int position, long arg3) {
 				// TODO Auto-generated method stub
-				
-				if (detailedpage.equals("1") || detailedpage.equals("2")) {// 未处理
-				
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						OrderDetailedActivity.this);
-				builder.setIcon(R.drawable.ic_launcher);
-				builder.setTitle("选择一个操作");
-				// 指定下拉列表的显示数据
-				final String[] cities = { "划菜", "退菜" };
-				// 设置一个下拉的列表选择项
-				builder.setItems(cities,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								if (which == 0) {// 划菜
-									String cart_good_id = dateList.get(position).get("cart_good_id");
-									updateGoodsIfUp(cart_good_id);
-								} else {// 退菜
-									LayoutInflater factory = LayoutInflater.from(OrderDetailedActivity.this);   
-									 final View textEntryView = factory.inflate(R.layout.return_food_dialog, null);   
-								        final EditText text_editnumbe = (EditText) textEntryView.findViewById(R.id.text_editnumbe);   
-								        final EditText text_editprice = (EditText)textEntryView.findViewById(R.id.text_editprice);   
-								        AlertDialog.Builder ad1 = new AlertDialog.Builder(OrderDetailedActivity.this);   
-								        ad1.setTitle("退菜");   
-								        ad1.setIcon(android.R.drawable.ic_dialog_info);   
-								        ad1.setView(textEntryView);   
-								        ad1.setPositiveButton("保存", new DialogInterface.OnClickListener() {   
-								            public void onClick(DialogInterface dialog, int i) { 
-								            	String cart_goods_id = dateList.get(position).get("cart_good_id");
-								            	String number = text_editnumbe.getText().toString();
-								            	String price = text_editprice.getText().toString();
-								            	returnGoods(cart_goods_id,number,price);
-								            }   
-								        });   
-								        ad1.setNegativeButton("关闭", new DialogInterface.OnClickListener() {   
-								            public void onClick(DialogInterface dialog, int i) {   
-								     
-								            }   
-								        });   
-								        ad1.show();// 显示对话框  
-								}
-							}
-						});
-				builder.show();
 
-			}
+				if (detailedpage.equals("1") || detailedpage.equals("2")) {// 未处理
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							OrderDetailedActivity.this);
+					builder.setIcon(R.drawable.ic_launcher);
+					builder.setTitle("选择一个操作");
+					// 指定下拉列表的显示数据
+					final String[] cities = { "划菜", "退菜" };
+					// 设置一个下拉的列表选择项
+					builder.setItems(cities,
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									if (which == 0) {// 划菜
+										String cart_good_id = dateList.get(
+												position).get("cart_good_id");
+										updateGoodsIfUp(cart_good_id);
+									} else {// 退菜
+										LayoutInflater factory = LayoutInflater
+												.from(OrderDetailedActivity.this);
+										final View textEntryView = factory
+												.inflate(
+														R.layout.return_food_dialog,
+														null);
+										final EditText text_editnumbe = (EditText) textEntryView
+												.findViewById(R.id.text_editnumbe);
+										final EditText text_editprice = (EditText) textEntryView
+												.findViewById(R.id.text_editprice);
+										AlertDialog.Builder ad1 = new AlertDialog.Builder(
+												OrderDetailedActivity.this);
+										ad1.setTitle("退菜");
+										ad1.setIcon(android.R.drawable.ic_dialog_info);
+										ad1.setView(textEntryView);
+										ad1.setPositiveButton(
+												"保存",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int i) {
+														String cart_goods_id = dateList
+																.get(position)
+																.get("cart_good_id");
+														String number = text_editnumbe
+																.getText()
+																.toString();
+														String price = text_editprice
+																.getText()
+																.toString();
+														returnGoods(
+																cart_goods_id,
+																number, price);
+													}
+												});
+										ad1.setNegativeButton(
+												"关闭",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int i) {
+
+													}
+												});
+										ad1.show();// 显示对话框
+									}
+								}
+							});
+					builder.show();
+
+				}
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -352,7 +375,7 @@ public class OrderDetailedActivity extends BaseActivity {
 	}
 
 	public void getOrderDeatiledByOrderNum() {
-		if (dateList.size()>0) {
+		if (dateList.size() > 0) {
 			dateList.clear();
 			orderSubmitAdapter.notifyDataSetChanged();
 		}
@@ -401,8 +424,7 @@ public class OrderDetailedActivity extends BaseActivity {
 
 							String total_price = cartobj
 									.getString("total_price");
-							tv_ordertotal_price.setText(total_price
-									+ "元");
+							tv_ordertotal_price.setText(total_price + "元");
 
 							JSONArray jsonArray = cartobj
 									.getJSONArray("goods_set");
@@ -524,6 +546,9 @@ public class OrderDetailedActivity extends BaseActivity {
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
 							finish();
+							Intent intent = new Intent(getApplicationContext(),
+									PayImagesActivity.class);
+							startActivity(intent);
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
@@ -645,7 +670,7 @@ public class OrderDetailedActivity extends BaseActivity {
 	}
 
 	// 退菜
-	public void returnGoods(String cart_goods_id,String num,String price) {
+	public void returnGoods(String cart_goods_id, String num, String price) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("key", preferences.getString("loginkey", ""));
 		client.addHeader("id", preferences.getString("userid", ""));
@@ -693,4 +718,64 @@ public class OrderDetailedActivity extends BaseActivity {
 			}
 		});
 	}
+
+	// 根据订单ID查询打印内容
+	public void getPrintContentByOrder(final int select) {// select 0 网络 1蓝牙
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.addHeader("key", preferences.getString("loginkey", ""));
+		client.addHeader("id", preferences.getString("userid", ""));
+		String url = ApiConfig.API_URL + ApiConfig.PRINTBYORDER;
+		RequestParams params = new RequestParams();
+		params.put("order_id", order_id);
+		client.post(url, params, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				if (arg0 == 200) {
+					try {
+						String response = new String(arg2, "UTF-8");
+						JSONObject jsonObject = new JSONObject(response);
+
+						String CODE = jsonObject.getString("CODE");
+						if (CODE.equals("1000")) {
+							String DATA = jsonObject.getString("DATA");
+							if (select == 0) {
+								Intent intent = new Intent(
+										getApplicationContext(),
+										PrintOrderDialog.class);
+								intent.putExtra("DATA", DATA);
+								startActivity(intent);
+							} else if (select == 1) {
+								Intent intent = new Intent(
+										getApplicationContext(),
+										PrintActivity.class);
+								intent.putExtra("DATA", DATA);
+								startActivity(intent);
+							}
+
+						} else {
+							Toast.makeText(getApplicationContext(),
+									jsonObject.getString("MESSAGE"),
+									Toast.LENGTH_SHORT).show();
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						Toast.makeText(getApplicationContext(), "服务器异常",
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "服务器异常",
+						Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+
 }

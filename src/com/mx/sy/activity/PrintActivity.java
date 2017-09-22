@@ -43,7 +43,7 @@ public class PrintActivity extends Activity{
 	private static final int REQUEST_CONNECT_DEVICE = 1;  //获取设备消息
 	private LinearLayout ll_back;
 	private TextView tv_title;
-	
+	String DATA;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -69,6 +69,9 @@ public class PrintActivity extends Activity{
 		});
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		tv_title.setText("打印小票");
+		
+		Intent intent = getIntent();
+	    DATA = intent.getStringExtra("DATA");
 	}
 
     @Override
@@ -115,7 +118,9 @@ public class PrintActivity extends Activity{
                 String msg = edtContext.getText().toString();
                 if( msg.length() > 0 ){
                     mService.sendMessage(msg+"\n", "GBK");
-                }
+                }else {
+                	mService.sendMessage(DATA+"\n", "GBK");
+				}
 			} else if (v == btnClose) {
 				mService.stop();
 			} else if (v == btnSendDraw) {

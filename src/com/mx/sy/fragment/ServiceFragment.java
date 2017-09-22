@@ -90,7 +90,7 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 				// TODO Auto-generated method stub
-				if (selectBtnFlag==1) {
+				if (selectBtnFlag==0) {
 					Intent intent = new Intent(getActivity(),ServiceDetailedActivity.class);
 					intent.putExtra("service_id", dateList.get(position).get("service_id"));
 					intent.putExtra("service_state", dateList.get(position).get("status"));

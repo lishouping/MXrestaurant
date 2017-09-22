@@ -1,44 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="match_parent">
-   <include layout="@layout/common_title" />
-    
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
     <Button
         android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnSearch" >
-</Button>
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_yeallo_btnbg"
+        android:text="@string/btnSearch"
+        android:textColor="#fff"
+        android:textSize="13sp" >
+    </Button>
 
     <EditText
         android:id="@+id/txt_content"
         android:layout_width="match_parent"
         android:layout_height="135dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical|top"
         android:text="@string/txt_content"
-        android:textSize="16sp" >
-
+        android:textSize="16sp"
+        android:visibility="gone" >
     </EditText>
 
     <Button
         android:id="@+id/btnSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnSend" >
-
-</Button>
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_blule_btnbg"
+        android:text="@string/btnSend"
+        android:textColor="#fff"
+        android:textSize="13sp" >
+    </Button>
 
     <Button
         android:id="@+id/btn_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_test" >
-</Button>
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_yeallo_btnbg"
+        android:text="@string/btn_test"
+        android:textColor="#fff"
+        android:visibility="gone"
+        android:textSize="13sp" >
+    </Button>
 
     <Button
         android:id="@+id/btnClose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnClose" >
-</Button>
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_red_btnbg"
+        android:text="@string/btnClose"
+        android:textColor="#fff"
+        android:textSize="13sp" >
+    </Button>
+
 </LinearLayout>

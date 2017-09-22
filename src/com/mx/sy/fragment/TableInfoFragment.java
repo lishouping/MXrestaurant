@@ -14,8 +14,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ import com.mx.sy.common.PullToRefreshView.OnFooterRefreshListener;
 import com.mx.sy.common.PullToRefreshView.OnHeaderRefreshListener;
 import com.mx.sy.dialog.ClassSelectDialog;
 import com.mx.sy.dialog.SweetAlertDialog;
+import com.mx.sy.dialog.TableChangeDialog;
 import com.tnktech.weight.TNKGridView;
 
 /**
@@ -44,6 +47,7 @@ public class TableInfoFragment extends BaseFragment implements
 	public static int isrefresh = 0;
 	public static int TABLE_STATE = 100;
 	public static int TABLE_CLASS = 101;
+	public static int TABLE_CHANGE = 102;
 
 	private TNKGridView gri_tables;
 	private List<HashMap<String, String>> dateList;
@@ -123,6 +127,8 @@ public class TableInfoFragment extends BaseFragment implements
 		dateList = new ArrayList<HashMap<String, String>>();
 		tablesAdapter = new TablesAdapter(getActivity(), dateList,
 				R.layout.item_tables);
+		
+		
 		gri_tables.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -174,6 +180,20 @@ public class TableInfoFragment extends BaseFragment implements
 				}
 			}
 		});
+
+		gri_tables.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getActivity(),TableChangeDialog.class);
+				intent.putExtra("curr_table_id", dateList.get(position).get("table_id"));
+				startActivityForResult(intent, TABLE_CHANGE);
+				return true;
+			}
+		});
+		
 		if (dateList.size() == 0) {
 		} else {
 			dateList.clear();
@@ -260,6 +280,14 @@ public class TableInfoFragment extends BaseFragment implements
 		} else if (resultCode == TABLE_CLASS) {
 			btn_table_class.setText(data.getStringExtra("className"));
 			setTableAirInfo(data.getStringExtra("className"));
+		}else if (resultCode== TABLE_CHANGE) {
+			if (dateList.size() == 0) {
+			} else {
+				dateList.clear();
+				tablesAdapter.notifyDataSetChanged();
+			}
+			showDilog("加载中");
+			getTableInfo();
 		}
 	}
 

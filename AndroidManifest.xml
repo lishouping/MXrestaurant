@@ -82,6 +82,10 @@
             android:screenOrientation="portrait" >
         </activity>
          <activity
+            android:name="com.mx.sy.activity.PayImagesActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
             android:name="com.mx.sy.activity.PrintActivity"
             android:screenOrientation="portrait" >
         </activity>
@@ -93,9 +97,17 @@
               android:label="@string/select_device" 
               android:theme="@android:style/Theme.Dialog">
          </activity>
+         
+         <activity android:name="com.mx.sy.dialog.TableChangeDialog"
+              android:theme="@style/transcutestyle" >
+         </activity>
    
         <activity
             android:name="com.mx.sy.dialog.ClassSelectDialog"
+            android:theme="@style/transcutestyle" >
+        </activity>
+         <activity
+            android:name="com.mx.sy.dialog.PrintOrderDialog"
             android:theme="@style/transcutestyle" >
         </activity>
         <activity

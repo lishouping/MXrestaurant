@@ -364,6 +364,8 @@ public class OrderConductActivity extends BaseActivity {
 									Toast.LENGTH_SHORT).show();
 							finish();
 							TableInfoFragment.isrefresh = 1;
+							Intent intent = new Intent(getApplicationContext(),PayImagesActivity.class);
+							startActivity(intent);
 						} else {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),

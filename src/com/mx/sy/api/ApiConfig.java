@@ -6,6 +6,8 @@ public class ApiConfig {
 	
 	public static String API_URL = "http://47.92.66.33:8080/heygay";
 	
+	public static String RESOURCE_URL = "http://47.92.66.33:8080";
+	
 	public static String getAbsoluteApiUrl(String partUrl) {
 		String url = partUrl;
 		if (!partUrl.startsWith("http:") && !partUrl.startsWith("https:")) {
@@ -59,4 +61,11 @@ public class ApiConfig {
 	public static String CHANGETABLES = "/tableservice/changeTable";
 	//打印
 	public static String DOPRINT = "/printer/doPrinter";
+	//查询店铺信息
+	public static String GETSHOPINFO = "/shop/getShopInfo/";
+	//查询打印机列表
+	public static String PRINTLIST = "/printer/printerlist";
+	//根据订单ID查询打印内容
+	public static String PRINTBYORDER = "/order/getPrintContentByOrder";
+	
 }

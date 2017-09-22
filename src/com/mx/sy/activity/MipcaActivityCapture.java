@@ -102,7 +102,7 @@ public class MipcaActivityCapture extends Activity implements Callback {
 		}
 		initBeepSound();
 		vibrate = true;
-
+		
 	}
 
 	@Override
@@ -124,24 +124,24 @@ public class MipcaActivityCapture extends Activity implements Callback {
 	public void handleDecode(Result result, Bitmap barcode) {
 		inactivityTimer.onActivity();
 		playBeepSoundAndVibrate();
-		String resultString = result.getText();
+		String resultString = result.getText()+"";
 		// 取到结果处理
-
 		String[] args = resultString.split("&");
 
 		String table_id = args[1];
 		String[] taidargs = table_id.split("=");
 		String tableid = taidargs[1];
 
-		String table_name = args[2].substring(0, args[2].lastIndexOf("#"));
+		String table_name = args[2];
 		String[] tabnam = table_name.split("=");
 		String tablename = tabnam[1];
 
 		Intent intent = new Intent();
-		intent.setClass(getApplicationContext(), FoodCustomActivity.class);
+		intent.setClass(MipcaActivityCapture.this, FoodCustomActivity.class);
 		intent.putExtra("table_id", tableid);
 		intent.putExtra("table_name", tablename);
 		startActivity(intent);
+		finish();
 
 	}
 	private void initCamera(SurfaceHolder surfaceHolder) {
