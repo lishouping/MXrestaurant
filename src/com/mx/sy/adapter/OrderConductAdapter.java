@@ -34,7 +34,11 @@ public class OrderConductAdapter extends CommonBaseAdapter<HashMap<String, Strin
 	@Override
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
-		holder.setText(R.id.tv_orderfoodname, bean.get("good_name"));
+		if (bean.get("if_up").equals("1")) {
+			holder.setText(R.id.tv_orderfoodname, bean.get("good_name")+"(已上菜)");
+		}else {
+			holder.setText(R.id.tv_orderfoodname, bean.get("good_name"));
+		}
 		//holder.setText(R.id.tv_orderfoodname, bean.get("good_name"));
 		holder.setText(R.id.tv_pricenum, bean.get("good_price"));
 		holder.setText(R.id.number,"X"+bean.get("good_num"));

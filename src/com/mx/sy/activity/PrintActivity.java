@@ -358,7 +358,7 @@ public class PrintActivity extends Activity {
 									.getJSONArray("goods_set");
 							for (int i = 0; i < jsonArray.length(); i++) {
 								JSONObject object2 = jsonArray.getJSONObject(i);
-								String newobj = object2.getString("good_name")+"$"+object2.getString("good_num")+"$"+object2.getString("good_price");
+								String newobj = object2.getString("good_name")+"$"+object2.getString("good_num")+"*"+object2.getString("good_price")+"$"+object2.getString("good_total_price");
 								list.add(newobj);
 							}
 							

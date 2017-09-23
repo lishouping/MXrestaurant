@@ -50,6 +50,8 @@ public class OrderSubmitActivity extends BaseActivity {
 	private String table_name;
 
 	private TextView tv_table_num, tv_subtotalprice;
+	
+	private EditText edit_bzi;
 
 	private SharedPreferences preferences;
 
@@ -102,6 +104,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		tv_table_num = $(R.id.tv_table_num);
 		tv_subtotalprice = $(R.id.tv_subtotalprice);
 		btn_add_food = $(R.id.btn_add_food);
+		edit_bzi = $(R.id.edit_bzi);
 	}
 
 	@Override
@@ -179,6 +182,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		RequestParams params = new RequestParams();
 		params.put("cart_id", cart_id);
 		params.put("waiter_id", preferences.getString("business_id", ""));
+		params.put("comments", edit_bzi.getText().toString());
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -278,6 +282,7 @@ public class OrderSubmitActivity extends BaseActivity {
 									map.put("good_total_price",
 											object2.getString("good_total_price"));
 									map.put("cart_good_id", object2.getString("cart_good_id"));
+									map.put("if_up", object2.getString("if_up"));
 									dateList.add(map);
 								}
 								lv_order_dinner.setAdapter(orderSubmitAdapter);

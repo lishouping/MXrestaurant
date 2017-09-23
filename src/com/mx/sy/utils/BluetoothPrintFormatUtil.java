@@ -139,7 +139,7 @@ public class BluetoothPrintFormatUtil {
 
 		String menuNameTxt = "菜名";
 		String numTxt = "数量";
-		String priceTxt = "单价\n";
+		String priceTxt = "总价\n";
 
 		int leftPrefixLength = getMaxLength(menuNames.toArray());
 		int rightPrefixLength = getMaxLength(menuPrices.toArray());

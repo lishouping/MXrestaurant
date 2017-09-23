@@ -1,9 +1,16 @@
 package com.mx.sy.activity;
 
+import java.util.HashMap;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
+import com.mx.sy.api.ApiConfig;
 import com.mx.sy.common.PullToRefreshView;
 import com.mx.sy.fragment.MineFragment;
 import com.mx.sy.fragment.OrderFragment;
@@ -43,12 +54,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private ServiceFragment serviceFragment;
 	private OrderFragment orderFragment;
 	private MineFragment mineFragment;
+	
+	private SharedPreferences preferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		preferences = getSharedPreferences("userinfo",
+				getApplicationContext().MODE_PRIVATE);
+		registerMessageReceiver();
+		
 		initView();
 	}
 
@@ -78,6 +95,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		}
 	}
+	
 
 	public void initView() {
 		// TODO Auto-generated method stub
@@ -163,7 +181,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		}
 		ft.commit();
-
+		Toast.makeText(getApplicationContext(), "asdf", Toast.LENGTH_SHORT).show();
 	}
 
 	// 重置所有fragment
@@ -181,7 +199,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	//接受广播刷新页面
 		// for receive customer msg from jpush server
 		private MessageReceiver mMessageReceiver;
-		public static final String MESSAGE_RECEIVED_ACTION = "com.cpjw.bj.MESSAGE_RECEIVED_ACTION";
+		public static final String MESSAGE_RECEIVED_ACTION = "com.mx.sy.MESSAGE_RECEIVED_ACTION";
 		public static final String KEY_TITLE = "title";
 		public static final String KEY_MESSAGE = "message";
 		public static final String KEY_EXTRAS = "extras";
@@ -202,7 +220,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
 					//刷新通知列表
 					//				setChioceItem(1);
-					onResume();
+					Toast.makeText(getApplicationContext(), "------", Toast.LENGTH_SHORT).show();
 					// 返回的时候需要刷新列表数据
 					/*
 					String messge = intent.getStringExtra(KEY_MESSAGE);
@@ -217,6 +235,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				}
 			}
 		}
+		@Override
+		protected void onResume() {
+			// TODO Auto-generated method stub
+			
+			Toast.makeText(getApplicationContext(), "asdf", Toast.LENGTH_SHORT).show();
+			super.onResume();
+		}
 		private long exitTime = 0;
 		// 返回键按下时会被调用  
 		public boolean onKeyDown(int keyCode, KeyEvent event) {  
@@ -227,11 +252,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
 					exitTime = System.currentTimeMillis();
 				} else {
-					
+					finish();
 				}
 				return true;
 			}
 			return false;
 		}
-
 }

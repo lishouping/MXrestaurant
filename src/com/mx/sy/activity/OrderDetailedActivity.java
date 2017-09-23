@@ -72,7 +72,8 @@ public class OrderDetailedActivity extends BaseActivity {
 	private String table_id;
 	private String table_name;
 	private String order_num;
-
+	
+	private TextView tv_beizhu;
 	@Override
 	public void initParms(Bundle parms) {
 		// TODO Auto-generated method stub
@@ -114,6 +115,7 @@ public class OrderDetailedActivity extends BaseActivity {
 		tv_person_no = $(R.id.tv_person_no);
 		tv_service_time = $(R.id.tv_service_time);
 		tv_ordertotal_price = $(R.id.tv_ordertotal_price);
+		tv_beizhu = $(R.id.tv_beizhu);
 
 		if (detailedpage.equals("1")) {// 未处理
 			btn_add_food = $(R.id.btn_add_food);
@@ -403,6 +405,13 @@ public class OrderDetailedActivity extends BaseActivity {
 									.getString("DATA"));
 							order_id = object.getString("order_id");
 							table_id = object.getString("table_id");
+							String comments = object.getString("comments");
+							if (comments.equals("null")) {
+								tv_beizhu.setText("备注:无");
+							}else {
+								tv_beizhu.setText("备注:"+comments);
+							}
+							
 							String order_num = object.getString("order_num");
 							String order_time = null;
 							JSONObject tabobj = new JSONObject(object
