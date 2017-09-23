@@ -247,13 +247,13 @@ public class TableInfoFragment extends BaseFragment implements
 			btn_table_state.setText(data.getStringExtra("className"));
 
 			String className = data.getStringExtra("className");
-			if (className.equals("未使用")) {
+			if (className.equals("空闲")) {
 				setTableStatesInfo("0");
-			} else if (className.equals("使用中")) {
+			} else if (className.equals("正在用餐")) {
 				setTableStatesInfo("1");
-			} else if (className.equals("预定中")) {
+			} else if (className.equals("预定")) {
 				setTableStatesInfo("2");
-			} else if (className.equals("占用中")) {
+			} else if (className.equals("占用")) {
 				setTableStatesInfo("3");
 			} else if (className.equals("其他")) {
 				setTableStatesInfo("4");

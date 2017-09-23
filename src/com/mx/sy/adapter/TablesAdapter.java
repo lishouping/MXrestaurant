@@ -28,18 +28,18 @@ public class TablesAdapter extends CommonBaseAdapter<HashMap<String, String>>{
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
 		if (bean.get("table_status").equals("0")) {
-			holder.setText(R.id.tv_tablestate, "未使用");
+			holder.setText(R.id.tv_tablestate, "空闲");
 			holder.getView(R.id.lin_table_bg).setBackgroundResource(R.drawable.shape_tablesitem_bg);
 			holder.setTextColor(R.id.tv_tablestate, Color.rgb(255, 81, 93));
 			holder.setTextColor(R.id.tv_tablename, Color.rgb(255, 81, 93));
 		}else if (bean.get("table_status").equals("1")) {
-			holder.setText(R.id.tv_tablestate, "使用中");
+			holder.setText(R.id.tv_tablestate, "正在用餐");
 			holder.getView(R.id.lin_table_bg).setBackgroundResource(R.drawable.shape_tablesitem_useringbg);
 		}else if (bean.get("table_status").equals("2")) {
-			holder.setText(R.id.tv_tablestate, "预定中");
+			holder.setText(R.id.tv_tablestate, "预定");
 			holder.getView(R.id.lin_table_bg).setBackgroundResource(R.drawable.shape_tablesitem_yudingbg);
 		}else if (bean.get("table_status").equals("3")) {
-			holder.setText(R.id.tv_tablestate, "占用中");
+			holder.setText(R.id.tv_tablestate, "占用");
 			holder.getView(R.id.lin_table_bg).setBackgroundResource(R.drawable.shape_tablesitem_zhanyongbg);
 		}else if (bean.get("table_status").equals("4")) {
 			holder.setText(R.id.tv_tablestate, "其他");

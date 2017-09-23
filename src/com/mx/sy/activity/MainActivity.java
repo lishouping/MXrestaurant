@@ -181,7 +181,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		}
 		ft.commit();
-		Toast.makeText(getApplicationContext(), "asdf", Toast.LENGTH_SHORT).show();
 	}
 
 	// 重置所有fragment
@@ -238,8 +237,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		@Override
 		protected void onResume() {
 			// TODO Auto-generated method stub
-			
-			Toast.makeText(getApplicationContext(), "asdf", Toast.LENGTH_SHORT).show();
 			super.onResume();
 		}
 		private long exitTime = 0;

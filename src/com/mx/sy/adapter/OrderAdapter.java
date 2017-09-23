@@ -136,7 +136,33 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 						@Override
 						public void onClick(View arg0) {
 							// TODO Auto-generated method stub
-							check(bean.get("order_id"), holder.getPosition());
+							
+							new SweetAlertDialog(context,
+									SweetAlertDialog.NORMAL_TYPE)
+									.setTitleText("确定要结算订单吗?")
+									// .setContentText("Won't be able to recover this file!")
+									.setCancelText("取消")
+									.setConfirmText("确定")
+									.showCancelButton(true)
+									.setConfirmClickListener(
+											new SweetAlertDialog.OnSweetClickListener() {
+												@Override
+												public void onClick(
+														SweetAlertDialog sDialog) {
+													sDialog.cancel();
+													check(bean.get("order_id"), holder.getPosition());
+												}
+											})
+									.setCancelClickListener(
+											new SweetAlertDialog.OnSweetClickListener() {
+												@Override
+												public void onClick(
+														SweetAlertDialog sDialog) {
+													sDialog.cancel();
+												}
+											}).show();
+							
+							
 						}
 					});
 

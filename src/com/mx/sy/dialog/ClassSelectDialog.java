@@ -84,19 +84,19 @@ public class ClassSelectDialog extends BaseActivity {
 		if (classType.equals("100")) {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("tableuseid", "0");
-			map.put("tableusename", "未使用");
+			map.put("tableusename", "空闲");
 			dateList.add(map);
 			HashMap<String, String> map1 = new HashMap<String, String>();
 			map1.put("tableuseid", "1");
-			map1.put("tableusename", "使用中");
+			map1.put("tableusename", "正在用餐");
 			dateList.add(map1);
 			HashMap<String, String> map2 = new HashMap<String, String>();
 			map2.put("tableuseid", "2");
-			map2.put("tableusename", "预定中");
+			map2.put("tableusename", "预定");
 			dateList.add(map2);
 			HashMap<String, String> map3 = new HashMap<String, String>();
 			map3.put("tableuseid", "3");
-			map3.put("tableusename", "占用中");
+			map3.put("tableusename", "占用");
 			dateList.add(map3);
 			HashMap<String, String> map4 = new HashMap<String, String>();
 			map4.put("tableuseid", "4");

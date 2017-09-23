@@ -206,7 +206,7 @@ public class OrderDetailedActivity extends BaseActivity {
 		case R.id.btn_jiezhang_order:
 			new SweetAlertDialog(OrderDetailedActivity.this,
 					SweetAlertDialog.NORMAL_TYPE)
-					.setTitleText("确定要结算订单吗？")
+					.setTitleText("确定要结算订单吗?")
 					// .setContentText("Won't be able to recover this file!")
 					.setCancelText("取消")
 					.setConfirmText("确定")
