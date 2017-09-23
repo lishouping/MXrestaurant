@@ -167,8 +167,10 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 												public void onClick(
 														SweetAlertDialog sDialog) {
 													sDialog.cancel();
-													getPrintContentByOrder(bean
-															.get("order_id"), 1);
+													Intent intent = new Intent(context,
+															PrintActivity.class);
+													intent.putExtra("order_num", bean.get("order_num"));
+													context.startActivity(intent);
 												}
 											})
 									.setCancelClickListener(

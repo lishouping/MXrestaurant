@@ -31,6 +31,7 @@ public class PrinterSeetingActivity extends BaseActivity{
 			break;
 		case R.id.btn_print_test:
 			Intent intent = new Intent(getApplicationContext(),PrintActivity.class);
+			intent.putExtra("DATA", "100000");
 			startActivity(intent);
 			break;
 		}

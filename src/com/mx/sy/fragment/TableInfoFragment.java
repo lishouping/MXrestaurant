@@ -35,6 +35,7 @@ import com.mx.sy.common.PullToRefreshView;
 import com.mx.sy.common.PullToRefreshView.OnFooterRefreshListener;
 import com.mx.sy.common.PullToRefreshView.OnHeaderRefreshListener;
 import com.mx.sy.dialog.ClassSelectDialog;
+import com.mx.sy.dialog.ReserveDialog;
 import com.mx.sy.dialog.SweetAlertDialog;
 import com.mx.sy.dialog.TableChangeDialog;
 import com.tnktech.weight.TNKGridView;
@@ -154,29 +155,9 @@ public class TableInfoFragment extends BaseFragment implements
 					startActivity(intent);
 				} else if (dateList.get(position).get("table_status")
 						.equals("2")) {// 顾客预订
-					new SweetAlertDialog(getActivity(),
-							SweetAlertDialog.NORMAL_TYPE)
-							.setTitleText("预订信息")
-							.setContentText("")
-							.setCancelText("取消")
-							.setConfirmText("确定")
-							.showCancelButton(true)
-							.setConfirmClickListener(
-									new SweetAlertDialog.OnSweetClickListener() {
-										@Override
-										public void onClick(
-												SweetAlertDialog sweetAlertDialog) {
-											sweetAlertDialog.cancel();
-										}
-									})
-							.setCancelClickListener(
-									new SweetAlertDialog.OnSweetClickListener() {
-										@Override
-										public void onClick(
-												SweetAlertDialog sweetAlertDialog) {
-											sweetAlertDialog.cancel();
-										}
-									}).show();
+					intent.setClass(getActivity(), ReserveDialog.class);
+					intent.putExtra("book_list", dateList.get(position).get("book_list"));
+					startActivity(intent);
 				}
 			}
 		});
@@ -326,6 +307,7 @@ public class TableInfoFragment extends BaseFragment implements
 								daList.add(map);
 								for (int j = 0; j < array.length(); j++) {
 									JSONObject object2 = array.getJSONObject(j);
+									String book_list = object2.getString("book_list");
 									String table_name = object2
 											.getString("table_name");// 餐桌名
 									String table_status = object2
@@ -336,6 +318,7 @@ public class TableInfoFragment extends BaseFragment implements
 									map4.put("table_name", table_name);
 									map4.put("table_status", table_status);
 									map4.put("table_id", table_id);
+									map4.put("book_list", book_list);
 									dateList.add(map4);
 								}
 							}

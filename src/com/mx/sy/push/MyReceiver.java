@@ -24,6 +24,7 @@ import com.mx.sy.activity.LoginActivity;
 import com.mx.sy.activity.MainActivity;
 import com.mx.sy.activity.OrderDetailedActivity;
 import com.mx.sy.activity.ServiceDetailedActivity;
+import com.mx.sy.dialog.SweetAlertDialog;
 
 /**
  * 自定义接收器
@@ -35,7 +36,7 @@ public class MyReceiver extends BroadcastReceiver {
 	public static int isbackresu = 0;
 
 	@Override
-	public void onReceive(Context context, Intent intent) {
+	public void onReceive(final Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
 		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction()
 				+ ", extras: " + printBundle(bundle));

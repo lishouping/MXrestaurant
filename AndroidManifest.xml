@@ -106,6 +106,10 @@
             android:name="com.mx.sy.dialog.ClassSelectDialog"
             android:theme="@style/transcutestyle" >
         </activity>
+        <activity
+            android:name="com.mx.sy.dialog.ReserveDialog"
+            android:theme="@style/transcutestyle" >
+        </activity>
          <activity
             android:name="com.mx.sy.dialog.PrintOrderDialog"
             android:theme="@style/transcutestyle" >

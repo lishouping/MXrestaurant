@@ -238,7 +238,10 @@ public class OrderDetailedActivity extends BaseActivity {
 								@Override
 								public void onClick(SweetAlertDialog sDialog) {
 									sDialog.cancel();
-									getPrintContentByOrder(1);
+									Intent intent = new Intent(getApplicationContext(),
+											PrintActivity.class);
+									intent.putExtra("order_num", order_num);
+									startActivity(intent);
 								}
 							})
 					.setCancelClickListener(

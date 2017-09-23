@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mx.sy.R;
 import com.mx.sy.common.PullToRefreshView;
@@ -214,6 +216,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					 */
 				}
 			}
+		}
+		private long exitTime = 0;
+		// 返回键按下时会被调用  
+		public boolean onKeyDown(int keyCode, KeyEvent event) {  
+			if (keyCode == KeyEvent.KEYCODE_BACK
+					&& event.getAction() == KeyEvent.ACTION_DOWN) {
+				// ToDo
+				if ((System.currentTimeMillis() - exitTime) > 2000) {
+					Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+					exitTime = System.currentTimeMillis();
+				} else {
+					
+				}
+				return true;
+			}
+			return false;
 		}
 
 }
