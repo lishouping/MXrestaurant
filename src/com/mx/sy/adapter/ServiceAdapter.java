@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +19,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
 import com.mx.sy.activity.LoginActivity;
+import com.mx.sy.activity.MainActivity;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.CommonBaseAdapter;
 import com.mx.sy.base.CommonViewHolder;
@@ -141,7 +143,8 @@ public class ServiceAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 									Toast.LENGTH_SHORT).show();
 							dateList.remove(holder.getPosition());
 							notifyDataSetChanged();
-							
+							Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
+							context.sendBroadcast(msgIntent);
 						} else {
 							Toast.makeText(context,
 									jsonObject.getString("MESSAGE"),

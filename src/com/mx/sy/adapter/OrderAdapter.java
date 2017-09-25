@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -19,6 +20,7 @@ import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
 import com.mx.sy.activity.FoodCustomActivity;
 import com.mx.sy.activity.LoginActivity;
+import com.mx.sy.activity.MainActivity;
 import com.mx.sy.activity.OrderConductActivity;
 import com.mx.sy.activity.PayImagesActivity;
 import com.mx.sy.activity.PrintActivity;
@@ -27,6 +29,7 @@ import com.mx.sy.base.CommonBaseAdapter;
 import com.mx.sy.base.CommonViewHolder;
 import com.mx.sy.dialog.PrintOrderDialog;
 import com.mx.sy.dialog.SweetAlertDialog;
+import com.mx.sy.push.ExampleUtil;
 import com.mx.sy.utils.CommonUtils;
 import com.mx.sy.utils.SendMessage;
 
@@ -240,6 +243,8 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 									Toast.LENGTH_SHORT).show();
 							dateList.remove(pos);
 							notifyDataSetChanged();
+							Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
+							context.sendBroadcast(msgIntent);
 						} else {
 							Toast.makeText(context,
 									jsonObject.getString("MESSAGE"),

@@ -231,6 +231,8 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 		RequestParams params = new RequestParams();
 		params.put("waiter_id", preferences.getString("business_id", ""));
 		params.put("page_no", page);
+		params.put("shop_id", preferences.getString("shop_id", ""));
+		params.put("status", servicestate);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override

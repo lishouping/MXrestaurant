@@ -280,8 +280,50 @@ public class OrderDetailedActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					final int position, long arg3) {
 				// TODO Auto-generated method stub
+				if (detailedpage.equals("1")) {//减菜
+					LayoutInflater factory = LayoutInflater
+							.from(OrderDetailedActivity.this);
+					final View textEntryView = factory
+							.inflate(
+									R.layout.jian_food_dialog,
+									null);
+					final EditText textjianshao = (EditText) textEntryView
+							.findViewById(R.id.text_editjiannumbe);
+					AlertDialog.Builder ad1 = new AlertDialog.Builder(
+							OrderDetailedActivity.this);
+					ad1.setTitle("减菜");
+					ad1.setIcon(android.R.drawable.ic_dialog_info);
+					ad1.setView(textEntryView);
+					ad1.setPositiveButton(
+							"保存",
+							new DialogInterface.OnClickListener() {
+								public void onClick(
+										DialogInterface dialog,
+										int i) {
+									String good_id = dateList
+											.get(position)
+											.get("good_id");
+									String number = textjianshao
+											.getText()
+											.toString();
+									removeGoods(
+											order_num,
+											good_id, number);
+								}
+							});
+					ad1.setNegativeButton(
+							"关闭",
+							new DialogInterface.OnClickListener() {
+								public void onClick(
+										DialogInterface dialog,
+										int i) {
 
-				if (detailedpage.equals("1") || detailedpage.equals("2")) {// 未处理
+								}
+							});
+					ad1.show();// 显示对话框
+				
+				}
+			    else if (detailedpage.equals("2")) {// 未处理
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							OrderDetailedActivity.this);
@@ -691,6 +733,56 @@ public class OrderDetailedActivity extends BaseActivity {
 		params.put("cart_goods_id", cart_goods_id);
 		params.put("num", num);
 		params.put("price", price);
+		client.post(url, params, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				if (arg0 == 200) {
+					try {
+						String response = new String(arg2, "UTF-8");
+						JSONObject jsonObject = new JSONObject(response);
+
+						String CODE = jsonObject.getString("CODE");
+						if (CODE.equals("1000")) {
+							getOrderDeatiledByOrderNum();
+							Toast.makeText(getApplicationContext(),
+									jsonObject.getString("MESSAGE"),
+									Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(getApplicationContext(),
+									jsonObject.getString("MESSAGE"),
+									Toast.LENGTH_SHORT).show();
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						Toast.makeText(getApplicationContext(), "服务器异常",
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "服务器异常",
+						Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+	
+	// 减菜
+	public void removeGoods(String order_num, String goods_id, String num) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.addHeader("key", preferences.getString("loginkey", ""));
+		client.addHeader("id", preferences.getString("userid", ""));
+		String url = ApiConfig.API_URL + ApiConfig.REMGOODS;
+		RequestParams params = new RequestParams();
+		params.put("order_num", order_num);
+		params.put("goods_id", goods_id);
+		params.put("num", num);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override

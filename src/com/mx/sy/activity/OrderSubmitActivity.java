@@ -37,7 +37,7 @@ import com.tnktech.weight.TNKListView;
  * @author lishouping 订单确认页面 可以进行删除菜品的操作
  */
 public class OrderSubmitActivity extends BaseActivity {
-	private LinearLayout ll_back;
+	private LinearLayout ll_back, lin_jiucantype, lin_shangcaitype;
 	private TextView tv_title;
 	private TNKListView lv_order_dinner;
 	private List<HashMap<String, String>> dateList;
@@ -49,13 +49,17 @@ public class OrderSubmitActivity extends BaseActivity {
 	private String table_id;
 	private String table_name;
 
-	private TextView tv_table_num, tv_subtotalprice;
-	
-	private EditText edit_bzi;
+	private TextView tv_table_num, tv_subtotalprice, tv_jiucantype,
+			tv_shangcaitype;
+
+	private EditText edit_bzi, edit_peoplenum;
 
 	private SharedPreferences preferences;
 
 	private Button btn_sub_order;
+	
+	private String way = "1";
+	private String go_goods_way = "1";
 
 	@Override
 	public void widgetClick(View v) {
@@ -71,6 +75,54 @@ public class OrderSubmitActivity extends BaseActivity {
 		case R.id.btn_add_food:
 			finish();
 			break;
+		case R.id.lin_jiucantype:
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+				OrderSubmitActivity.this);
+		builder.setIcon(R.drawable.ic_launcher);
+		builder.setTitle("请选择");
+		// 指定下拉列表的显示数据
+		final String[] cities = { "堂食", "打包" };
+		// 设置一个下拉的列表选择项
+		builder.setItems(cities,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog,
+							int which) {
+						if (which == 0) {
+							tv_jiucantype.setText("堂食");
+							way = "1";
+						} else {
+							tv_jiucantype.setText("打包");
+							way = "2";
+						}
+					}
+				});
+		builder.show();
+			break;
+		case R.id.lin_shangcaitype:
+			AlertDialog.Builder builder1 = new AlertDialog.Builder(
+					OrderSubmitActivity.this);
+			builder1.setIcon(R.drawable.ic_launcher);
+			builder1.setTitle("请选择");
+			// 指定下拉列表的显示数据
+			final String[] cities1 = { "做好即上", "等待叫起" };
+			// 设置一个下拉的列表选择项
+			builder1.setItems(cities1,
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int which) {
+							if (which == 0) {
+								tv_shangcaitype.setText("做好即上");
+								go_goods_way = "1";
+							} else {
+								tv_shangcaitype.setText("等待叫起");
+								go_goods_way = "2";
+							}
+						}
+					});
+			builder1.show();
+				break;
 		default:
 			break;
 		}
@@ -105,6 +157,11 @@ public class OrderSubmitActivity extends BaseActivity {
 		tv_subtotalprice = $(R.id.tv_subtotalprice);
 		btn_add_food = $(R.id.btn_add_food);
 		edit_bzi = $(R.id.edit_bzi);
+		edit_peoplenum = $(R.id.edit_peoplenum);
+		lin_jiucantype = $(R.id.lin_jiucantype);
+		lin_shangcaitype = $(R.id.lin_shangcaitype);
+		tv_jiucantype = $(R.id.tv_jiucantype);
+		tv_shangcaitype = $(R.id.tv_shangcaitype);
 	}
 
 	@Override
@@ -120,38 +177,44 @@ public class OrderSubmitActivity extends BaseActivity {
 		lv_order_dinner.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					final int arg2, long arg3) {
 				// TODO Auto-generated method stub
-				 LayoutInflater factory = LayoutInflater.from(OrderSubmitActivity.this);   
-			        final View textEntryView = factory.inflate(R.layout.create_user_dialog, null);   
-			        final EditText editTextName = (EditText) textEntryView.findViewById(R.id.text_editprice);   
-			        //final EditText editTextNumEditText = (EditText)textEntryView.findViewById(R.id.editTextNum);   
-			        AlertDialog.Builder ad1 = new AlertDialog.Builder(OrderSubmitActivity.this);   
-			        ad1.setTitle("时价菜品");   
-			        ad1.setIcon(android.R.drawable.ic_dialog_info);   
-			        ad1.setView(textEntryView);   
-			        ad1.setPositiveButton("保存", new DialogInterface.OnClickListener() {   
-			            public void onClick(DialogInterface dialog, int i) { 
-			            	String cart_goods_id = dateList.get(arg2).get("cart_good_id");
-			            	String price = editTextName.getText().toString();
-			            	updateGoodsPrice(cart_goods_id,price);
-			            }   
-			        });   
-			        ad1.setNegativeButton("关闭", new DialogInterface.OnClickListener() {   
-			            public void onClick(DialogInterface dialog, int i) {   
-			     
-			            }   
-			        });   
-			        ad1.show();// 显示对话框   
-				
-				
+				LayoutInflater factory = LayoutInflater
+						.from(OrderSubmitActivity.this);
+				final View textEntryView = factory.inflate(
+						R.layout.create_user_dialog, null);
+				final EditText editTextName = (EditText) textEntryView
+						.findViewById(R.id.text_editprice);
+				// final EditText editTextNumEditText =
+				// (EditText)textEntryView.findViewById(R.id.editTextNum);
+				AlertDialog.Builder ad1 = new AlertDialog.Builder(
+						OrderSubmitActivity.this);
+				ad1.setTitle("时价菜品");
+				ad1.setIcon(android.R.drawable.ic_dialog_info);
+				ad1.setView(textEntryView);
+				ad1.setPositiveButton("保存",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int i) {
+								String cart_goods_id = dateList.get(arg2).get(
+										"cart_good_id");
+								String price = editTextName.getText()
+										.toString();
+								updateGoodsPrice(cart_goods_id, price);
+							}
+						});
+				ad1.setNegativeButton("关闭",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int i) {
+
+							}
+						});
+				ad1.show();// 显示对话框
+
 			}
 		});
 
 	}
-	
-	
 
 	@Override
 	public void setListener() {
@@ -159,6 +222,8 @@ public class OrderSubmitActivity extends BaseActivity {
 		ll_back.setOnClickListener(this);
 		btn_add_food.setOnClickListener(this);
 		btn_sub_order.setOnClickListener(this);
+		lin_jiucantype.setOnClickListener(this);
+		lin_shangcaitype.setOnClickListener(this);
 	}
 
 	@Override
@@ -183,6 +248,12 @@ public class OrderSubmitActivity extends BaseActivity {
 		params.put("cart_id", cart_id);
 		params.put("waiter_id", preferences.getString("business_id", ""));
 		params.put("comments", edit_bzi.getText().toString());
+		if (edit_peoplenum.getText().equals("")) {
+		} else {
+			params.put("people_count", edit_peoplenum.getText().toString());
+		}
+		params.put("way", way);
+		params.put("go_goods_way", go_goods_way);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -199,11 +270,12 @@ public class OrderSubmitActivity extends BaseActivity {
 							Toast.makeText(getApplicationContext(),
 									jsonObject.getString("MESSAGE"),
 									Toast.LENGTH_SHORT).show();
-							if (OrderConductActivity.inActivity!=null) {
+							if (OrderConductActivity.inActivity != null) {
 								OrderConductActivity.inActivity.finish();
 							}
-							if (OrderDetailedActivity.initactivitActivity!=null) {
-								OrderDetailedActivity.initactivitActivity.finish();
+							if (OrderDetailedActivity.initactivitActivity != null) {
+								OrderDetailedActivity.initactivitActivity
+										.finish();
 							}
 							Intent intent = new Intent();
 							intent.setClass(getApplicationContext(),
@@ -238,79 +310,85 @@ public class OrderSubmitActivity extends BaseActivity {
 		});
 	}
 
-	
 	// 查询购物车/cart/getCart
-		public void getCart() {
-			if (dateList.size()>0) {
-				dateList.clear();
-				orderSubmitAdapter.notifyDataSetChanged();
-			}
-			AsyncHttpClient client = new AsyncHttpClient();
-			client.addHeader("key", preferences.getString("loginkey", ""));
-			client.addHeader("id", preferences.getString("userid", ""));
-			String url = ApiConfig.API_URL + ApiConfig.GETSHOPPINGCAR_URL;
-			RequestParams params = new RequestParams();
-			params.put("shop_id", preferences.getString("shop_id", ""));
-			params.put("table_id", table_id);
-			client.post(url, params, new AsyncHttpResponseHandler() {
+	public void getCart() {
+		if (dateList.size() > 0) {
+			dateList.clear();
+			orderSubmitAdapter.notifyDataSetChanged();
+		}
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.addHeader("key", preferences.getString("loginkey", ""));
+		client.addHeader("id", preferences.getString("userid", ""));
+		String url = ApiConfig.API_URL + ApiConfig.GETSHOPPINGCAR_URL;
+		RequestParams params = new RequestParams();
+		params.put("shop_id", preferences.getString("shop_id", ""));
+		params.put("table_id", table_id);
+		client.post(url, params, new AsyncHttpResponseHandler() {
 
-				@Override
-				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-					// TODO Auto-generated method stub
-					if (arg0 == 200) {
-						try {
-							String response = new String(arg2, "UTF-8");
-							JSONObject jsonObject = new JSONObject(response);
-							String CODE = jsonObject.getString("CODE");
-							if (CODE.equals("1000")) {
-								JSONObject object = new JSONObject(jsonObject
-										.getString("DATA"));
-								cart_id = object.getString("cart_id");
-								String total_num = object.getString("total_num");
-								String total_price = object.getString("total_price");
-								tv_subtotalprice.setText(total_price + "元");
-								JSONArray jsonArray = object.getJSONArray("goods_set");
-								for (int i = 0; i < jsonArray.length(); i++) {
-									JSONObject object2 = jsonArray.getJSONObject(i);
-									HashMap<String, String> map = new HashMap<String, String>();
-									map.put("good_id", object2.getString("good_id"));
-									map.put("pre_price", object2.getString("pre_price"));
-									map.put("good_id", object2.getString("good_id"));
-									map.put("good_name", object2.getString("good_name"));
-									map.put("good_price", object2.getString("good_price"));
-									map.put("good_num", object2.getString("good_num"));
-									map.put("good_total_price",
-											object2.getString("good_total_price"));
-									map.put("cart_good_id", object2.getString("cart_good_id"));
-									map.put("if_up", object2.getString("if_up"));
-									dateList.add(map);
-								}
-								lv_order_dinner.setAdapter(orderSubmitAdapter);
-							} else {
-								Toast.makeText(getApplicationContext(),
-										jsonObject.getString("MESSAGE"),
-										Toast.LENGTH_SHORT).show();
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				if (arg0 == 200) {
+					try {
+						String response = new String(arg2, "UTF-8");
+						JSONObject jsonObject = new JSONObject(response);
+						String CODE = jsonObject.getString("CODE");
+						if (CODE.equals("1000")) {
+							JSONObject object = new JSONObject(jsonObject
+									.getString("DATA"));
+							cart_id = object.getString("cart_id");
+							String total_num = object.getString("total_num");
+							String total_price = object
+									.getString("total_price");
+							tv_subtotalprice.setText(total_price + "元");
+							JSONArray jsonArray = object
+									.getJSONArray("goods_set");
+							for (int i = 0; i < jsonArray.length(); i++) {
+								JSONObject object2 = jsonArray.getJSONObject(i);
+								HashMap<String, String> map = new HashMap<String, String>();
+								map.put("good_id", object2.getString("good_id"));
+								map.put("pre_price",
+										object2.getString("pre_price"));
+								map.put("good_id", object2.getString("good_id"));
+								map.put("good_name",
+										object2.getString("good_name"));
+								map.put("good_price",
+										object2.getString("good_price"));
+								map.put("good_num",
+										object2.getString("good_num"));
+								map.put("good_total_price",
+										object2.getString("good_total_price"));
+								map.put("cart_good_id",
+										object2.getString("cart_good_id"));
+								map.put("if_up", object2.getString("if_up"));
+								dateList.add(map);
 							}
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							dissmissDilog();
+							lv_order_dinner.setAdapter(orderSubmitAdapter);
+						} else {
+							Toast.makeText(getApplicationContext(),
+									jsonObject.getString("MESSAGE"),
+									Toast.LENGTH_SHORT).show();
 						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						dissmissDilog();
 					}
 				}
+			}
 
-				@Override
-				public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-						Throwable arg3) {
-					// TODO Auto-generated method stub
-					Toast.makeText(getApplicationContext(), "服务器异常",
-							Toast.LENGTH_LONG).show();
-				}
-			});
-		}
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "服务器异常",
+						Toast.LENGTH_LONG).show();
+			}
+		});
+	}
 
 	// 时价菜品修改
-	public void updateGoodsPrice(String cart_goods_id,String price) {
+	public void updateGoodsPrice(String cart_goods_id, String price) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("key", preferences.getString("loginkey", ""));
 		client.addHeader("id", preferences.getString("userid", ""));

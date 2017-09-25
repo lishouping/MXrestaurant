@@ -1,9 +1,6 @@
 package com.mx.sy.activity;
 
-import java.util.HashMap;
-
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
@@ -15,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -146,6 +144,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	// 定义一个点击处理事件
 	private void setChioceItem(int index) {
+		onResume();
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		clearChioce();
@@ -217,26 +216,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-					//刷新通知列表
-					//				setChioceItem(1);
-					Toast.makeText(getApplicationContext(), "------", Toast.LENGTH_SHORT).show();
-					// 返回的时候需要刷新列表数据
-					/*
-					String messge = intent.getStringExtra(KEY_MESSAGE);
-					String extras = intent.getStringExtra(KEY_EXTRAS);
-					StringBuilder showMsg = new StringBuilder();
-					showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
-					if (!ExampleUtil.isEmpty(extras)) {
-						showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
-					}
-					setCostomMsg(showMsg.toString());
-					 */
+					onResume();
 				}
 			}
 		}
 		@Override
 		protected void onResume() {
 			// TODO Auto-generated method stub
+			getnumber();
 			super.onResume();
 		}
 		private long exitTime = 0;
@@ -254,5 +241,56 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				return true;
 			}
 			return false;
+		}
+		
+		private void getnumber() {
+			// 用户登录
+			AsyncHttpClient client = new AsyncHttpClient();
+			client.addHeader("key", preferences.getString("loginkey", ""));
+			client.addHeader("id", preferences.getString("userid", ""));
+			String url = ApiConfig.API_URL + ApiConfig.GETNOREADNUMBER;
+			RequestParams params = new RequestParams();
+			params.put("shop_id", preferences.getString("shop_id", ""));
+			client.post(url, params, new AsyncHttpResponseHandler() {
+
+				@Override
+				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+					if (arg0 == 200) {
+						try {
+							String response = new String(arg2, "UTF-8");
+							JSONObject jsonObject = new JSONObject(response);
+							String CODE = jsonObject.getString("CODE");
+							if (CODE.equals("1000")) {
+								String ORDER_COUNT = jsonObject.getString("ORDER_COUNT");
+								String SERVICE_COUNT = jsonObject.getString("SERVICE_COUNT");
+								
+								tv_order_number.setText(ORDER_COUNT);
+								tv_service_number.setText(SERVICE_COUNT);
+
+							} else {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+							}
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							Toast.makeText(getApplicationContext(), "服务器异常",
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+
+				}
+
+				@Override
+				public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+						Throwable arg3) {
+					// TODO Auto-generated method stub
+					Log.i("出错了", arg3 + "");
+					Toast.makeText(getApplicationContext(), "服务器异常",
+							Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 }

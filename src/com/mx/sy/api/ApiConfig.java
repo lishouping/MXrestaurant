@@ -57,6 +57,8 @@ public class ApiConfig {
 	public static String UPDATEGOODSPRICE = "/cart/updateGoodsPrice";
 	//退菜
 	public static String RETURNGOODS = "/cart/returnGoods";
+	//减菜
+	public static String REMGOODS = "/cart/removeGoods";
 	//换桌
 	public static String CHANGETABLES = "/tableservice/changeTable";
 	//打印
@@ -67,5 +69,13 @@ public class ApiConfig {
 	public static String PRINTLIST = "/printer/printerlist";
 	//根据订单ID查询打印内容
 	public static String PRINTBYORDER = "/order/getPrintContentByOrder";
-	
+	//修改订单信息(服务员确认订单之前)
+	public static String UPDATEORDERINFO = "/order/updateOrderInfo";
+	//服务员提交建议
+	public static String SAVESUGGEST = "/waiter/saveSuggest";
+	//服务员修改密码
+	public static String UPDATEPASSWORD = "/waiter/updatePassword";
+	//查询店铺未处理订单及服务数量 
+	public static String GETNOREADNUMBER = "/order/getCountForOrderService";
+		
 }
