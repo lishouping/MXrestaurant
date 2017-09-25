@@ -115,8 +115,8 @@
             android:layout_height="fill_parent">
         </com.tnktech.weight.TNKListView>
     </LinearLayout>
-    
-		<LinearLayout 
+    <LinearLayout 
+        android:id="@+id/lin_jiucantype"
         	android:layout_width="fill_parent"
         	android:layout_height="40dp"
         	android:orientation="horizontal"
@@ -128,17 +128,99 @@
         	    android:layout_height="wrap_content"
         	    android:layout_marginLeft="15dp"
         	    android:textSize="15sp"
-        	    android:text="备注:"/>
+        	    android:text="就餐方式:"/>
+        	
+        	<TextView 
+        	    android:id="@+id/tv_jiucantype"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_marginLeft="15dp"
+        	    android:textSize="15sp"
+        	    android:text="堂食"/>
+    	</LinearLayout>
+    	<View 
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="0.5dp"
+    	    android:background="#fff"/>
+    	<LinearLayout 
+    	    android:id="@+id/lin_shangcaitype"
+        	android:layout_width="fill_parent"
+        	android:layout_height="40dp"
+        	android:orientation="horizontal"
+        	android:gravity="center_vertical"
+        	android:background="@color/gray_btn_bg_color"
+        	>
+        	<TextView 
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_marginLeft="15dp"
+        	    android:textSize="15sp"
+        	    android:text="上菜方式:"/>
+        	
+        	<TextView 
+        	    android:id="@+id/tv_shangcaitype"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_marginLeft="15dp"
+        	    android:textSize="15sp"
+        	    android:text="做好即上"/>
+    	</LinearLayout>
+    	<View 
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="0.5dp"
+    	    android:background="#fff"/>
+    <LinearLayout 
+        	android:layout_width="fill_parent"
+        	android:layout_height="40dp"
+        	android:orientation="horizontal"
+        	android:gravity="center_vertical"
+        	android:background="@color/gray_btn_bg_color"
+        	>
+        	<TextView 
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_marginLeft="15dp"
+        	    android:textSize="15sp"
+        	    android:text="就餐人数:"/>
         	<EditText 
-        	    android:id="@+id/edit_bzi"
+        	    android:id="@+id/edit_peoplenum"
         	    android:layout_width="0dp"
         	    android:layout_weight="1"
         	    android:layout_height="wrap_content"
-        	    android:hint="可输入顾客对菜品的个性要求"
+        	    android:hint="请输入就餐人数"
         	    android:textSize="15sp"
         	    android:background="@null"
         	    android:layout_marginRight="5dp"/>
     	</LinearLayout>
+    	<View 
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="0.5dp"
+    	    android:background="#fff"/>
+
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="40dp"
+		    android:background="@color/gray_btn_bg_color"
+		    android:gravity="center_vertical"
+		    android:orientation="horizontal" >
+
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="15dp"
+		        android:text="菜品备注:"
+		        android:textSize="15sp" />
+
+		    <EditText
+		        android:id="@+id/edit_bzi"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_marginRight="5dp"
+		        android:layout_weight="1"
+		        android:background="@null"
+		        android:hint="可输入顾客对菜品的个性要求"
+		        android:textSize="15sp" />
+		</LinearLayout>
 	
     </LinearLayout>
 	</ScrollView>
