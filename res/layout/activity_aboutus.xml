@@ -24,6 +24,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="关于我们"
+	            android:textSize="15sp"
 	            android:layout_marginLeft="10dp"
 	            />
 	    </LinearLayout>
@@ -40,7 +41,8 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_margin="5dp"
-	            android:text="关于我们信息关于我们信息关于我们信息关于我们信息关于我们信息关于我们信息关于我们信息关于我们信息关于我们信息关于我们信息"/>
+	            android:textSize="13sp"
+	            android:text="“嘿！伙计”坚持用高效创造服务，让服务缔造品质。高效率、高服务、高品质，助你打造星级品牌。"/>
 	    </LinearLayout>
 	    
 	</LinearLayout>
@@ -62,6 +64,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="联系我们"
+	            android:textSize="15sp"
 	            android:layout_marginLeft="10dp"
 	            />
 	    </LinearLayout>
@@ -79,8 +82,9 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_margin="5dp"
-	            android:layout_marginLeft="10dp"
-	            android:text="400-000-0900"/>
+	            android:layout_marginLeft="20dp"
+	            android:textSize="13sp"
+	            android:text="024-31128174"/>
 	    </LinearLayout>
 	    
 	</LinearLayout>

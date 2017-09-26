@@ -4,5 +4,62 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-
+	
+	<EditText
+            android:id="@+id/edit_old_pass"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:background="@drawable/shape_login_bg"
+            android:hint="@string/update_oldpass_hint"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color"
+            android:textSize="13sp" 
+            android:password="true"
+            android:paddingLeft="5dp"
+            android:layout_marginTop="10dp"/>
+	<EditText
+            android:id="@+id/edit_new_pass"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:background="@drawable/shape_login_bg"
+            android:hint="@string/update_newpass_hint"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color"
+            android:textSize="13sp" 
+            android:paddingLeft="5dp"
+            android:password="true"
+            android:layout_marginTop="10dp"/>
+	<EditText
+            android:id="@+id/edit_subnew_pass"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:background="@drawable/shape_login_bg"
+            android:hint="@string/update_subnewpass_hint"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color"
+            android:textSize="13sp" 
+            android:paddingLeft="5dp"
+            android:password="true"
+            android:layout_marginTop="10dp"/>
+	
+	<Button
+        android:id="@+id/btn_update"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="30dip"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/shape_loginbtn_bg"
+        android:text="@string/submit"
+        android:textColor="@color/button_text_color"
+        android:textSize="15sp" />
 </LinearLayout>

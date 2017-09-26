@@ -45,12 +45,23 @@ public class MineFragment extends BaseFragment {
 	
 	private SharedPreferences preferences;
 	
+	public static int islogout = 0;
+	
 	@Override
 	protected int setLayoutResouceId() {
 		// TODO Auto-generated method stub
 		return R.layout.fragment_mine;
 	}
-
+	@Override
+	public void onResume() {
+		if (islogout==1) {
+			preferences.edit().putString("username", "").commit();
+			preferences.edit().putString("password", "").commit();
+			getActivity().finish();
+			islogout = 0;
+		}
+		super.onResume();
+	}
 	@Override
 	protected void initData(Bundle arguments) {
 		// TODO Auto-generated method stub
@@ -202,7 +213,7 @@ public class MineFragment extends BaseFragment {
 		dateList.add(userInfoMap3);
 
 		HashMap<String, Object> userInfoMap4 = new HashMap<String, Object>();
-		userInfoMap4.put("content", "个人信息");
+		userInfoMap4.put("content", "密码修改");
 		userInfoMap4.put("contentImg", R.drawable.icon_tip);
 		userInfoMap4.put("mytypeImg", R.drawable.icon_my4);
 		dateList.add(userInfoMap4);

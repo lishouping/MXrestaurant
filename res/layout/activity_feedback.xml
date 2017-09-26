@@ -12,36 +12,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-
-       <EditText
+        <EditText
             android:id="@+id/edit_feedback"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
-            android:singleLine="true"
-            android:background="@drawable/shape_login_bg"
-            android:hint="请填写意见或建议"
-            android:gravity="top"
-            android:textColor="@color/text_color"
-            android:textColorHint="@color/text_color"
-            android:textSize="16sp" 
-            android:paddingLeft="5dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"/>
-        
-        <Button
-        android:id="@+id/btn_submit_feedback"
-        android:layout_width="fill_parent"
-        android:layout_height="40dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="20dip"
-        android:background="@drawable/shape_loginbtn_bg"
-        android:text="@string/login_btn"
-        android:textColor="@color/button_text_color"
-        android:textSize="20sp" />
-    </LinearLayout>
+            android:background="@drawable/shape_login_bg"
+            android:gravity="top"
+            android:hint="请填写意见或建议"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color"
+            android:textSize="13sp" />
 
+        <Button
+            android:id="@+id/btn_submit_feedback"
+            android:layout_width="fill_parent"
+            android:layout_height="40dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/shape_loginbtn_bg"
+            android:text="提交"
+            android:textColor="@color/button_text_color"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 </LinearLayout>

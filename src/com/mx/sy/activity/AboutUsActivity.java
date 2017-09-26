@@ -34,7 +34,7 @@ public class AboutUsActivity extends BaseActivity{
 			   //把打电话的动作ACTION_CALL封装至意图对象当中 
 			   intent.setAction(Intent.ACTION_CALL); 
 			   //设置打给谁 
-			   intent.setData(Uri.parse("tel:" + "400-000-0900"));//这个tel：必须要加上，表示我要打电话。否则不会有打电话功能，由于在打电话清单文件里设置了这个“协议” 
+			   intent.setData(Uri.parse("tel:" + "024-31128174"));//这个tel：必须要加上，表示我要打电话。否则不会有打电话功能，由于在打电话清单文件里设置了这个“协议” 
 			   //把动作告诉系统,启动系统打电话功能。 
 			   startActivity(intent);
 			break;

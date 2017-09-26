@@ -19,6 +19,10 @@
     <string name="tab_saoma">扫码点餐</string>
     <string name="tab_order">订单</string>
     <string name="tab_mine">我的</string>
+    <string name="update_oldpass_hint">请输入旧密码</string>
+    <string name="update_newpass_hint">请输入新密码</string>
+    <string name="update_subnewpass_hint">确认新密码</string>
+    <string name="submit">修改</string>
     <string name="setting_su">设置成功</string>
 
     <!-- 刷新 -->
