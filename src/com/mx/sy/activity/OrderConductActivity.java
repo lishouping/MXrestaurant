@@ -48,7 +48,7 @@ public class OrderConductActivity extends BaseActivity {
 	private TextView tv_title;
 
 	private TextView tv_order_num, tv_table_num, tv_person_no, tv_service_time,
-			tv_ordertotal_price;
+			tv_ordertotal_price,tv_jiucantype,tv_shangcaitype;
 	private Button btn_jiezhang_order, btn_addfood_order;
 
 	private TNKListView lv_order_dinner;
@@ -120,7 +120,8 @@ public class OrderConductActivity extends BaseActivity {
 		btn_jiezhang_order = $(R.id.btn_jiezhang_order);
 		btn_addfood_order = $(R.id.btn_addfood_order);
 		tv_beizhu = $(R.id.tv_beizhu);
-		
+		tv_jiucantype = $(R.id.tv_jiucantype);
+		tv_shangcaitype = $(R.id.tv_shangcaitype);
 		inActivity = this;
 	}
 
@@ -277,11 +278,23 @@ public class OrderConductActivity extends BaseActivity {
 									.getString("table"));
 							String table_name = obh.getString("table_name");
 							tv_table_num.setText("桌号:" + table_name);
-							String people_count = obh.getString("people_count");
+							String people_count = object.getString("people_count");
 							tv_person_no.setText("用餐人数:" + people_count);
+							String way = object.getString("way");
+							if (way.equals("1")) {
+								tv_jiucantype.setText("就餐方式:堂食");
+							}else if (way.equals("2")) {
+								tv_jiucantype.setText("就餐方式:打包");
+							}
+							String go_goods_way = object.getString("go_goods_way");
+							if (go_goods_way.equals("1")) {
+								tv_shangcaitype.setText("上菜方式:做好即上");
+							}else if (go_goods_way.equals("2")) {
+								tv_shangcaitype.setText("上菜方式:等待叫起");
+							}
 							String create_time = CommonUtils.getStrTime(obh
 									.getString("create_time"));
-							String order_time = object.getString("order_time");
+							String order_time = object.getString("create_time");
 							tv_service_time.setText("下单时间:" +CommonUtils.getStrTime(order_time) );
 							JSONObject cartobj = new JSONObject(object
 									.getString("cart"));

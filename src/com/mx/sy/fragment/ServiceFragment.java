@@ -256,11 +256,16 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 										.getString("service_content");
 								String status = object.getString("status");
 								String create_time = object.getString("create_time");
-								String receive_time = object.getString("receive_time");
+								String receive_time="" ;
+								JSONObject waiterobj = null ;
+								String name = "";
+								if (servicestate==1) {
+									 receive_time = object.getString("receive_time");
+									 waiterobj = new JSONObject(object.getString("waiter"));
+									 name = waiterobj.getString("name");
+								}
 								JSONObject tableobj = new JSONObject(object.getString("table"));
 								String table_name = tableobj.getString("table_name");
-								JSONObject waiterobj = new JSONObject(object.getString("waiter"));
-								String name = waiterobj.getString("name");
 								HashMap<String, String> map = new HashMap<String, String>();
 								if (servicestate==Integer.parseInt(status)) {
 									map.put("service_id", service_id);
@@ -272,7 +277,6 @@ public class ServiceFragment extends BaseFragment implements OnClickListener,
 									map.put("name", name);
 									dateList.add(map);
 								}
-								
 							}
 							if (page == 1) {
 								lv_service.setAdapter(serviceAdapter);

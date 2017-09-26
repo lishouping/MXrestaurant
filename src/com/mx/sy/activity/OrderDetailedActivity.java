@@ -50,11 +50,12 @@ public class OrderDetailedActivity extends BaseActivity {
 
 	private String detailedpage;
 
-	private TextView tv_order_num, tv_table_num, tv_person_no, tv_service_time;
+	private TextView tv_order_num, tv_table_num, tv_person_no, tv_service_time,tv_jiucantype,tv_shangcaitype;
 
 	// 未处理页面
 	private Button btn_add_food;// 加菜
 	private Button btn_cancel_order;// 取消订单
+	private Button btn_update_order;
 	private Button btn_sub_order;// 确认下单
 
 	// 用餐中
@@ -72,8 +73,10 @@ public class OrderDetailedActivity extends BaseActivity {
 	private String table_id;
 	private String table_name;
 	private String order_num;
+	private JSONObject obj;
 	
 	private TextView tv_beizhu;
+	
 	@Override
 	public void initParms(Bundle parms) {
 		// TODO Auto-generated method stub
@@ -116,11 +119,14 @@ public class OrderDetailedActivity extends BaseActivity {
 		tv_service_time = $(R.id.tv_service_time);
 		tv_ordertotal_price = $(R.id.tv_ordertotal_price);
 		tv_beizhu = $(R.id.tv_beizhu);
+		tv_jiucantype = $(R.id.tv_jiucantype);
+		tv_shangcaitype = $(R.id.tv_shangcaitype);
 
 		if (detailedpage.equals("1")) {// 未处理
 			btn_add_food = $(R.id.btn_add_food);
 			btn_cancel_order = $(R.id.btn_cancel_order);
 			btn_sub_order = $(R.id.btn_sub_order);
+			btn_update_order = $(R.id.btn_update_order);
 		} else if (detailedpage.equals("2")) {// 正在用餐
 			btn_addfood_order = $(R.id.btn_addfood_order);
 			btn_jiezhang_order = $(R.id.btn_jiezhang_order);
@@ -202,6 +208,11 @@ public class OrderDetailedActivity extends BaseActivity {
 									sDialog.cancel();
 								}
 							}).show();
+			break;
+		case R.id.btn_update_order:
+			Intent intent2 = new Intent(getApplicationContext(),OrderUpdateActivity.class);
+			intent2.putExtra("obj", obj.toString());
+			startActivity(intent2);
 			break;
 		case R.id.btn_jiezhang_order:
 			new SweetAlertDialog(OrderDetailedActivity.this,
@@ -406,6 +417,7 @@ public class OrderDetailedActivity extends BaseActivity {
 			btn_add_food.setOnClickListener(this);
 			btn_sub_order.setOnClickListener(this);
 			btn_cancel_order.setOnClickListener(this);
+			btn_update_order.setOnClickListener(this);
 		} else if (detailedpage.equals("2")) {// 正在用餐
 			btn_addfood_order.setOnClickListener(this);
 			btn_jiezhang_order.setOnClickListener(this);
@@ -445,6 +457,7 @@ public class OrderDetailedActivity extends BaseActivity {
 						if (CODE.equals("1000")) {
 							JSONObject object = new JSONObject(jsonObject
 									.getString("DATA"));
+							obj = object;
 							order_id = object.getString("order_id");
 							table_id = object.getString("table_id");
 							String comments = object.getString("comments");
@@ -453,7 +466,18 @@ public class OrderDetailedActivity extends BaseActivity {
 							}else {
 								tv_beizhu.setText("备注:"+comments);
 							}
-							
+							String way = object.getString("way");
+							if (way.equals("1")) {
+								tv_jiucantype.setText("就餐方式:堂食");
+							}else if (way.equals("2")) {
+								tv_jiucantype.setText("就餐方式:打包");
+							}
+							String go_goods_way = object.getString("go_goods_way");
+							if (go_goods_way.equals("1")) {
+								tv_shangcaitype.setText("上菜方式:做好即上");
+							}else if (go_goods_way.equals("2")) {
+								tv_shangcaitype.setText("上菜方式:等待叫起");
+							}
 							String order_num = object.getString("order_num");
 							String order_time = null;
 							JSONObject tabobj = new JSONObject(object
@@ -467,7 +491,7 @@ public class OrderDetailedActivity extends BaseActivity {
 									.getString("cart"));
 
 							table_name = tabobj.getString("table_name");
-							String people_count = tabobj
+							String people_count = object
 									.getString("people_count");
 
 							tv_order_num.setText("订单编号:" + order_num);

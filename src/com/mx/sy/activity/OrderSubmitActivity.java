@@ -69,8 +69,12 @@ public class OrderSubmitActivity extends BaseActivity {
 			finish();
 			break;
 		case R.id.btn_sub_order:
-			showDilog("加载中");
-			submitOrder();
+			if (edit_peoplenum.getText().toString().equals("")) {
+				Toast.makeText(getApplicationContext(), "请输入用餐人数", Toast.LENGTH_SHORT).show();
+			}else {
+				showDilog("加载中");
+				submitOrder();
+			}
 			break;
 		case R.id.btn_add_food:
 			finish();
@@ -248,10 +252,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		params.put("cart_id", cart_id);
 		params.put("waiter_id", preferences.getString("business_id", ""));
 		params.put("comments", edit_bzi.getText().toString());
-		if (edit_peoplenum.getText().equals("")) {
-		} else {
-			params.put("people_count", edit_peoplenum.getText().toString());
-		}
+		params.put("people_count", edit_peoplenum.getText().toString());
 		params.put("way", way);
 		params.put("go_goods_way", go_goods_way);
 		client.post(url, params, new AsyncHttpResponseHandler() {

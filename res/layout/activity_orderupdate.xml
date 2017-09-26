@@ -21,99 +21,34 @@
         android:orientation="vertical"
         android:background="@color/orderde_co">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:gravity="center|left"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" >
-
-            <TextView
+     	 <TextView
                 android:id="@+id/tv_table_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="5dp"
+                 android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
                 android:text="桌号:200"
-                android:textSize="15sp" />
-
-            <!-- <TextView
-                android:id="@+id/tv_person_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text="用餐人数:10"
-                android:textSize="15sp" /> -->
-        </LinearLayout>
-        
-    </LinearLayout>
-	<LinearLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        >
-        <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:background="#fff"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1.2"
-                        android:text="菜品信息"
-                        android:textColor="@color/suborder_color"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="0.2"
-                        android:text="单价"
-                         android:gravity="center"
-                        android:textColor="@color/suborder_color"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/number"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="0.2"
-                        android:text="数量"
-                         android:gravity="center"
-                        android:textColor="@color/suborder_color"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tv_totalprice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:text="价格"
-                        android:textColor="@color/suborder_color"
-                        android:textSize="12sp" />
-                </LinearLayout>
-                
-                <View 
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/orderde_co"
-                    />
-        <com.tnktech.weight.TNKListView
-            android:id="@+id/lv_order_dinner"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-        </com.tnktech.weight.TNKListView>
+                android:textSize="12sp" />
+        <TextView
+                    android:id="@+id/tv_order_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="订单编号:MX2017u812892189"
+                    android:textSize="12sp" />
+        <TextView
+                    android:id="@+id/tv_service_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="推送时间:2017-09-09 22:00"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="12sp" />
     </LinearLayout>
     <LinearLayout 
         android:id="@+id/lin_jiucantype"
@@ -238,7 +173,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:gravity="center|right"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" 
+            android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -262,37 +198,13 @@
             android:orientation="horizontal"
             android:layout_marginBottom="5dp">
             <Button 
-                android:id="@+id/btn_add_food"
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:textColor="@color/button_text_color"
-                android:text="加菜"
-                android:layout_marginLeft="5dp"
-                android:textSize="14sp"
-                android:background="@drawable/shape_blule_btnbg"/>
-            <View 
-                android:layout_width="5dp"
-                android:layout_height="fill_parent"/>
-            <Button 
-                android:id="@+id/btn_writing_food"
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="叫起"
-                android:textSize="14sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                 android:textColor="@color/button_text_color"
-                android:background="@color/main_bg_color"
-                android:visibility="gone"/>
-            <Button 
                 android:id="@+id/btn_sub_order"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:text="确认下单"
+                android:text="修改订单"
                 android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:textSize="14sp"
                  android:textColor="@color/button_text_color"
                 android:background="@drawable/shape_yeallo_btnbg"/>

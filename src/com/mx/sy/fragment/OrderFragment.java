@@ -335,7 +335,7 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 									
 									
 									String table_name = tabobj.getString("table_name");
-									String people_count = tabobj.getString("people_count");
+									String people_count = object.getString("people_count");
 								
 									
 									HashMap<String, String> map = new HashMap<String, String>();
