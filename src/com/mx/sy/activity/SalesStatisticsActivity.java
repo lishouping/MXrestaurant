@@ -19,6 +19,7 @@ import com.mx.sy.base.BaseActivity;
 public class SalesStatisticsActivity extends BaseActivity{
 	private LinearLayout ll_back;
 	private TextView tv_title;
+	private int selectBtnFlag = 0;
 	@Override
 	public void widgetClick(View v) {
 		// TODO Auto-generated method stub
