@@ -77,5 +77,11 @@ public class ApiConfig {
 	public static String UPDATEPASSWORD = "/waiter/updatePassword";
 	//查询店铺未处理订单及服务数量 
 	public static String GETNOREADNUMBER = "/order/getCountForOrderService";
+	//菜品销量统计按照菜品 
+	public static String GOODSSTATICS = "/statics/goodsStatics";
+	//菜品销量统计按照菜品销量
+	public static String SHOPSTATIS = "/statics/shopStatics";
+	//服务数量统计
+	public static String SERVICESTSTICS = "/statics/serviceStatics";
 		
 }
