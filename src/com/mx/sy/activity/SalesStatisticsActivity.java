@@ -358,7 +358,8 @@ public class SalesStatisticsActivity extends BaseActivity{
 	                this,
 	                new DatePickerDialog.OnDateSetListener() {
 	                    public void onDateSet(DatePicker dp, int year,int month, int dayOfMonth) {
-	                    	start_time = year+"-"+month+"-"+dayOfMonth;
+	                    	int man = month+1;
+	                    	start_time = year+"-"+man+"-"+dayOfMonth;
 	                    	btn_start_time.setText(start_time);
 	                    }
 	                }, 
@@ -373,7 +374,8 @@ public class SalesStatisticsActivity extends BaseActivity{
 		                this,
 		                new DatePickerDialog.OnDateSetListener() {
 		                    public void onDateSet(DatePicker dp, int year,int month, int dayOfMonth) {
-		                    	end_time = year+"-"+month+"-"+dayOfMonth;
+		                    	int man = month+1;
+		                    	end_time = year+"-"+man+"-"+dayOfMonth;
 		                    	btn_end_time.setText(end_time);
 		                    }
 		                }, 
