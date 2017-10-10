@@ -266,6 +266,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 								
 								tv_order_number.setText(ORDER_COUNT);
 								tv_service_number.setText(SERVICE_COUNT);
+								
+								if (ORDER_COUNT.equals("0")) {
+									ll_order_number.setVisibility(View.GONE);
+								}
+								
+								if (SERVICE_COUNT.equals("0")) {
+									ll_service_number.setVisibility(View.GONE);
+								}
 
 							} else {
 								Toast.makeText(getApplicationContext(),
