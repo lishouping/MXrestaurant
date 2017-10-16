@@ -21,7 +21,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:minHeight="45dp"
-        android:hint="请输入退菜总金额"
+        android:hint="请输入退菜单价"
         android:textSize="18sp" />
 
 </LinearLayout>
