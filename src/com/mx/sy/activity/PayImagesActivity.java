@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.mx.sy.R;
+import com.mx.sy.adapter.ServiceAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.app.MyApplication;
 import com.mx.sy.base.BaseActivity;
@@ -29,7 +31,10 @@ public class PayImagesActivity extends BaseActivity {
 	private ImageView imag_wchat,imag_zhifubao;
 	
 	private SharedPreferences preferences;
-
+	private LinearLayout lin_nomanage, lin_processed;
+	private TextView tv_nomanage, tv_processed;
+	private View viw_nomanage, viw_processed;
+	private int selectBtnFlag = 0;
 	@Override
 	public void initParms(Bundle parms) {
 		// TODO Auto-generated method stub
@@ -55,6 +60,17 @@ public class PayImagesActivity extends BaseActivity {
 		tv_title = $(R.id.tv_title);
 		imag_wchat = $(R.id.imag_wchat);
 		imag_zhifubao = $(R.id.imag_zhifubao);
+		
+		lin_nomanage = $(R.id.lin_nomanage);
+		lin_nomanage.setOnClickListener(this);
+		lin_processed = $(R.id.lin_processed);
+		lin_processed.setOnClickListener(this);
+		
+		tv_nomanage = $(R.id.tv_nomanage);
+		tv_processed = $(R.id.tv_processed);
+		
+		viw_nomanage = findViewById(R.id.viw_nomanage);
+		viw_processed = findViewById(R.id.viw_processed);
 	}
 
 	@Override
@@ -63,6 +79,18 @@ public class PayImagesActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.ll_back:
 			finish();
+			break;
+		case R.id.lin_nomanage:
+			selectBtnFlag = 0;
+			changeBtnBg(selectBtnFlag);
+			imag_wchat.setVisibility(View.VISIBLE);
+			imag_zhifubao.setVisibility(View.GONE);
+			break;
+		case R.id.lin_processed:
+			selectBtnFlag = 1;
+			changeBtnBg(selectBtnFlag);
+			imag_wchat.setVisibility(View.GONE);
+			imag_zhifubao.setVisibility(View.VISIBLE);
 			break;
 		default:
 			break;
@@ -83,6 +111,8 @@ public class PayImagesActivity extends BaseActivity {
 	public void setListener() {
 		// TODO Auto-generated method stub
 		ll_back.setOnClickListener(this);
+		lin_nomanage.setOnClickListener(this);
+		lin_processed.setOnClickListener(this);
 	}
 
 	@Override
@@ -137,5 +167,24 @@ public class PayImagesActivity extends BaseActivity {
 			}
 		});
 	}
-
+	private void changeBtnBg(int selectTag) {
+		switch (selectTag) {
+		case 0:
+			tv_nomanage.setTextColor(Color.rgb(79, 145, 244));
+			viw_nomanage.setBackgroundResource(R.color.main_bg_color);
+			
+			tv_processed.setTextColor(Color.rgb(0, 0, 0));
+			viw_processed.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			break;
+		case 1:
+			tv_nomanage.setTextColor(Color.rgb(0, 0, 0));
+			viw_nomanage.setBackgroundResource(R.color.sweet_dialog_bg_color);
+			
+			tv_processed.setTextColor(Color.rgb(79, 145, 244));
+			viw_processed.setBackgroundResource(R.color.main_bg_color);
+			break;
+		default:
+			break;
+		}
+	}
 }

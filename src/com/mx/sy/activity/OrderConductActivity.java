@@ -82,6 +82,7 @@ public class OrderConductActivity extends BaseActivity {
 			intent.putExtra("table_id",table_id);
 			intent.putExtra("table_name", table_name);
 			startActivity(intent);
+			OrderDetailedActivity.isvisit = 1;
 			break;
 		default:
 			break;

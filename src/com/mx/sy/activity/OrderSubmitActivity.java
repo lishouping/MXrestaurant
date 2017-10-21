@@ -37,7 +37,7 @@ import com.tnktech.weight.TNKListView;
  * @author lishouping 订单确认页面 可以进行删除菜品的操作
  */
 public class OrderSubmitActivity extends BaseActivity {
-	private LinearLayout ll_back, lin_jiucantype, lin_shangcaitype;
+	private LinearLayout ll_back, lin_jiucantype, lin_shangcaitype,lin_ordernumber;
 	private TextView tv_title;
 	private TNKListView lv_order_dinner;
 	private List<HashMap<String, String>> dateList;
@@ -48,6 +48,8 @@ public class OrderSubmitActivity extends BaseActivity {
 	private String cart_id;
 	private String table_id;
 	private String table_name;
+	
+	private String photonumber = "0";
 
 	private TextView tv_table_num, tv_subtotalprice, tv_jiucantype,
 			tv_shangcaitype;
@@ -70,8 +72,11 @@ public class OrderSubmitActivity extends BaseActivity {
 			break;
 		case R.id.btn_sub_order:
 			if (edit_peoplenum.getText().toString().equals("")) {
-				Toast.makeText(getApplicationContext(), "请输入用餐人数", Toast.LENGTH_SHORT).show();
+				photonumber = "0";
+				OrderDetailedActivity.isvisit = 0;
 			}else {
+				OrderDetailedActivity.isvisit = 0;
+				photonumber = edit_peoplenum.getText().toString();
 				showDilog("加载中");
 				submitOrder();
 			}
@@ -166,6 +171,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		lin_shangcaitype = $(R.id.lin_shangcaitype);
 		tv_jiucantype = $(R.id.tv_jiucantype);
 		tv_shangcaitype = $(R.id.tv_shangcaitype);
+		lin_ordernumber = $(R.id.lin_ordernumber);
 	}
 
 	@Override
@@ -238,6 +244,12 @@ public class OrderSubmitActivity extends BaseActivity {
 		table_id = intent.getStringExtra("table_id");
 		table_name = intent.getStringExtra("table_name");
 		tv_table_num.setText("桌号" + table_name);
+		
+		if (OrderDetailedActivity.isvisit ==1) {
+			lin_ordernumber.setVisibility(View.GONE);
+		}else {
+			lin_ordernumber.setVisibility(View.VISIBLE);
+		}
 
 		getCart();
 	}
@@ -252,7 +264,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		params.put("cart_id", cart_id);
 		params.put("waiter_id", preferences.getString("business_id", ""));
 		params.put("comments", edit_bzi.getText().toString());
-		params.put("people_count", edit_peoplenum.getText().toString());
+		params.put("people_count", photonumber);
 		params.put("way", way);
 		params.put("go_goods_way", go_goods_way);
 		client.post(url, params, new AsyncHttpResponseHandler() {

@@ -28,6 +28,7 @@ import com.loopj.android.http.RequestParams;
 import com.mx.sy.R;
 import com.mx.sy.activity.FoodCustomActivity;
 import com.mx.sy.activity.OrderConductActivity;
+import com.mx.sy.activity.OrderDetailedActivity;
 import com.mx.sy.adapter.TablesAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseFragment;
@@ -96,16 +97,34 @@ public class TableInfoFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
-		if (isrefresh == 1) {
-			if (dateList.size() == 0) {
-			} else {
-				dateList.clear();
-				tablesAdapter.notifyDataSetChanged();
-			}
+		
+		if (isrefresh==10) {
+			isrefresh = 1;
+		}else {
+			dateList.clear();
+			daList.clear();
 			showDilog("加载中");
 			getTableInfo();
-			isrefresh = 0;
 		}
+		OrderDetailedActivity.isvisit = 0;
+		
+//		if (dateList.size() == 0) {
+//		} else {
+//			dateList.clear();
+//			tablesAdapter.notifyDataSetChanged();
+//		}
+	
+		//isrefresh = 0;
+//		if (isrefresh == 1) {
+//			if (dateList.size() == 0) {
+//			} else {
+//				dateList.clear();
+//				tablesAdapter.notifyDataSetChanged();
+//			}
+//			showDilog("加载中");
+//			getTableInfo();
+//			isrefresh = 0;
+//		}
 		super.onResume();
 	}
 
@@ -146,12 +165,18 @@ public class TableInfoFragment extends BaseFragment implements
 							dateList.get(position).get("table_name"));
 					startActivity(intent);
 				} else if (dateList.get(position).get("table_status")
-						.equals("1")) {// 正常使用中
+						.equals("1")&&dateList.get(position).get("orderstate").equals("0")) {// 正常使用中
 					intent.setClass(getActivity(), OrderConductActivity.class);
 					intent.putExtra("table_id",
 							dateList.get(position).get("table_id"));
 					intent.putExtra("table_name",
 							dateList.get(position).get("table_name"));
+					startActivity(intent);
+				} else if (dateList.get(position).get("table_status")
+						.equals("1")&&dateList.get(position).get("orderstate").equals("-1")) {// 未确认
+					intent.setClass(mActivity, OrderDetailedActivity.class);
+					intent.putExtra("detailedpage", "1");
+					intent.putExtra("order_num", dateList.get(position).get("order_num"));
 					startActivity(intent);
 				} else if (dateList.get(position).get("table_status")
 						.equals("2")) {// 顾客预订
@@ -175,12 +200,12 @@ public class TableInfoFragment extends BaseFragment implements
 			}
 		});
 		
-		if (dateList.size() == 0) {
-		} else {
-			dateList.clear();
-		}
-		showDilog("加载中");
-		getTableInfo();
+//		if (dateList.size() == 0) {
+//		} else {
+//			dateList.clear();
+//		}
+//		showDilog("加载中");
+//		getTableInfo();
 	}
 
 	@Override
@@ -274,6 +299,7 @@ public class TableInfoFragment extends BaseFragment implements
 
 	// 查询分区(包含桌台) /tableservice/getTableInfo 从接口获得
 	public void getTableInfo() {
+		tablesAdapter.notifyDataSetChanged();
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("key", preferences.getString("loginkey", ""));
 		client.addHeader("id", preferences.getString("userid", ""));
@@ -314,12 +340,26 @@ public class TableInfoFragment extends BaseFragment implements
 											.getString("table_status");// 餐桌状态
 									String table_id = object2
 											.getString("table_id");
-									HashMap<String, String> map4 = new HashMap<String, String>();
-									map4.put("table_name", table_name);
-									map4.put("table_status", table_status);
-									map4.put("table_id", table_id);
-									map4.put("book_list", book_list);
-									dateList.add(map4);
+									if (table_status.equals("1")) {
+										JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
+										String orderstate = orderinfo.getString("status");
+										String order_num = orderinfo.getString("order_num");
+										HashMap<String, String> map4 = new HashMap<String, String>();
+										map4.put("table_name", table_name);
+										map4.put("table_status", table_status);
+										map4.put("table_id", table_id);
+										map4.put("book_list", book_list);
+										map4.put("orderstate", orderstate);
+										map4.put("order_num", order_num);
+										dateList.add(map4);
+									}else {
+										HashMap<String, String> map4 = new HashMap<String, String>();
+										map4.put("table_name", table_name);
+										map4.put("table_status", table_status);
+										map4.put("table_id", table_id);
+										map4.put("book_list", book_list);
+										dateList.add(map4);
+									}
 								}
 							}
 							gri_tables.setAdapter(tablesAdapter);
@@ -369,20 +409,46 @@ public class TableInfoFragment extends BaseFragment implements
 					String table_id = object2.getString("table_id");
 					if (classNamePos.equals("") || classAierPos.equals("")) {
 						if (className.equals(table_status)) {
-							HashMap<String, String> map4 = new HashMap<String, String>();
-							map4.put("table_name", table_name);
-							map4.put("table_status", table_status);
-							map4.put("table_id", table_id);
-							dateList.add(map4);
+							if (table_status.equals("1")) {
+								JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
+								String orderstate = orderinfo.getString("status");
+								String order_num = orderinfo.getString("order_num");
+								HashMap<String, String> map4 = new HashMap<String, String>();
+								map4.put("table_name", table_name);
+								map4.put("table_status", table_status);
+								map4.put("table_id", table_id);
+								map4.put("orderstate", orderstate);
+								map4.put("order_num", order_num);
+								dateList.add(map4);
+							}else {
+								HashMap<String, String> map4 = new HashMap<String, String>();
+								map4.put("table_name", table_name);
+								map4.put("table_status", table_status);
+								map4.put("table_id", table_id);
+								dateList.add(map4);
+							}
 						}
 					}else {
 						if (className.equals(table_status)
 								&& area_name.equals(classAierPos)) {
-							HashMap<String, String> map4 = new HashMap<String, String>();
-							map4.put("table_name", table_name);
-							map4.put("table_status", table_status);
-							map4.put("table_id", table_id);
-							dateList.add(map4);
+							if (table_status.equals("1")) {
+								JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
+								String orderstate = orderinfo.getString("status");
+								String order_num = orderinfo.getString("order_num");
+								HashMap<String, String> map4 = new HashMap<String, String>();
+								map4.put("table_name", table_name);
+								map4.put("table_status", table_status);
+								map4.put("table_id", table_id);
+								map4.put("orderstate", orderstate);
+								map4.put("order_num", order_num);
+								dateList.add(map4);
+							}else {
+								HashMap<String, String> map4 = new HashMap<String, String>();
+								map4.put("table_name", table_name);
+								map4.put("table_status", table_status);
+								map4.put("table_id", table_id);
+								dateList.add(map4);
+							}
 						}
 					}
 				}
@@ -413,19 +479,45 @@ public class TableInfoFragment extends BaseFragment implements
 					String table_id = object2.getString("table_id");
 					if (classNamePos.equals("") || classAierPos.equals("")) {
 						if (className.equals(area_name)) {
-							HashMap<String, String> map4 = new HashMap<String, String>();
-							map4.put("table_name", table_name);
-							map4.put("table_status", table_status);
-							map4.put("table_id", table_id);
-							dateList.add(map4);
+							if (table_status.equals("1")) {
+								JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
+								String orderstate = orderinfo.getString("status");
+								String order_num = orderinfo.getString("order_num");
+								HashMap<String, String> map4 = new HashMap<String, String>();
+								map4.put("table_name", table_name);
+								map4.put("table_status", table_status);
+								map4.put("table_id", table_id);
+								map4.put("orderstate", orderstate);
+								map4.put("order_num", order_num);
+								dateList.add(map4);
+							}else {
+								HashMap<String, String> map4 = new HashMap<String, String>();
+								map4.put("table_name", table_name);
+								map4.put("table_status", table_status);
+								map4.put("table_id", table_id);
+								dateList.add(map4);
+							}
 						}
 					}else {
 						if (className.equals(area_name)&&classNamePos.equals(table_status)) {
-							HashMap<String, String> map4 = new HashMap<String, String>();
-							map4.put("table_name", table_name);
-							map4.put("table_status", table_status);
-							map4.put("table_id", table_id);
-							dateList.add(map4);
+							if (table_status.equals("1")) {
+								JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
+								String orderstate = orderinfo.getString("status");
+								String order_num = orderinfo.getString("order_num");
+								HashMap<String, String> map4 = new HashMap<String, String>();
+								map4.put("table_name", table_name);
+								map4.put("table_status", table_status);
+								map4.put("table_id", table_id);
+								map4.put("orderstate", orderstate);
+								map4.put("order_num", order_num);
+								dateList.add(map4);
+							}else {
+								HashMap<String, String> map4 = new HashMap<String, String>();
+								map4.put("table_name", table_name);
+								map4.put("table_status", table_status);
+								map4.put("table_id", table_id);
+								dateList.add(map4);
+							}
 
 						}
 					}

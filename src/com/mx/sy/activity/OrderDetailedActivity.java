@@ -41,6 +41,7 @@ import com.tnktech.weight.TNKListView;
  * @author lishouping 订单未处理详情页面
  */
 public class OrderDetailedActivity extends BaseActivity {
+	public static int isvisit = 0;
 	public static OrderDetailedActivity initactivitActivity;
 	private LinearLayout ll_back;
 	private TextView tv_title;
@@ -152,6 +153,7 @@ public class OrderDetailedActivity extends BaseActivity {
 			intent.putExtra("table_id", table_id);
 			intent.putExtra("table_name", table_name);
 			startActivity(intent);
+			isvisit = 1;
 			break;
 		case R.id.btn_addfood_order:
 			Intent intent1 = new Intent(getApplicationContext(),
@@ -159,6 +161,7 @@ public class OrderDetailedActivity extends BaseActivity {
 			intent1.putExtra("table_id", table_id);
 			intent1.putExtra("table_name", table_name);
 			startActivity(intent1);
+			isvisit = 1;
 			break;
 		case R.id.btn_sub_order:
 			new SweetAlertDialog(OrderDetailedActivity.this,

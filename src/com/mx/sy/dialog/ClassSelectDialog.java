@@ -26,6 +26,7 @@ import com.mx.sy.activity.LoginActivity;
 import com.mx.sy.adapter.TableTypeAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
+import com.mx.sy.fragment.TableInfoFragment;
 
 /**
  * @author lishouping
@@ -119,12 +120,14 @@ public class ClassSelectDialog extends BaseActivity {
 							dateList.get(arg2).get("tableusename"));
 					setResult(TABLE_STATE, intent);
 					finish();
+					TableInfoFragment.isrefresh = 10;
 				} else if (classType.equals("101")) {
 					Intent intent = new Intent();
 					intent.putExtra("className",
 							dateList.get(arg2).get("tableusename"));
 					setResult(TABLE_CLASS, intent);
 					finish();
+					TableInfoFragment.isrefresh = 10;
 				}
 			}
 		});

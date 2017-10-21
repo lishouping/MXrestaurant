@@ -269,10 +269,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 								
 								if (ORDER_COUNT.equals("0")) {
 									ll_order_number.setVisibility(View.GONE);
+								}else {
+									ll_order_number.setVisibility(View.VISIBLE);
 								}
 								
 								if (SERVICE_COUNT.equals("0")) {
 									ll_service_number.setVisibility(View.GONE);
+								}else {
+									ll_service_number.setVisibility(View.VISIBLE);
 								}
 
 							} else {

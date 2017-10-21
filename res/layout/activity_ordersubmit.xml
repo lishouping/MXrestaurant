@@ -2,60 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/sweet_dialog_bg_color" >
-    <include layout="@layout/common_title"/>
-    <ScrollView 
+    android:background="@color/sweet_dialog_bg_color"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        >
-     <LinearLayout 
-         
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical">
-    <LinearLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/orderde_co">
+        android:layout_weight="1" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:gravity="center|left"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/tv_table_num"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="5dp"
-                android:text="桌号:200"
-                android:textSize="15sp" />
+                android:background="@color/orderde_co"
+                android:orientation="vertical" >
 
-            <!-- <TextView
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/tv_table_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        android:text="桌号:200"
+                        android:textSize="15sp" />
+
+                    <!--
+                 <TextView
                 android:id="@+id/tv_person_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="用餐人数:10"
-                android:textSize="15sp" /> -->
-        </LinearLayout>
-        
-    </LinearLayout>
-	<LinearLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        >
-        <LinearLayout
+                android:textSize="15sp" />
+                    -->
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:background="#fff"
@@ -76,8 +80,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="0.2"
+                        android:gravity="center"
                         android:text="单价"
-                         android:gravity="center"
                         android:textColor="@color/suborder_color"
                         android:textSize="12sp" />
 
@@ -87,8 +91,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="0.2"
+                        android:gravity="center"
                         android:text="数量"
-                         android:gravity="center"
                         android:textColor="@color/suborder_color"
                         android:textSize="12sp" />
 
@@ -103,137 +107,150 @@
                         android:textColor="@color/suborder_color"
                         android:textSize="12sp" />
                 </LinearLayout>
-                
-                <View 
+
+                <View
                     android:layout_width="fill_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/orderde_co"
-                    />
-        <com.tnktech.weight.TNKListView
-            android:id="@+id/lv_order_dinner"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-        </com.tnktech.weight.TNKListView>
-    </LinearLayout>
-    <LinearLayout 
-        android:id="@+id/lin_jiucantype"
-        	android:layout_width="fill_parent"
-        	android:layout_height="40dp"
-        	android:orientation="horizontal"
-        	android:gravity="center_vertical"
-        	android:background="@color/gray_btn_bg_color"
-        	>
-        	<TextView 
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:layout_marginLeft="15dp"
-        	    android:textSize="14sp"
-        	    android:text="就餐方式:"/>
-        	
-        	<TextView 
-        	    android:id="@+id/tv_jiucantype"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:layout_marginLeft="10dp"
-        	    android:textSize="13sp"
-        	    android:text="堂食"/>
-    	</LinearLayout>
-    	<View 
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="0.5dp"
-    	    android:background="#fff"/>
-    	<LinearLayout 
-    	    android:id="@+id/lin_shangcaitype"
-        	android:layout_width="fill_parent"
-        	android:layout_height="40dp"
-        	android:orientation="horizontal"
-        	android:gravity="center_vertical"
-        	android:background="@color/gray_btn_bg_color"
-        	>
-        	<TextView 
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:layout_marginLeft="15dp"
-        	    android:textSize="14sp"
-        	    android:text="上菜方式:"/>
-        	
-        	<TextView 
-        	    android:id="@+id/tv_shangcaitype"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:layout_marginLeft="10dp"
-        	    android:textSize="13sp"
-        	    android:text="做好即上"/>
-    	</LinearLayout>
-    	<View 
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="0.5dp"
-    	    android:background="#fff"/>
-    <LinearLayout 
-        	android:layout_width="fill_parent"
-        	android:layout_height="40dp"
-        	android:orientation="horizontal"
-        	android:gravity="center_vertical"
-        	android:background="@color/gray_btn_bg_color"
-        	>
-        	<TextView 
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:layout_marginLeft="15dp"
-        	    android:textSize="14sp"
-        	    android:text="就餐人数:"/>
-        	<EditText 
-        	    android:id="@+id/edit_peoplenum"
-        	    android:layout_width="0dp"
-        	    android:layout_weight="1"
-        	    android:layout_height="wrap_content"
-        	    android:hint="请输入就餐人数"
-        	    android:textSize="13sp"
-        	    android:paddingLeft="10dp"
-        	    android:background="@null"
-        	    android:inputType="number"
-        	    android:layout_marginRight="5dp"/>
-    	</LinearLayout>
-    	<View 
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="0.5dp"
-    	    android:background="#fff"/>
+                    android:background="@color/orderde_co" />
 
-		<LinearLayout
-		    android:layout_width="fill_parent"
-		    android:layout_height="40dp"
-		    android:background="@color/gray_btn_bg_color"
-		    android:gravity="center_vertical"
-		    android:orientation="horizontal" >
+                <com.tnktech.weight.TNKListView
+                    android:id="@+id/lv_order_dinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+                </com.tnktech.weight.TNKListView>
+            </LinearLayout>
 
-		    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="15dp"
-		        android:text="菜品备注:"
-		        android:textSize="14sp" />
+            <LinearLayout
+                android:id="@+id/lin_jiucantype"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray_btn_bg_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
 
-		    <EditText
-		        android:id="@+id/edit_bzi"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_marginRight="5dp"
-		        android:layout_weight="1"
-		        android:background="@null"
-		        android:paddingLeft="10dp"
-		        android:hint="请输入菜品备注"
-		        android:textSize="13sp" />
-		</LinearLayout>
-	
-    </LinearLayout>
-	</ScrollView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="就餐方式:"
+                    android:textSize="14sp" />
 
-	<LinearLayout 
+                <TextView
+                    android:id="@+id/tv_jiucantype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="堂食"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#fff" />
+
+            <LinearLayout
+                android:id="@+id/lin_shangcaitype"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray_btn_bg_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="上菜方式:"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_shangcaitype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="做好即上"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_ordernumber"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#fff" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/gray_btn_bg_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="就餐人数:"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edit_peoplenum"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="请输入就餐人数"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#fff" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray_btn_bg_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="菜品备注:"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edit_bzi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入菜品备注"
+                    android:paddingLeft="10dp"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="70dp"
-        android:orientation="vertical"
-        >
-         <LinearLayout
+        android:orientation="vertical" >
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -256,46 +273,52 @@
                 android:textColor="@color/red_color"
                 android:textSize="13sp" />
         </LinearLayout>
-        <LinearLayout 
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:layout_marginBottom="5dp">
-            <Button 
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal" >
+
+            <Button
                 android:id="@+id/btn_add_food"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:textColor="@color/button_text_color"
-                android:text="加菜"
                 android:layout_marginLeft="5dp"
-                android:textSize="14sp"
-                android:background="@drawable/shape_blule_btnbg"/>
-            <View 
+                android:layout_weight="1"
+                android:background="@drawable/shape_blule_btnbg"
+                android:text="加菜"
+                android:textColor="@color/button_text_color"
+                android:textSize="14sp" />
+
+            <View
                 android:layout_width="5dp"
-                android:layout_height="fill_parent"/>
-            <Button 
+                android:layout_height="fill_parent" />
+
+            <Button
                 android:id="@+id/btn_writing_food"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="叫起"
-                android:textSize="14sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                 android:textColor="@color/button_text_color"
+                android:layout_weight="1"
                 android:background="@color/main_bg_color"
-                android:visibility="gone"/>
-            <Button 
+                android:text="叫起"
+                android:textColor="@color/button_text_color"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <Button
                 android:id="@+id/btn_sub_order"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="确认下单"
                 android:layout_marginRight="5dp"
-                android:textSize="14sp"
-                 android:textColor="@color/button_text_color"
-                android:background="@drawable/shape_yeallo_btnbg"/>
+                android:layout_weight="1"
+                android:background="@drawable/shape_yeallo_btnbg"
+                android:text="确认下单"
+                android:textColor="@color/button_text_color"
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>
