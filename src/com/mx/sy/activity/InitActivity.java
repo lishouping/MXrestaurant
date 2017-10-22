@@ -114,7 +114,7 @@ public class InitActivity extends BaseActivity {
 	@Override
 	public void doBusiness(Context mContext) {
 		// TODO Auto-generated method stub
-		versionUpdate();
+		//versionUpdate();
 	}
 	@Override
 	protected void initdata() {
@@ -190,12 +190,12 @@ public class InitActivity extends BaseActivity {
                 showDownloadDialog();
             }
         });
-//        builder.setNegativeButton("以后再说", new android.content.DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                InitActivity.this.finish();
-//            }
-//        });
+        builder.setNegativeButton("以后再说", new android.content.DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                InitActivity.this.finish();
+            }
+        });
         builder.show();
     }
     

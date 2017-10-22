@@ -3,6 +3,8 @@ package com.mx.sy.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -11,8 +13,9 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,7 +37,6 @@ import com.mx.sy.adapter.ShoppingCarAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
 import com.mx.sy.utils.SendMessage;
-import com.zhh.shoppingcartanimation.view.ShoppingCartAnimationView;
 
 /**
  * @author lishouping 点餐页面
@@ -75,7 +77,10 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 	String cart_id;
 
 	JSONObject intentJsonObject = null;
-
+	
+	
+	private final Timer timer = new Timer();  
+	private TimerTask task;  
 	@Override
 	public void widgetClick(View v) {
 		// TODO Auto-generated method stub
@@ -201,8 +206,32 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		shopcarList = new ArrayList<HashMap<String, String>>();
 		shoppingCarAdapter = new ShoppingCarAdapter(FoodCustomActivity.this,
 				shopcarList, R.layout.item_shoppingcar);
+		
+		task = new TimerTask() {  
+		    @Override  
+		    public void run() {  
+		        // TODO Auto-generated method stub  
+		        Message message = new Message();  
+		        message.what = 1;  
+		        handler.sendMessage(message);  
+		    }  
+		};   
+		
+		timer.schedule(task, 2000, 3000);  
+		timer.cancel();
 
 	}
+	
+	Handler handler = new Handler() {  
+	    @Override  
+	    public void handleMessage(Message msg) {  
+	        // TODO Auto-generated method stub  
+	        // 要做的事情  
+	    	
+	    	Toast.makeText(getApplicationContext(), "----获取数据", Toast.LENGTH_SHORT).show();
+	        super.handleMessage(msg);  
+	    }  
+	};  
 
 	@Override
 	public void setListener() {

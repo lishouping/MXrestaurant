@@ -47,6 +47,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			ll_saoma_number, ll_order_number, ll_mine;
 	private TextView tv_tableinfo_number, tv_service_number, tv_saoma_number,
 			tv_order_number, tv_mine_number;
+	
+	private LinearLayout ll_right;
 
 	private TableInfoFragment tableInfoFragment;
 	private ServiceFragment serviceFragment;
@@ -88,6 +90,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		case R.id.fl_mine:
 			setChioceItem(4);
+			break;
+		case R.id.ll_right:
+			Intent intent2 = new Intent(getApplicationContext(),PayImagesActivity.class);
+			startActivity(intent2);
 			break;
 		default:
 			break;
@@ -138,6 +144,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tv_saoma_number = (TextView) findViewById(R.id.tv_saoma_number);
 		tv_order_number = (TextView) findViewById(R.id.tv_order_number);
 		tv_mine_number = (TextView) findViewById(R.id.tv_mine_number);
+		
+		ll_right = (LinearLayout) findViewById(R.id.ll_right);
+		ll_right.setVisibility(View.VISIBLE);
+		ll_right.setOnClickListener(this);
 		
 		fl_tableinfo.performClick();
 	}
