@@ -104,7 +104,7 @@ public class InitActivity extends BaseActivity {
 		telephone = preferences.getString("telephone", "");
 		
 
-		//versionUpdate();
+		
 	}
 	@Override
 	public void setListener() {
@@ -114,7 +114,7 @@ public class InitActivity extends BaseActivity {
 	@Override
 	public void doBusiness(Context mContext) {
 		// TODO Auto-generated method stub
-
+		versionUpdate();
 	}
 	@Override
 	protected void initdata() {
@@ -136,10 +136,8 @@ public class InitActivity extends BaseActivity {
     
     private void versionUpdate(){
     	AsyncHttpClient client = new AsyncHttpClient();
-		String url = ApiConfig.API_URL + "apkUpdate";
-		RequestParams params = new RequestParams();
-		params.put("apkVersion", getVersionCode(getApplicationContext()) + "");
-		client.post(url, params, new AsyncHttpResponseHandler() {
+		String url = ApiConfig.API_URL + ApiConfig.SERVICEUPDATE;
+		client.get(url, new AsyncHttpResponseHandler() {
 			
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -147,43 +145,14 @@ public class InitActivity extends BaseActivity {
 					try {
 						String response = new String(arg2, "UTF-8");
 						JSONObject jsonObject = new JSONObject(response);
-						String message = jsonObject.getString("message");
-						String code = jsonObject.getString("code");
-						if (code.equals("1004")) {
+						String code = jsonObject.getString("CODE");
+						JSONObject object = new JSONObject(jsonObject.getString("DATA"));
+						if (code.equals("1000")) {
 							dissmissDilog();
 							 // 获取下载地址
-							JSONObject object = new JSONObject(jsonObject.getString("data"));
-							newApkUrl = object.getString("apkUrl");
-//			                newApkUrl = "http://192.168.8.124:8080/jeecg/apk/CPEducation_AD.apk";
+							newApkUrl = object.getString("url");
 			                updateDialog();
-						}else if (code.equals("1000")) {
-							//showDilog("");
-							new Handler().postDelayed(new Runnable() {
-								@Override
-								public void run() {
-									//				Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-									if (autoLogin.equals("false")) {
-										Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-										startActivity(intent);
-										dissmissDilog();
-										finish();
-									}else if(autoLogin.equals("true")){
-										Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-										startActivity(intent);
-										finish();
-										dissmissDilog();
-										
-									}else {
-										Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-										startActivity(intent);
-										dissmissDilog();
-										finish();
-									}
-								}
-							}, 3000);
-							Log.i("----------", message);
 						}
-						
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

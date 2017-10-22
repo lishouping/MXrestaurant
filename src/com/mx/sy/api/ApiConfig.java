@@ -83,5 +83,6 @@ public class ApiConfig {
 	public static String SHOPSTATIS = "/statics/shopStatics";
 	//服务数量统计
 	public static String SERVICESTSTICS = "/statics/serviceStatics";
-		
+	//更新
+	public static String SERVICEUPDATE = "/app/apk";
 }
