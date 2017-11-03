@@ -26,7 +26,7 @@ public class SalesStaticsAdapter extends CommonBaseAdapter<HashMap<String, Strin
 	@Override
 	public void convert(CommonViewHolder holder, HashMap<String, String> bean) {
 		// TODO Auto-generated method stub
-		holder.setText(R.id.tv_item_num, holder.getPosition()+1);
+		holder.setText(R.id.tv_item_num, holder.getPosition()+1+"");
 		holder.setText(R.id.tv_food_name, bean.get("good_name"));
 		holder.setText(R.id.tv_foodnum, bean.get("good_zs"));
 		holder.setText(R.id.tv_total_price, "￥"+bean.get("good_ze"));

@@ -83,6 +83,7 @@ public class OrderConductActivity extends BaseActivity {
 			intent.putExtra("table_name", table_name);
 			startActivity(intent);
 			OrderDetailedActivity.isvisit = 1;
+			FoodCustomActivity.isrefreshcar = true;
 			break;
 		default:
 			break;

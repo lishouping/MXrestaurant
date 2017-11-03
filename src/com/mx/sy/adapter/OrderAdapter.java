@@ -114,8 +114,13 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 			holder.setText(R.id.tv_table_num, "桌号:" + bean.get("table_name"));
 			holder.setText(R.id.tv_havemeals,
 					"用餐人数:" + bean.get("people_count"));
-			holder.setText(R.id.tv_order_time,
-					"创建时间:" + CommonUtils.getStrTime(bean.get("order_time")));
+			if (bean.get("order_time").equals("null")) {
+				holder.setText(R.id.tv_order_time,
+						"创建时间:无");
+			}else {
+				holder.setText(R.id.tv_order_time,
+						"创建时间:" + CommonUtils.getStrTime(bean.get("order_time")));
+			}
 			holder.setText(R.id.tv_havingdinner, "服务人员:" + bean.get("name"));
 
 			holder.getView(R.id.lv_addfood).setOnClickListener(
@@ -174,8 +179,14 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 			holder.setText(R.id.tv_table_num, "桌号:" + bean.get("table_name"));
 			holder.setText(R.id.tv_havemeals,
 					"用餐人数:" + bean.get("people_count"));
-			holder.setText(R.id.tv_order_time,
-					"创建时间:" + CommonUtils.getStrTime(bean.get("order_time")));
+			if (bean.get("order_time").equals("null")) {
+				holder.setText(R.id.tv_order_time,
+						"创建时间:无");
+			}else {
+				holder.setText(R.id.tv_order_time,
+						"创建时间:" + CommonUtils.getStrTime(bean.get("order_time")));
+			}
+			
 			holder.setText(R.id.tv_havingdinner, "服务人员:" + bean.get("name"));
 			holder.getView(R.id.lv_printorder).setOnClickListener(
 					new OnClickListener() {

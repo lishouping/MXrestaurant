@@ -15,7 +15,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IInterface;
 import android.os.Message;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -42,6 +45,7 @@ import com.mx.sy.utils.SendMessage;
  * @author lishouping 点餐页面
  */
 public class FoodCustomActivity extends BaseActivity implements SendMessage {
+	public static boolean isrefreshcar = false;
 	public static FoodCustomActivity inActivity;
 	private LinearLayout ll_back;
 	private TextView tv_title;
@@ -77,16 +81,18 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 	String cart_id;
 
 	JSONObject intentJsonObject = null;
-	
-	
-	private final Timer timer = new Timer();  
-	private TimerTask task;  
+
+	private final Timer timer = new Timer();
+	private TimerTask task;
+
 	@Override
 	public void widgetClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.ll_back:
 			finish();
+			timer.cancel();
+			isrefreshcar = false;
 			break;
 		case R.id.btn_price_dis:
 
@@ -206,32 +212,32 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		shopcarList = new ArrayList<HashMap<String, String>>();
 		shoppingCarAdapter = new ShoppingCarAdapter(FoodCustomActivity.this,
 				shopcarList, R.layout.item_shoppingcar);
-		
-		task = new TimerTask() {  
-		    @Override  
-		    public void run() {  
-		        // TODO Auto-generated method stub  
-		        Message message = new Message();  
-		        message.what = 1;  
-		        handler.sendMessage(message);  
-		    }  
-		};   
-		
-		timer.schedule(task, 2000, 3000);  
-		timer.cancel();
 
+		task = new TimerTask() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Message message = new Message();
+				message.what = 1;
+				handler.sendMessage(message);
+			}
+		};
+		if (isrefreshcar == true) {
+			timer.schedule(task, 2000, 3000);
+		}
 	}
-	
-	Handler handler = new Handler() {  
-	    @Override  
-	    public void handleMessage(Message msg) {  
-	        // TODO Auto-generated method stub  
-	        // 要做的事情  
-	    	
-	    	Toast.makeText(getApplicationContext(), "----获取数据", Toast.LENGTH_SHORT).show();
-	        super.handleMessage(msg);  
-	    }  
-	};  
+
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			// 要做的事情
+			getCart();
+			Toast.makeText(getApplicationContext(), "----获取数据",
+					Toast.LENGTH_SHORT).show();
+			super.handleMessage(msg);
+		}
+	};
 
 	@Override
 	public void setListener() {
@@ -422,7 +428,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 							String total_price = object
 									.getString("total_price");
 
-							tv_shopingcar_totalprice.setText("￥"+total_price);
+							tv_shopingcar_totalprice.setText("￥" + total_price);
 							tv_tableinfo_number.setText(total_num);
 
 							JSONArray jsonArray = object
@@ -496,7 +502,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
 							getCart();
-						}else if (CODE.equals("10000")) {
+						} else if (CODE.equals("10000")) {
 							getCart();
 						} else {
 							Toast.makeText(getApplicationContext(),
@@ -630,4 +636,15 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		}
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			// 按下BACK，同时没有重复
+			Log.d(TAG, "onKeyDown()");
+			isrefreshcar = false;
+			timer.cancel();
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
 }

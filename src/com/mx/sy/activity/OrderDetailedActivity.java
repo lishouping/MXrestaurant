@@ -153,6 +153,7 @@ public class OrderDetailedActivity extends BaseActivity {
 			intent.putExtra("table_id", table_id);
 			intent.putExtra("table_name", table_name);
 			startActivity(intent);
+			FoodCustomActivity.isrefreshcar = true;
 			isvisit = 1;
 			break;
 		case R.id.btn_addfood_order:
@@ -162,6 +163,7 @@ public class OrderDetailedActivity extends BaseActivity {
 			intent1.putExtra("table_name", table_name);
 			startActivity(intent1);
 			isvisit = 1;
+			FoodCustomActivity.isrefreshcar = true;
 			break;
 		case R.id.btn_sub_order:
 			new SweetAlertDialog(OrderDetailedActivity.this,
