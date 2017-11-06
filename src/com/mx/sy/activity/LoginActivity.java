@@ -157,6 +157,7 @@ public class LoginActivity extends BaseActivity {
 							String shop_id = object2.getString("shop_id");
 							String name = object2.getString("name");
 							String business_id = object.getString("business_id");
+							String role_id = object.getString("role_id");
 
 							preferences.edit().putString("userid", business_id)
 									.commit();
@@ -169,6 +170,8 @@ public class LoginActivity extends BaseActivity {
 							
 							preferences.edit().putString("username", edit_user.getText().toString()).commit();
 							preferences.edit().putString("password", edit_pass.getText().toString()).commit();
+							
+							preferences.edit().putString("role_id", role_id).commit();
 							
 							//设置极光推送别名
 							JPushInterface.setAlias(getApplicationContext(),alias, new TagAliasCallback() {

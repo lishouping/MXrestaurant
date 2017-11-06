@@ -47,6 +47,8 @@ public class MineFragment extends BaseFragment {
 	
 	public static int islogout = 0;
 	
+	private String role_id;
+	
 	@Override
 	protected int setLayoutResouceId() {
 		// TODO Auto-generated method stub
@@ -126,7 +128,7 @@ public class MineFragment extends BaseFragment {
 
 		preferences = getActivity().getSharedPreferences("userinfo",
 				getActivity().MODE_PRIVATE);
-		
+		role_id = preferences.getString("role_id", "");
 		
 		String name = preferences.getString("name", "");
 		tv_user_name.setText(name);
@@ -142,111 +144,166 @@ public class MineFragment extends BaseFragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				switch (position) {
-				case 1:
-					//销售统计
-					intent.setClass(getActivity(), SalesStatisticsActivity.class);
-					startActivity(intent);
-					break;
-				case 2:
-					//服务统计
-					intent.setClass(getActivity(), ServiceStatisticsActivity.class);
-					startActivity(intent);
-					break; 
-				case 3:
-					//推送消息
-					intent.setClass(getActivity(),SettingActivity.class);
-					startActivity(intent);
-					break;
-				case 4:
-					//个人信息
-					intent.setClass(getActivity(), UserInfoActivity.class);
-					startActivity(intent);
-					break;
-				case 5:
-					//打印机设置
-					intent.setClass(getActivity(), PrinterSeetingActivity.class);
-					startActivity(intent);
-					break;
-				case 6:
-					// 意见反馈
-					intent.setClass(getActivity(), FeedBackActivity.class);
-					startActivity(intent);
-					break;
-				case 7:
-					// 关于我们
-					intent.setClass(getActivity(), AboutUsActivity.class);
-					startActivity(intent);
-					break;
-				default:
-					break;
+				if (role_id.equals("2")) {
+					Intent intent = new Intent();
+					switch (position) {
+					case 1:
+						//推送消息
+						intent.setClass(getActivity(),SettingActivity.class);
+						startActivity(intent);
+						break;
+					case 2:
+						//个人信息
+						intent.setClass(getActivity(), UserInfoActivity.class);
+						startActivity(intent);
+						break;
+					case 3:
+						//打印机设置
+						intent.setClass(getActivity(), PrinterSeetingActivity.class);
+						startActivity(intent);
+						break;
+					case 4:
+						// 意见反馈
+						intent.setClass(getActivity(), FeedBackActivity.class);
+						startActivity(intent);
+						break;
+					case 5:
+						// 关于我们
+						intent.setClass(getActivity(), AboutUsActivity.class);
+						startActivity(intent);
+						break;
+					default:
+						break;
+					}
+				}else {
+					Intent intent = new Intent();
+					switch (position) {
+					case 1:
+						//销售统计
+						intent.setClass(getActivity(), SalesStatisticsActivity.class);
+						startActivity(intent);
+						break;
+					case 2:
+						//服务统计
+						intent.setClass(getActivity(), ServiceStatisticsActivity.class);
+						startActivity(intent);
+						break; 
+					case 3:
+						//推送消息
+						intent.setClass(getActivity(),SettingActivity.class);
+						startActivity(intent);
+						break;
+					case 4:
+						//个人信息
+						intent.setClass(getActivity(), UserInfoActivity.class);
+						startActivity(intent);
+						break;
+					case 5:
+						//打印机设置
+						intent.setClass(getActivity(), PrinterSeetingActivity.class);
+						startActivity(intent);
+						break;
+					case 6:
+						// 意见反馈
+						intent.setClass(getActivity(), FeedBackActivity.class);
+						startActivity(intent);
+						break;
+					case 7:
+						// 关于我们
+						intent.setClass(getActivity(), AboutUsActivity.class);
+						startActivity(intent);
+						break;
+					default:
+						break;
+					}
 				}
+				
 			}
 		});
 	}
 
 	private List<HashMap<String, Object>> makeDate() {
-		List<HashMap<String, Object>> dateList = new ArrayList<HashMap<String, Object>>();
+		if (role_id.equals("2")) {//服务员
+			List<HashMap<String, Object>> dateList = new ArrayList<HashMap<String, Object>>();
 
-//		HashMap<String, Object> userInfoMap = new HashMap<String, Object>();
-//		userInfoMap.put("content", "服务员管理");
-//		userInfoMap.put("contentImg", R.drawable.ic_launcher);
-//		dateList.add(userInfoMap);
+			HashMap<String, Object> userInfoMap3 = new HashMap<String, Object>();
+			userInfoMap3.put("content", "推送消息");
+			userInfoMap3.put("contentImg", R.drawable.icon_tip);
+			userInfoMap3.put("mytypeImg", R.drawable.icon_my3);
+			dateList.add(userInfoMap3);
 
-		HashMap<String, Object> userInfoMap1 = new HashMap<String, Object>();
-		userInfoMap1.put("content", "销售统计");
-		userInfoMap1.put("contentImg", R.drawable.icon_tip);
-		userInfoMap1.put("mytypeImg", R.drawable.icon_my1);
-		dateList.add(userInfoMap1);
+			HashMap<String, Object> userInfoMap4 = new HashMap<String, Object>();
+			userInfoMap4.put("content", "密码修改");
+			userInfoMap4.put("contentImg", R.drawable.icon_tip);
+			userInfoMap4.put("mytypeImg", R.drawable.icon_my4);
+			dateList.add(userInfoMap4);
 
-		HashMap<String, Object> userInfoMap2 = new HashMap<String, Object>();
-		userInfoMap2.put("content", "服务统计");
-		userInfoMap2.put("contentImg", R.drawable.icon_tip);
-		userInfoMap2.put("mytypeImg", R.drawable.icon_my2);
-		dateList.add(userInfoMap2);
+			HashMap<String, Object> userInfoMap5 = new HashMap<String, Object>();
+			userInfoMap5.put("content", "打印机设置");
+			userInfoMap5.put("contentImg", R.drawable.icon_tip);
+			userInfoMap5.put("mytypeImg", R.drawable.icon_my5);
+			dateList.add(userInfoMap5);
 
-		HashMap<String, Object> userInfoMap3 = new HashMap<String, Object>();
-		userInfoMap3.put("content", "推送消息");
-		userInfoMap3.put("contentImg", R.drawable.icon_tip);
-		userInfoMap3.put("mytypeImg", R.drawable.icon_my3);
-		dateList.add(userInfoMap3);
+			HashMap<String, Object> userInfoMap7 = new HashMap<String, Object>();
+			userInfoMap7.put("content", "意见反馈");
+			userInfoMap7.put("contentImg", R.drawable.icon_tip);
+			userInfoMap7.put("mytypeImg", R.drawable.icon_my6);
+			dateList.add(userInfoMap7);
 
-		HashMap<String, Object> userInfoMap4 = new HashMap<String, Object>();
-		userInfoMap4.put("content", "密码修改");
-		userInfoMap4.put("contentImg", R.drawable.icon_tip);
-		userInfoMap4.put("mytypeImg", R.drawable.icon_my4);
-		dateList.add(userInfoMap4);
+			HashMap<String, Object> userInfoMap8 = new HashMap<String, Object>();
+			userInfoMap8.put("content", "关于我们");
+			userInfoMap8.put("contentImg", R.drawable.icon_tip);
+			userInfoMap8.put("mytypeImg", R.drawable.icon_my7);
+			dateList.add(userInfoMap8);
 
-		HashMap<String, Object> userInfoMap5 = new HashMap<String, Object>();
-		userInfoMap5.put("content", "打印机设置");
-		userInfoMap5.put("contentImg", R.drawable.icon_tip);
-		userInfoMap5.put("mytypeImg", R.drawable.icon_my5);
-		dateList.add(userInfoMap5);
+			return dateList;
+		}else {
+			List<HashMap<String, Object>> dateList = new ArrayList<HashMap<String, Object>>();
+			HashMap<String, Object> userInfoMap1 = new HashMap<String, Object>();
+			userInfoMap1.put("content", "销售统计");
+			userInfoMap1.put("contentImg", R.drawable.icon_tip);
+			userInfoMap1.put("mytypeImg", R.drawable.icon_my1);
+			dateList.add(userInfoMap1);
 
-//		HashMap<String, Object> userInfoMap6 = new HashMap<String, Object>();
-//		userInfoMap6.put("content", "打印模板");
-//		userInfoMap6.put("contentImg", R.drawable.icon_tip);
+			HashMap<String, Object> userInfoMap2 = new HashMap<String, Object>();
+			userInfoMap2.put("content", "服务统计");
+			userInfoMap2.put("contentImg", R.drawable.icon_tip);
+			userInfoMap2.put("mytypeImg", R.drawable.icon_my2);
+			dateList.add(userInfoMap2);
 
-		HashMap<String, Object> userInfoMap7 = new HashMap<String, Object>();
-		userInfoMap7.put("content", "意见反馈");
-		userInfoMap7.put("contentImg", R.drawable.icon_tip);
-		userInfoMap7.put("mytypeImg", R.drawable.icon_my6);
-		dateList.add(userInfoMap7);
+			HashMap<String, Object> userInfoMap3 = new HashMap<String, Object>();
+			userInfoMap3.put("content", "推送消息");
+			userInfoMap3.put("contentImg", R.drawable.icon_tip);
+			userInfoMap3.put("mytypeImg", R.drawable.icon_my3);
+			dateList.add(userInfoMap3);
 
-		HashMap<String, Object> userInfoMap8 = new HashMap<String, Object>();
-		userInfoMap8.put("content", "关于我们");
-		userInfoMap8.put("contentImg", R.drawable.icon_tip);
-		userInfoMap8.put("mytypeImg", R.drawable.icon_my7);
-		dateList.add(userInfoMap8);
+			HashMap<String, Object> userInfoMap4 = new HashMap<String, Object>();
+			userInfoMap4.put("content", "密码修改");
+			userInfoMap4.put("contentImg", R.drawable.icon_tip);
+			userInfoMap4.put("mytypeImg", R.drawable.icon_my4);
+			dateList.add(userInfoMap4);
+
+			HashMap<String, Object> userInfoMap5 = new HashMap<String, Object>();
+			userInfoMap5.put("content", "打印机设置");
+			userInfoMap5.put("contentImg", R.drawable.icon_tip);
+			userInfoMap5.put("mytypeImg", R.drawable.icon_my5);
+			dateList.add(userInfoMap5);
+
+			HashMap<String, Object> userInfoMap7 = new HashMap<String, Object>();
+			userInfoMap7.put("content", "意见反馈");
+			userInfoMap7.put("contentImg", R.drawable.icon_tip);
+			userInfoMap7.put("mytypeImg", R.drawable.icon_my6);
+			dateList.add(userInfoMap7);
+
+			HashMap<String, Object> userInfoMap8 = new HashMap<String, Object>();
+			userInfoMap8.put("content", "关于我们");
+			userInfoMap8.put("contentImg", R.drawable.icon_tip);
+			userInfoMap8.put("mytypeImg", R.drawable.icon_my7);
+			dateList.add(userInfoMap8);
+
+			return dateList;
+		}
 		
-//		HashMap<String, Object> userInfoMap9 = new HashMap<String, Object>();
-//		userInfoMap9.put("content", "退出登录");
-//		userInfoMap9.put("contentImg", R.drawable.icon_tip);
-//		userInfoMap9.put("mytypeImg", R.drawable.icon_my7);
-//		dateList.add(userInfoMap9);
-
-		return dateList;
 	}
 
 }

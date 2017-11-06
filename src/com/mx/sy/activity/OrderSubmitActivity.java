@@ -74,6 +74,8 @@ public class OrderSubmitActivity extends BaseActivity {
 			if (edit_peoplenum.getText().toString().equals("")) {
 				photonumber = "0";
 				OrderDetailedActivity.isvisit = 0;
+				showDilog("加载中");
+				submitOrder();
 			}else {
 				OrderDetailedActivity.isvisit = 0;
 				photonumber = edit_peoplenum.getText().toString();

@@ -131,9 +131,9 @@ public class PrintActivity extends Activity {
 			btnClose = (Button) this.findViewById(R.id.btnClose);
 			btnClose.setOnClickListener(new ClickEvent());
 			edtContext = (EditText) findViewById(R.id.txt_content);
-			btnClose.setEnabled(false);
-			btnSend.setEnabled(false);
-			btnSendDraw.setEnabled(false);
+			//btnClose.setEnabled(false);
+			//btnSend.setEnabled(false);
+			//btnSendDraw.setEnabled(false);
 
 			if (order_num.equals("100000")) {
 				edtContext.setVisibility(View.VISIBLE);
@@ -143,13 +143,13 @@ public class PrintActivity extends Activity {
 		}
 	}
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (mService != null)
-			mService.stop();
-		mService = null;
-	}
+//	@Override
+//	protected void onDestroy() {
+//		super.onDestroy();
+//		if (mService != null)
+//			mService.stop();
+//		mService = null;
+//	}
 
 	class ClickEvent implements View.OnClickListener {
 		public void onClick(View v) {
@@ -250,9 +250,9 @@ public class PrintActivity extends Activity {
 				case BluetoothService.STATE_CONNECTED: // 已连接
 					Toast.makeText(getApplicationContext(),
 							"Connect successful", Toast.LENGTH_SHORT).show();
-					btnClose.setEnabled(true);
-					btnSend.setEnabled(true);
-					btnSendDraw.setEnabled(true);
+//					btnClose.setEnabled(true);
+//					btnSend.setEnabled(true);
+//					btnSendDraw.setEnabled(true);
 					break;
 				case BluetoothService.STATE_CONNECTING: // 正在连接
 					Log.d("蓝牙调试", "正在连接.....");
@@ -267,9 +267,9 @@ public class PrintActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Device connection was lost", Toast.LENGTH_SHORT)
 						.show();
-				btnClose.setEnabled(false);
-				btnSend.setEnabled(false);
-				btnSendDraw.setEnabled(false);
+//				btnClose.setEnabled(false);
+//				btnSend.setEnabled(false);
+//				btnSendDraw.setEnabled(false);
 				break;
 			case BluetoothService.MESSAGE_UNABLE_CONNECT: // 无法连接设备
 				Toast.makeText(getApplicationContext(),

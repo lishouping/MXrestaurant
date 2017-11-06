@@ -84,6 +84,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 
 	private final Timer timer = new Timer();
 	private TimerTask task;
+	
 
 	@Override
 	public void widgetClick(View v) {
@@ -233,8 +234,6 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 			// TODO Auto-generated method stub
 			// 要做的事情
 			getCart();
-			Toast.makeText(getApplicationContext(), "----获取数据",
-					Toast.LENGTH_SHORT).show();
 			super.handleMessage(msg);
 		}
 	};
@@ -255,6 +254,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		Intent intent = getIntent();
 		table_id = intent.getStringExtra("table_id");
 		table_name = intent.getStringExtra("table_name");
+		
 		showDilog("加载中");
 		selectCategory();
 		getCart();
