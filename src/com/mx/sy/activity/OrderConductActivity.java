@@ -63,6 +63,7 @@ public class OrderConductActivity extends BaseActivity {
 	private String table_name;
 
 	private String order_id;
+	private String ext_size_id;
 
 	@Override
 	public void widgetClick(View v) {
@@ -188,6 +189,11 @@ public class OrderConductActivity extends BaseActivity {
 													String price = text_editprice
 															.getText()
 															.toString();
+													if (dateList.get(position).get("ext_size_id").equals("null")) {
+														ext_size_id = null;
+													}else {
+														ext_size_id = dateList.get(position).get("ext_size_id");
+													}
 													returnGoods(
 															cart_goods_id,
 															number, price);
@@ -323,6 +329,7 @@ public class OrderConductActivity extends BaseActivity {
 										object2.getString("good_total_price"));
 								map.put("cart_good_id", object2.getString("cart_good_id"));
 								map.put("if_up", object2.getString("if_up"));
+								map.put("ext_size_id", object2.getString("ext_size_id"));
 								dateList.add(map);
 							}
 							lv_order_dinner.setAdapter(orderSubmitAdapter);
@@ -514,6 +521,7 @@ public class OrderConductActivity extends BaseActivity {
 			params.put("cart_goods_id", cart_goods_id);
 			params.put("num", num);
 			params.put("price", price);
+			params.put("ext_id", ext_size_id);
 			client.post(url, params, new AsyncHttpResponseHandler() {
 
 				@Override

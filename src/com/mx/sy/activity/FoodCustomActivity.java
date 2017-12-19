@@ -79,6 +79,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 	String table_name;
 	String good_id;
 	String cart_id;
+	String ext_id;
 
 	JSONObject intentJsonObject = null;
 
@@ -353,6 +354,13 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 							map4.put("goods_name", goods_name);
 							map4.put("pre_price", pre_price);
 							map4.put("good_id", good_id);
+							if (object2.getString("good_exts_flag").equals("1")) {
+								map4.put("good_exts_flag", object2.getString("good_exts_flag"));
+								JSONArray array2 = new JSONArray(object2.getString("goods_exts_list"));
+								map4.put("goods_exts_list", array2+"");
+							}else {
+								map4.put("good_exts_flag", "0");
+							}
 							disNameList.add(map4);
 						}
 					}
@@ -385,6 +393,13 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 								map4.put("goods_name", goods_name);
 								map4.put("pre_price", pre_price);
 								map4.put("good_id", good_id);
+								if (object2.getString("good_exts_flag").equals("1")) {
+									map4.put("good_exts_flag", object2.getString("good_exts_flag"));
+									JSONArray array2 = new JSONArray(object2.getString("goods_exts_list"));
+									map4.put("goods_exts_list", array2+"");
+								}else {
+									map4.put("good_exts_flag", "0");
+								}
 								disNameList.add(map4);
 							}
 						}
@@ -448,6 +463,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 										object2.getString("good_num"));
 								map.put("good_total_price",
 										object2.getString("good_total_price"));
+								map.put("ext_size_id", object2.getString("ext_size_id"));
 								shopcarList.add(map);
 							}
 							lv_shcar.setAdapter(shoppingCarAdapter);
@@ -490,6 +506,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		params.put("table_id", table_id);
 		params.put("good_id", good_id);// 菜品id
 		params.put("from", "2");// 来自
+		params.put("ext_id", ext_id);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -538,6 +555,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		RequestParams params = new RequestParams();
 		params.put("cart_id", cart_id);
 		params.put("good_id", good_id);// 菜品id
+		params.put("ext_id", ext_id);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -626,16 +644,40 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		int select = Integer.parseInt(object.toString());
 		if (pos == 100) {
 			good_id = disNameList.get(select).get("good_id");
+			ext_id = null;
 			addCart();
 		} else if (pos == 101) {
 			good_id = shopcarList.get(select).get("good_id");
+			if (shopcarList.get(select).get("ext_size_id").equals("null")) {
+				ext_id = null;
+			}else {
+				ext_id = shopcarList.get(select).get("ext_size_id");
+			}
 			removeCart();
 		} else if (pos == 102) {
 			good_id = shopcarList.get(select).get("good_id");
+			if (shopcarList.get(select).get("ext_size_id").equals("null")) {
+				ext_id = null;
+			}else {
+				ext_id = shopcarList.get(select).get("ext_size_id");
+			}
 			addCart();
+		}else if (pos == 103) {
+			Intent intent = new Intent();
+			intent.setClass(getApplicationContext(), SelectExtsActivity.class);
+			intent.putExtra("table_id", table_id);
+			intent.putExtra("goods_exts_list", disNameList.get(select).get("goods_exts_list"));
+			startActivityForResult(intent, 104);
 		}
 	}
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode==104) {
+			getCart();
+		}
+	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {

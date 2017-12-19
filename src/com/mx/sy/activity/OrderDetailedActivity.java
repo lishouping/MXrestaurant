@@ -78,6 +78,8 @@ public class OrderDetailedActivity extends BaseActivity {
 	
 	private TextView tv_beizhu;
 	
+	private String ext_size_id;
+	
 	@Override
 	public void initParms(Bundle parms) {
 		// TODO Auto-generated method stub
@@ -322,6 +324,11 @@ public class OrderDetailedActivity extends BaseActivity {
 									String number = textjianshao
 											.getText()
 											.toString();
+									if (dateList.get(position).get("ext_size_id").equals("null")) {
+										ext_size_id = null;
+									}else {
+										ext_size_id = dateList.get(position).get("ext_size_id");
+									}
 									removeGoods(
 											order_num,
 											good_id, number);
@@ -529,6 +536,7 @@ public class OrderDetailedActivity extends BaseActivity {
 								map.put("good_total_price",
 										object2.getString("good_total_price"));
 								map.put("if_up", object2.getString("if_up"));
+								map.put("ext_size_id", object2.getString("ext_size_id"));
 								dateList.add(map);
 							}
 							lv_order_dinner.setAdapter(orderSubmitAdapter);
