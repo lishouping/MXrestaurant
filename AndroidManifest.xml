@@ -40,10 +40,8 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    
-      <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    
 
     <application
         android:name="com.mx.sy.app.MyApplication"
@@ -68,28 +66,30 @@
             android:name="com.mx.sy.activity.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
-          <service android:name="com.mx.sy.service.PendingRemindedService" >
+
+        <service android:name="com.mx.sy.service.PendingRemindedService" >
         </service>
 
         <receiver android:name="com.mx.sy.service.AlarmReceiver" >
         </receiver>
+
         <activity
             android:name="com.mx.sy.activity.QrCodeActivity"
             android:screenOrientation="portrait" >
         </activity>
-         <activity
+        <activity
             android:name="com.mx.sy.activity.ServiceDetailedActivity"
             android:screenOrientation="portrait" >
         </activity>
-         <activity
+        <activity
             android:name="com.mx.sy.activity.PayImagesActivity"
             android:screenOrientation="portrait" >
         </activity>
-          <activity
+        <activity
             android:name="com.mx.sy.activity.OrderUpdateActivity"
             android:screenOrientation="portrait" >
         </activity>
-         <activity
+        <activity
             android:name="com.mx.sy.activity.PrintActivity"
             android:screenOrientation="portrait" >
         </activity>
@@ -97,15 +97,19 @@
             android:name="com.mx.sy.activity.MipcaActivityCapture"
             android:screenOrientation="portrait" >
         </activity>
-         <activity android:name="com.mx.sy.activity.DeviceListActivity"
-              android:label="@string/select_device" 
-              android:theme="@android:style/Theme.Dialog">
-         </activity>
-         
-         <activity android:name="com.mx.sy.dialog.TableChangeDialog"
-              android:theme="@style/transcutestyle" >
-         </activity>
-   
+        <activity
+            android:name="com.mx.sy.activity.SelectExtsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.mx.sy.activity.DeviceListActivity"
+            android:label="@string/select_device"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.mx.sy.dialog.TableChangeDialog"
+            android:theme="@style/transcutestyle" >
+        </activity>
         <activity
             android:name="com.mx.sy.dialog.ClassSelectDialog"
             android:theme="@style/transcutestyle" >
@@ -114,7 +118,7 @@
             android:name="com.mx.sy.dialog.ReserveDialog"
             android:theme="@style/transcutestyle" >
         </activity>
-         <activity
+        <activity
             android:name="com.mx.sy.dialog.PrintOrderDialog"
             android:theme="@style/transcutestyle" >
         </activity>
@@ -125,7 +129,7 @@
         <activity
             android:name="com.mx.sy.activity.OrderSubmitActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateUnchanged"   >
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.mx.sy.activity.OrderConductActivity"
@@ -178,7 +182,7 @@
             android:exported="false"
             android:theme="@style/MyDialogStyle" >
         </activity>
- 		 <!-- For test only 测试状态通知栏，需要打开的Activity -->
+        <!-- For test only 测试状态通知栏，需要打开的Activity -->
         <activity
             android:name="com.mx.sy.push.TestActivity"
             android:exported="false" >
