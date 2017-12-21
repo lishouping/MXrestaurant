@@ -9,11 +9,11 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="LOADING">Loading...</string>
-    <string name="app_login_log">美巷让您生活更健康</string>
+    <string name="app_login_log">嘿！伙计餐饮云平台</string>
     <string name="login_user_hint">用户名</string>
     <string name="login_pass_hint">密码</string>
     <string name="login_btn">登录</string>
-    <string name="text_tv_title">美巷点餐</string>
+    <string name="text_tv_title">嘿!伙计,欢迎您!</string>
     <string name="tab_tableinfo">桌台</string>
     <string name="tab_service">服务</string>
     <string name="tab_saoma">扫码点餐</string>

@@ -416,6 +416,7 @@ public class OrderConductActivity extends BaseActivity {
 		String url = ApiConfig.API_URL + ApiConfig.CHECK_URL;
 		RequestParams params = new RequestParams();
 		params.put("order_id", order_id);
+		params.put("check_way","1");
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override

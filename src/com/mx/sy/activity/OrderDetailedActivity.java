@@ -395,6 +395,11 @@ public class OrderDetailedActivity extends BaseActivity {
 														String price = text_editprice
 																.getText()
 																.toString();
+														if (dateList.get(position).get("ext_size_id").equals("null")) {
+															ext_size_id = null;
+														}else {
+															ext_size_id = dateList.get(position).get("ext_size_id");
+														}
 														returnGoods(
 																cart_goods_id,
 																number, price);
@@ -622,6 +627,7 @@ public class OrderDetailedActivity extends BaseActivity {
 		String url = ApiConfig.API_URL + ApiConfig.CHECK_URL;
 		RequestParams params = new RequestParams();
 		params.put("order_id", order_id);
+		params.put("check_way","1");
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -770,6 +776,7 @@ public class OrderDetailedActivity extends BaseActivity {
 		params.put("cart_goods_id", cart_goods_id);
 		params.put("num", num);
 		params.put("price", price);
+		params.put("ext_id", ext_size_id);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -820,6 +827,7 @@ public class OrderDetailedActivity extends BaseActivity {
 		params.put("order_num", order_num);
 		params.put("goods_id", goods_id);
 		params.put("num", num);
+		params.put("ext_id", ext_size_id);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override

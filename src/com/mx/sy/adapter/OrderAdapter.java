@@ -287,6 +287,7 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 		String url = ApiConfig.API_URL + ApiConfig.CHECK_URL;
 		RequestParams params = new RequestParams();
 		params.put("order_id", orderid);
+		params.put("check_way","1");
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
