@@ -79,6 +79,10 @@ public class OrderDetailedActivity extends BaseActivity {
 	private TextView tv_beizhu;
 	
 	private String ext_size_id;
+	private String check_way;
+	
+	// 信息列表提示框  
+    private AlertDialog alertDialog1;  
 	
 	@Override
 	public void initParms(Bundle parms) {
@@ -222,28 +226,25 @@ public class OrderDetailedActivity extends BaseActivity {
 			startActivity(intent2);
 			break;
 		case R.id.btn_jiezhang_order:
-			new SweetAlertDialog(OrderDetailedActivity.this,
-					SweetAlertDialog.NORMAL_TYPE)
-					.setTitleText("确定要结算订单吗?")
-					// .setContentText("Won't be able to recover this file!")
-					.setCancelText("取消")
-					.setConfirmText("确定")
-					.showCancelButton(true)
-					.setConfirmClickListener(
-							new SweetAlertDialog.OnSweetClickListener() {
-								@Override
-								public void onClick(SweetAlertDialog sDialog) {
-									sDialog.cancel();
-									check();
-								}
-							})
-					.setCancelClickListener(
-							new SweetAlertDialog.OnSweetClickListener() {
-								@Override
-								public void onClick(SweetAlertDialog sDialog) {
-									sDialog.cancel();
-								}
-							}).show();
+			final String[] items = {"现金","微信","支付宝"};  
+	        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);  
+	        alertBuilder.setTitle("请选择付款方式");  
+	        alertBuilder.setItems(items, new DialogInterface.OnClickListener() {  
+	            @Override  
+	            public void onClick(DialogInterface arg0, int index) {  
+	                alertDialog1.dismiss();  
+	                if (index==0) {
+						check_way = "1";
+					}else if (index==1) {
+						check_way = "2";
+					}else if (index==2) {
+						check_way = "3";
+					}
+	                check();
+	            }  
+	        });  
+	        alertDialog1 = alertBuilder.create();  
+	        alertDialog1.show(); 
 			break;
 		case R.id.btn_dayin_order:
 			new SweetAlertDialog(OrderDetailedActivity.this,
@@ -627,7 +628,7 @@ public class OrderDetailedActivity extends BaseActivity {
 		String url = ApiConfig.API_URL + ApiConfig.CHECK_URL;
 		RequestParams params = new RequestParams();
 		params.put("order_id", order_id);
-		params.put("check_way","1");
+		params.put("check_way",check_way);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -639,17 +640,35 @@ public class OrderDetailedActivity extends BaseActivity {
 						JSONObject jsonObject = new JSONObject(response);
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
-							Toast.makeText(getApplicationContext(),
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
-							finish();
-							Intent intent = new Intent(getApplicationContext(),
-									PayImagesActivity.class);
-							startActivity(intent);
+							if (check_way.equals("1")) {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								finish();
+							}else {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								finish();
+								Intent intent = new Intent(getApplicationContext(),
+										PayImagesActivity.class);
+								startActivity(intent);
+							}
 						} else {
-							Toast.makeText(getApplicationContext(),
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
+							if (check_way.equals("1")) {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								finish();
+							}else {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								finish();
+								Intent intent = new Intent(getApplicationContext(),
+										PayImagesActivity.class);
+								startActivity(intent);
+							}
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

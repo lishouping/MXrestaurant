@@ -64,6 +64,10 @@ public class OrderConductActivity extends BaseActivity {
 
 	private String order_id;
 	private String ext_size_id;
+	private String check_way;
+	
+	// 信息列表提示框  
+    private AlertDialog alertDialog1;  
 
 	@Override
 	public void widgetClick(View v) {
@@ -74,9 +78,7 @@ public class OrderConductActivity extends BaseActivity {
 			TableInfoFragment.isrefresh = 1;
 			break;
 		case R.id.btn_jiezhang_order:
-
-			check();
-
+			showListAlertDialog();
 			break;
 		case R.id.btn_addfood_order:
 			Intent intent = new Intent(getApplicationContext(),FoodCustomActivity.class);
@@ -90,6 +92,29 @@ public class OrderConductActivity extends BaseActivity {
 			break;
 		}
 	}
+	
+    
+    public void showListAlertDialog(){  
+        final String[] items = {"现金","微信","支付宝"};  
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);  
+        alertBuilder.setTitle("请选择付款方式");  
+        alertBuilder.setItems(items, new DialogInterface.OnClickListener() {  
+            @Override  
+            public void onClick(DialogInterface arg0, int index) {  
+                alertDialog1.dismiss();  
+                if (index==0) {
+					check_way = "1";
+				}else if (index==1) {
+					check_way = "2";
+				}else if (index==2) {
+					check_way = "3";
+				}
+                check();
+            }  
+        });  
+        alertDialog1 = alertBuilder.create();  
+        alertDialog1.show();  
+    }  
 
 	@Override
 	public void initParms(Bundle parms) {
@@ -416,7 +441,7 @@ public class OrderConductActivity extends BaseActivity {
 		String url = ApiConfig.API_URL + ApiConfig.CHECK_URL;
 		RequestParams params = new RequestParams();
 		params.put("order_id", order_id);
-		params.put("check_way","1");
+		params.put("check_way",check_way);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -428,17 +453,35 @@ public class OrderConductActivity extends BaseActivity {
 						JSONObject jsonObject = new JSONObject(response);
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
-							Toast.makeText(getApplicationContext(),
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
-							finish();
-							TableInfoFragment.isrefresh = 1;
-							Intent intent = new Intent(getApplicationContext(),PayImagesActivity.class);
-							startActivity(intent);
+							if (check_way.equals("1")) {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								finish();
+							}else {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								finish();
+								Intent intent = new Intent(getApplicationContext(),
+										PayImagesActivity.class);
+								startActivity(intent);
+							}
 						} else {
-							Toast.makeText(getApplicationContext(),
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
+							if (check_way.equals("1")) {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								finish();
+							}else {
+								Toast.makeText(getApplicationContext(),
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								finish();
+								Intent intent = new Intent(getApplicationContext(),
+										PayImagesActivity.class);
+								startActivity(intent);
+							}
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

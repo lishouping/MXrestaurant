@@ -7,7 +7,9 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
@@ -49,6 +51,10 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 	private List<HashMap<String, String>> dateList;
 	private int itemID;
 	private SharedPreferences preferences;
+	String check_way;
+
+	// 信息列表提示框  
+    private AlertDialog alertDialog1;  
 
 	public OrderAdapter(Context context, List<HashMap<String, String>> datas,
 			int itemID) {
@@ -145,32 +151,25 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 						public void onClick(View arg0) {
 							// TODO Auto-generated method stub
 							
-							new SweetAlertDialog(context,
-									SweetAlertDialog.NORMAL_TYPE)
-									.setTitleText("确定要结算订单吗?")
-									// .setContentText("Won't be able to recover this file!")
-									.setCancelText("取消")
-									.setConfirmText("确定")
-									.showCancelButton(true)
-									.setConfirmClickListener(
-											new SweetAlertDialog.OnSweetClickListener() {
-												@Override
-												public void onClick(
-														SweetAlertDialog sDialog) {
-													sDialog.cancel();
-													check(bean.get("order_id"), holder.getPosition());
-												}
-											})
-									.setCancelClickListener(
-											new SweetAlertDialog.OnSweetClickListener() {
-												@Override
-												public void onClick(
-														SweetAlertDialog sDialog) {
-													sDialog.cancel();
-												}
-											}).show();
-							
-							
+							final String[] items = {"现金","微信","支付宝"};  
+					        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);  
+					        alertBuilder.setTitle("请选择付款方式");  
+					        alertBuilder.setItems(items, new DialogInterface.OnClickListener() {  
+					            @Override  
+					            public void onClick(DialogInterface arg0, int index) {  
+					                alertDialog1.dismiss();  
+					                if (index==0) {
+										check_way = "1";
+									}else if (index==1) {
+										check_way = "2";
+									}else if (index==2) {
+										check_way = "3";
+									}
+					                check(bean.get("order_id"), holder.getPosition(),check_way);
+					            }  
+					        });  
+					        alertDialog1 = alertBuilder.create();  
+					        alertDialog1.show(); 
 						}
 					});
 
@@ -280,14 +279,14 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 	}
 
 	// 结账/order/check
-	public void check(String orderid, final int pos) {
+	public void check(String orderid, final int pos,String checkviway) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("key", preferences.getString("loginkey", ""));
 		client.addHeader("id", preferences.getString("userid", ""));
 		String url = ApiConfig.API_URL + ApiConfig.CHECK_URL;
 		RequestParams params = new RequestParams();
 		params.put("order_id", orderid);
-		params.put("check_way","1");
+		params.put("check_way",checkviway);
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -299,18 +298,40 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 						JSONObject jsonObject = new JSONObject(response);
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
-							Toast.makeText(context,
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
-							dateList.remove(pos);
-							notifyDataSetChanged();
-							Intent intent = new Intent(context,
-									PayImagesActivity.class);
-							context.startActivity(intent);
+							if (check_way.equals("1")) {
+								Toast.makeText(context,
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								dateList.remove(pos);
+								notifyDataSetChanged();
+							}else {
+								Toast.makeText(context,
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								dateList.remove(pos);
+								notifyDataSetChanged();
+								Intent intent = new Intent(context,
+										PayImagesActivity.class);
+								context.startActivity(intent);
+							}
+							
 						} else {
-							Toast.makeText(context,
-									jsonObject.getString("MESSAGE"),
-									Toast.LENGTH_SHORT).show();
+							if (check_way.equals("1")) {
+								Toast.makeText(context,
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								dateList.remove(pos);
+								notifyDataSetChanged();
+							}else {
+								Toast.makeText(context,
+										jsonObject.getString("MESSAGE"),
+										Toast.LENGTH_SHORT).show();
+								dateList.remove(pos);
+								notifyDataSetChanged();
+								Intent intent = new Intent(context,
+										PayImagesActivity.class);
+								context.startActivity(intent);
+							}
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
