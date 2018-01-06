@@ -45,6 +45,7 @@ import com.mx.sy.utils.SendMessage;
  * @author lishouping 点餐页面
  */
 public class FoodCustomActivity extends BaseActivity implements SendMessage {
+	public static boolean addfood = false;
 	public static boolean isrefreshcar = false;
 	public static FoodCustomActivity inActivity;
 	private LinearLayout ll_back;
@@ -85,7 +86,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 
 	private final Timer timer = new Timer();
 	private TimerTask task;
-	
+	private String objectintent;
 
 	@Override
 	public void widgetClick(View v) {
@@ -95,6 +96,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 			finish();
 			timer.cancel();
 			isrefreshcar = false;
+			addfood = false;
 			break;
 		case R.id.btn_price_dis:
 
@@ -109,7 +111,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 				intent.putExtra("cart_id", cart_id);
 				intent.putExtra("table_id", table_id);
 				intent.putExtra("table_name", table_name);
-				intent.putExtra("intentJsonObject", intentJsonObject + "");
+				intent.putExtra("objectintent", objectintent + "");
 				startActivity(intent);
 			}
 			break;
@@ -255,6 +257,8 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 		Intent intent = getIntent();
 		table_id = intent.getStringExtra("table_id");
 		table_name = intent.getStringExtra("table_name");
+	    objectintent = intent.getStringExtra("objectintent");
+		
 		
 		showDilog("加载中");
 		selectCategory();
@@ -685,6 +689,7 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 			Log.d(TAG, "onKeyDown()");
 			isrefreshcar = false;
 			timer.cancel();
+			addfood = false;
 		}
 
 		return super.onKeyDown(keyCode, event);

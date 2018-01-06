@@ -14,6 +14,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +33,7 @@ import com.mx.sy.R;
 import com.mx.sy.adapter.OrderConductAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseActivity;
+import com.mx.sy.utils.CommonUtils;
 import com.tnktech.weight.TNKListView;
 
 /**
@@ -62,6 +65,7 @@ public class OrderSubmitActivity extends BaseActivity {
 	
 	private String way = "1";
 	private String go_goods_way = "1";
+	private String objectintent;
 
 	@Override
 	public void widgetClick(View v) {
@@ -164,6 +168,11 @@ public class OrderSubmitActivity extends BaseActivity {
 		tv_title = $(R.id.tv_title);
 		lv_order_dinner = $(R.id.lv_order_dinner);
 		btn_sub_order = $(R.id.btn_sub_order);
+//		if (FoodCustomActivity.addfood==true) {
+//			btn_sub_order.setText("确认加菜");
+//		}else {
+//			btn_sub_order.setText("确认下单");
+//		}
 		tv_table_num = $(R.id.tv_table_num);
 		tv_subtotalprice = $(R.id.tv_subtotalprice);
 		btn_add_food = $(R.id.btn_add_food);
@@ -245,6 +254,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		cart_id = intent.getStringExtra("cart_id");
 		table_id = intent.getStringExtra("table_id");
 		table_name = intent.getStringExtra("table_name");
+		objectintent = intent.getStringExtra("objectintent");
 		tv_table_num.setText("桌号" + table_name);
 		
 		if (OrderDetailedActivity.isvisit ==1) {
@@ -349,13 +359,55 @@ public class OrderSubmitActivity extends BaseActivity {
 						JSONObject jsonObject = new JSONObject(response);
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
+							int doub = 0;
+							if (!objectintent.equals("null")) {
+							JSONObject obJsonObject = new JSONObject(objectintent);
+							
+							JSONObject obje = new JSONObject(obJsonObject
+									.getString("DATA"));
+							JSONObject cartobj = new JSONObject(obje
+									.getString("cart"));
+							JSONArray arr = cartobj
+									.getJSONArray("goods_set");
+							String orderprice = cartobj
+									.getString("total_price");
+						    doub = Integer.parseInt(orderprice);
+							for (int i = 0; i < arr.length(); i++) {
+								JSONObject object2 = arr.getJSONObject(i);
+								HashMap<String, String> map = new HashMap<String, String>();
+								map.put("cart_good_id",
+										object2.getString("cart_good_id"));
+								map.put("good_id", object2.getString("good_id"));
+								map.put("pre_price",
+										object2.getString("pre_price"));
+								map.put("good_id", object2.getString("good_id"));
+								map.put("good_name",
+										object2.getString("good_name"));
+								map.put("good_price",
+										object2.getString("good_price"));
+								map.put("good_num",
+										object2.getString("good_num"));
+								map.put("good_total_price",
+										object2.getString("good_total_price"));
+								map.put("if_up", object2.getString("if_up"));
+								dateList.add(map);
+							}
+							}
+							
+							
 							JSONObject object = new JSONObject(jsonObject
 									.getString("DATA"));
 							cart_id = object.getString("cart_id");
 							String total_num = object.getString("total_num");
 							String total_price = object
 									.getString("total_price");
-							tv_subtotalprice.setText(total_price + "元");
+							int doub1 = Integer.parseInt(total_price);
+							if (!objectintent.equals("null")) {
+								tv_subtotalprice.setText(doub1+doub + "元");
+							}else {
+								tv_subtotalprice.setText(total_price + "元");
+							}
+							
 							JSONArray jsonArray = object
 									.getJSONArray("goods_set");
 							for (int i = 0; i < jsonArray.length(); i++) {
@@ -378,6 +430,9 @@ public class OrderSubmitActivity extends BaseActivity {
 								map.put("if_up", object2.getString("if_up"));
 								dateList.add(map);
 							}
+							
+							
+							
 							lv_order_dinner.setAdapter(orderSubmitAdapter);
 						} else {
 							Toast.makeText(getApplicationContext(),
@@ -450,5 +505,4 @@ public class OrderSubmitActivity extends BaseActivity {
 			}
 		});
 	}
-
 }

@@ -141,6 +141,7 @@ public class OrderAdapter extends CommonBaseAdapter<HashMap<String, String>> {
 							intent.putExtra("table_name",
 									bean.get("table_name"));
 							context.startActivity(intent);
+							FoodCustomActivity.addfood = true;
 						}
 					});
 			// 结账

@@ -83,6 +83,8 @@ public class OrderDetailedActivity extends BaseActivity {
 	
 	// 信息列表提示框  
     private AlertDialog alertDialog1;  
+    
+    private JSONObject objectintent;
 	
 	@Override
 	public void initParms(Bundle parms) {
@@ -158,9 +160,11 @@ public class OrderDetailedActivity extends BaseActivity {
 					FoodCustomActivity.class);
 			intent.putExtra("table_id", table_id);
 			intent.putExtra("table_name", table_name);
+			intent.putExtra("objectintent", objectintent+"");
 			startActivity(intent);
 			FoodCustomActivity.isrefreshcar = true;
 			isvisit = 1;
+			FoodCustomActivity.addfood = true;
 			break;
 		case R.id.btn_addfood_order:
 			Intent intent1 = new Intent(getApplicationContext(),
@@ -170,6 +174,7 @@ public class OrderDetailedActivity extends BaseActivity {
 			startActivity(intent1);
 			isvisit = 1;
 			FoodCustomActivity.isrefreshcar = true;
+			FoodCustomActivity.addfood = true;
 			break;
 		case R.id.btn_sub_order:
 			new SweetAlertDialog(OrderDetailedActivity.this,
@@ -472,6 +477,7 @@ public class OrderDetailedActivity extends BaseActivity {
 						String response = new String(arg2, "UTF-8");
 						JSONObject jsonObject = new JSONObject(response);
 						String CODE = jsonObject.getString("CODE");
+						objectintent = jsonObject;
 						if (CODE.equals("1000")) {
 							JSONObject object = new JSONObject(jsonObject
 									.getString("DATA"));
@@ -524,6 +530,7 @@ public class OrderDetailedActivity extends BaseActivity {
 
 							JSONArray jsonArray = cartobj
 									.getJSONArray("goods_set");
+							
 							for (int i = 0; i < jsonArray.length(); i++) {
 								JSONObject object2 = jsonArray.getJSONObject(i);
 								HashMap<String, String> map = new HashMap<String, String>();

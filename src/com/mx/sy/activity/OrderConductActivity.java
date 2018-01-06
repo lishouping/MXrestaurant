@@ -87,6 +87,7 @@ public class OrderConductActivity extends BaseActivity {
 			startActivity(intent);
 			OrderDetailedActivity.isvisit = 1;
 			FoodCustomActivity.isrefreshcar = true;
+			FoodCustomActivity.addfood = true;
 			break;
 		default:
 			break;
