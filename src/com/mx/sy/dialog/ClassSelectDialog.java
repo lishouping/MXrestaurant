@@ -83,6 +83,10 @@ public class ClassSelectDialog extends BaseActivity {
 		tableTypeAdapter = new TableTypeAdapter(getApplicationContext(),
 				dateList, R.layout.item_classselect);
 		if (classType.equals("100")) {
+			HashMap<String, String> map0 = new HashMap<String, String>();
+			map0.put("tableuseid", "0");
+			map0.put("tableusename", "全部");
+			dateList.add(map0);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("tableuseid", "0");
 			map.put("tableusename", "空闲");
@@ -166,6 +170,12 @@ public class ClassSelectDialog extends BaseActivity {
 						if (CODE.equals("1000")) {
 							JSONArray jsonArray = new JSONArray(jsonObject
 									.getString("DATA"));
+							
+							HashMap<String, String> map5 = new HashMap<String, String>();
+							map5.put("tableuseid", "");
+							map5.put("tableusename", "全部");
+							dateList.add(map5);
+							
 							for (int i = 0; i < jsonArray.length(); i++) {
 								JSONObject object = jsonArray.getJSONObject(i);
 								String area_id = object.getString("area_id");

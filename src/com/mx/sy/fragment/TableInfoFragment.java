@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -32,14 +31,12 @@ import com.mx.sy.activity.OrderDetailedActivity;
 import com.mx.sy.adapter.TablesAdapter;
 import com.mx.sy.api.ApiConfig;
 import com.mx.sy.base.BaseFragment;
-import com.mx.sy.common.PullToRefreshView;
-import com.mx.sy.common.PullToRefreshView.OnFooterRefreshListener;
-import com.mx.sy.common.PullToRefreshView.OnHeaderRefreshListener;
+import com.mx.sy.common.PullToGrideRefreshView;
+import com.mx.sy.common.PullToGrideRefreshView.OnFooterRefreshListener;
+import com.mx.sy.common.PullToGrideRefreshView.OnHeaderRefreshListener;
 import com.mx.sy.dialog.ClassSelectDialog;
 import com.mx.sy.dialog.ReserveDialog;
-import com.mx.sy.dialog.SweetAlertDialog;
 import com.mx.sy.dialog.TableChangeDialog;
-import com.tnktech.weight.TNKGridView;
 
 /**
  * @author Administrator 桌台信息
@@ -51,13 +48,13 @@ public class TableInfoFragment extends BaseFragment implements
 	public static int TABLE_CLASS = 101;
 	public static int TABLE_CHANGE = 102;
 
-	private TNKGridView gri_tables;
+	private GridView gri_tables;
 	private List<HashMap<String, String>> dateList;
 	private TablesAdapter tablesAdapter;
 
 	private Button btn_table_state, btn_table_class;
 
-	PullToRefreshView mPullToRefreshView;
+	PullToGrideRefreshView mPullToRefreshView;
 
 	private SharedPreferences preferences;
 
@@ -77,9 +74,8 @@ public class TableInfoFragment extends BaseFragment implements
 	protected void loadDate() {
 		// TODO Auto-generated method stub
 		super.loadDate();
-		PullToRefreshView.ishidfootview = 1;
-		mPullToRefreshView = (PullToRefreshView) getActivity().findViewById(
-				R.id.pullrefresh_table);
+		mPullToRefreshView = (PullToGrideRefreshView) getActivity()
+				.findViewById(R.id.pullrefresh_table);
 		mPullToRefreshView.setOnHeaderRefreshListener(this);
 		mPullToRefreshView.setOnFooterRefreshListener(this);
 	}
@@ -97,41 +93,27 @@ public class TableInfoFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
-		
-		if (isrefresh==10) {
+
+		if (isrefresh == 10) {
 			isrefresh = 1;
-		}else {
+		} else {
 			dateList.clear();
 			daList.clear();
 			showDilog("加载中");
 			getTableInfo();
+			btn_table_state.setText("餐桌状态");
+			btn_table_class.setText("餐桌位置");
+			classAierPos = "";
+			classNamePos = "";
 		}
 		OrderDetailedActivity.isvisit = 0;
-		
-//		if (dateList.size() == 0) {
-//		} else {
-//			dateList.clear();
-//			tablesAdapter.notifyDataSetChanged();
-//		}
-	
-		//isrefresh = 0;
-//		if (isrefresh == 1) {
-//			if (dateList.size() == 0) {
-//			} else {
-//				dateList.clear();
-//				tablesAdapter.notifyDataSetChanged();
-//			}
-//			showDilog("加载中");
-//			getTableInfo();
-//			isrefresh = 0;
-//		}
 		super.onResume();
 	}
 
 	@Override
 	protected void initView() {
 		// TODO Auto-generated method stub
-		gri_tables = findViewById(R.id.gri_tables);
+		gri_tables = (GridView) findViewById(R.id.gri_tables);
 		btn_table_state = findViewById(R.id.btn_table_state);
 		btn_table_state.setOnClickListener(this);
 		btn_table_class = findViewById(R.id.btn_table_class);
@@ -147,8 +129,7 @@ public class TableInfoFragment extends BaseFragment implements
 		dateList = new ArrayList<HashMap<String, String>>();
 		tablesAdapter = new TablesAdapter(getActivity(), dateList,
 				R.layout.item_tables);
-		
-		
+
 		gri_tables.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -165,7 +146,8 @@ public class TableInfoFragment extends BaseFragment implements
 							dateList.get(position).get("table_name"));
 					startActivity(intent);
 				} else if (dateList.get(position).get("table_status")
-						.equals("1")&&dateList.get(position).get("orderstate").equals("0")) {// 正常使用中
+						.equals("1")
+						&& dateList.get(position).get("orderstate").equals("0")) {// 正常使用中
 					intent.setClass(getActivity(), OrderConductActivity.class);
 					intent.putExtra("table_id",
 							dateList.get(position).get("table_id"));
@@ -173,15 +155,19 @@ public class TableInfoFragment extends BaseFragment implements
 							dateList.get(position).get("table_name"));
 					startActivity(intent);
 				} else if (dateList.get(position).get("table_status")
-						.equals("1")&&dateList.get(position).get("orderstate").equals("-1")) {// 未确认
+						.equals("1")
+						&& dateList.get(position).get("orderstate")
+								.equals("-1")) {// 未确认
 					intent.setClass(mActivity, OrderDetailedActivity.class);
 					intent.putExtra("detailedpage", "1");
-					intent.putExtra("order_num", dateList.get(position).get("order_num"));
+					intent.putExtra("order_num",
+							dateList.get(position).get("order_num"));
 					startActivity(intent);
 				} else if (dateList.get(position).get("table_status")
 						.equals("2")) {// 顾客预订
 					intent.setClass(getActivity(), ReserveDialog.class);
-					intent.putExtra("book_list", dateList.get(position).get("book_list"));
+					intent.putExtra("book_list",
+							dateList.get(position).get("book_list"));
 					startActivity(intent);
 				}
 			}
@@ -193,23 +179,25 @@ public class TableInfoFragment extends BaseFragment implements
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(),TableChangeDialog.class);
-				intent.putExtra("curr_table_id", dateList.get(position).get("table_id"));
+				Intent intent = new Intent(getActivity(),
+						TableChangeDialog.class);
+				intent.putExtra("curr_table_id",
+						dateList.get(position).get("table_id"));
 				startActivityForResult(intent, TABLE_CHANGE);
 				return true;
 			}
 		});
-		
-//		if (dateList.size() == 0) {
-//		} else {
-//			dateList.clear();
-//		}
-//		showDilog("加载中");
-//		getTableInfo();
+
+		// if (dateList.size() == 0) {
+		// } else {
+		// dateList.clear();
+		// }
+		// showDilog("加载中");
+		// getTableInfo();
 	}
 
 	@Override
-	public void onHeaderRefresh(PullToRefreshView view) {
+	public void onHeaderRefresh(PullToGrideRefreshView view) {
 		// TODO Auto-generated method stub
 		mPullToRefreshView.postDelayed(new Runnable() {
 			@Override
@@ -229,7 +217,7 @@ public class TableInfoFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onFooterRefresh(PullToRefreshView view) {
+	public void onFooterRefresh(PullToGrideRefreshView view) {
 		// TODO Auto-generated method stub
 		mPullToRefreshView.postDelayed(new Runnable() {
 			@Override
@@ -240,6 +228,10 @@ public class TableInfoFragment extends BaseFragment implements
 				dateList.clear();
 				tablesAdapter.notifyDataSetChanged();
 				getTableInfo();
+				btn_table_state.setText("餐桌状态");
+				btn_table_class.setText("餐桌位置");
+				classAierPos = "";
+				classNamePos = "";
 			}
 		}, 1000);
 	}
@@ -282,18 +274,17 @@ public class TableInfoFragment extends BaseFragment implements
 				setTableStatesInfo("3");
 			} else if (className.equals("其他")) {
 				setTableStatesInfo("4");
+			} else {
+				onResume();
 			}
 		} else if (resultCode == TABLE_CLASS) {
-			btn_table_class.setText(data.getStringExtra("className"));
-			setTableAirInfo(data.getStringExtra("className"));
-		}else if (resultCode== TABLE_CHANGE) {
-			if (dateList.size() == 0) {
+			if (data.getStringExtra("className").equals("全部")) {
+				onResume();
 			} else {
-				dateList.clear();
-				tablesAdapter.notifyDataSetChanged();
+				btn_table_class.setText(data.getStringExtra("className"));
+				setTableAirInfo(data.getStringExtra("className"));
 			}
-			showDilog("加载中");
-			getTableInfo();
+		} else if (resultCode == TABLE_CHANGE) {
 		}
 	}
 
@@ -333,7 +324,8 @@ public class TableInfoFragment extends BaseFragment implements
 								daList.add(map);
 								for (int j = 0; j < array.length(); j++) {
 									JSONObject object2 = array.getJSONObject(j);
-									String book_list = object2.getString("book_list");
+									String book_list = object2
+											.getString("book_list");
 									String table_name = object2
 											.getString("table_name");// 餐桌名
 									String table_status = object2
@@ -341,9 +333,12 @@ public class TableInfoFragment extends BaseFragment implements
 									String table_id = object2
 											.getString("table_id");
 									if (table_status.equals("1")) {
-										JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
-										String orderstate = orderinfo.getString("status");
-										String order_num = orderinfo.getString("order_num");
+										JSONObject orderinfo = new JSONObject(
+												object2.getString("order_info"));
+										String orderstate = orderinfo
+												.getString("status");
+										String order_num = orderinfo
+												.getString("order_num");
 										HashMap<String, String> map4 = new HashMap<String, String>();
 										map4.put("table_name", table_name);
 										map4.put("table_status", table_status);
@@ -352,7 +347,7 @@ public class TableInfoFragment extends BaseFragment implements
 										map4.put("orderstate", orderstate);
 										map4.put("order_num", order_num);
 										dateList.add(map4);
-									}else {
+									} else {
 										HashMap<String, String> map4 = new HashMap<String, String>();
 										map4.put("table_name", table_name);
 										map4.put("table_status", table_status);
@@ -410,9 +405,12 @@ public class TableInfoFragment extends BaseFragment implements
 					if (classNamePos.equals("") || classAierPos.equals("")) {
 						if (className.equals(table_status)) {
 							if (table_status.equals("1")) {
-								JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
-								String orderstate = orderinfo.getString("status");
-								String order_num = orderinfo.getString("order_num");
+								JSONObject orderinfo = new JSONObject(
+										object2.getString("order_info"));
+								String orderstate = orderinfo
+										.getString("status");
+								String order_num = orderinfo
+										.getString("order_num");
 								HashMap<String, String> map4 = new HashMap<String, String>();
 								map4.put("table_name", table_name);
 								map4.put("table_status", table_status);
@@ -420,7 +418,7 @@ public class TableInfoFragment extends BaseFragment implements
 								map4.put("orderstate", orderstate);
 								map4.put("order_num", order_num);
 								dateList.add(map4);
-							}else {
+							} else {
 								HashMap<String, String> map4 = new HashMap<String, String>();
 								map4.put("table_name", table_name);
 								map4.put("table_status", table_status);
@@ -428,13 +426,16 @@ public class TableInfoFragment extends BaseFragment implements
 								dateList.add(map4);
 							}
 						}
-					}else {
+					} else {
 						if (className.equals(table_status)
 								&& area_name.equals(classAierPos)) {
 							if (table_status.equals("1")) {
-								JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
-								String orderstate = orderinfo.getString("status");
-								String order_num = orderinfo.getString("order_num");
+								JSONObject orderinfo = new JSONObject(
+										object2.getString("order_info"));
+								String orderstate = orderinfo
+										.getString("status");
+								String order_num = orderinfo
+										.getString("order_num");
 								HashMap<String, String> map4 = new HashMap<String, String>();
 								map4.put("table_name", table_name);
 								map4.put("table_status", table_status);
@@ -442,7 +443,7 @@ public class TableInfoFragment extends BaseFragment implements
 								map4.put("orderstate", orderstate);
 								map4.put("order_num", order_num);
 								dateList.add(map4);
-							}else {
+							} else {
 								HashMap<String, String> map4 = new HashMap<String, String>();
 								map4.put("table_name", table_name);
 								map4.put("table_status", table_status);
@@ -480,9 +481,12 @@ public class TableInfoFragment extends BaseFragment implements
 					if (classNamePos.equals("") || classAierPos.equals("")) {
 						if (className.equals(area_name)) {
 							if (table_status.equals("1")) {
-								JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
-								String orderstate = orderinfo.getString("status");
-								String order_num = orderinfo.getString("order_num");
+								JSONObject orderinfo = new JSONObject(
+										object2.getString("order_info"));
+								String orderstate = orderinfo
+										.getString("status");
+								String order_num = orderinfo
+										.getString("order_num");
 								HashMap<String, String> map4 = new HashMap<String, String>();
 								map4.put("table_name", table_name);
 								map4.put("table_status", table_status);
@@ -490,7 +494,7 @@ public class TableInfoFragment extends BaseFragment implements
 								map4.put("orderstate", orderstate);
 								map4.put("order_num", order_num);
 								dateList.add(map4);
-							}else {
+							} else {
 								HashMap<String, String> map4 = new HashMap<String, String>();
 								map4.put("table_name", table_name);
 								map4.put("table_status", table_status);
@@ -498,12 +502,16 @@ public class TableInfoFragment extends BaseFragment implements
 								dateList.add(map4);
 							}
 						}
-					}else {
-						if (className.equals(area_name)&&classNamePos.equals(table_status)) {
+					} else {
+						if (className.equals(area_name)
+								&& classNamePos.equals(table_status)) {
 							if (table_status.equals("1")) {
-								JSONObject orderinfo = new JSONObject(object2.getString("order_info"));
-								String orderstate = orderinfo.getString("status");
-								String order_num = orderinfo.getString("order_num");
+								JSONObject orderinfo = new JSONObject(
+										object2.getString("order_info"));
+								String orderstate = orderinfo
+										.getString("status");
+								String order_num = orderinfo
+										.getString("order_num");
 								HashMap<String, String> map4 = new HashMap<String, String>();
 								map4.put("table_name", table_name);
 								map4.put("table_status", table_status);
@@ -511,7 +519,7 @@ public class TableInfoFragment extends BaseFragment implements
 								map4.put("orderstate", orderstate);
 								map4.put("order_num", order_num);
 								dateList.add(map4);
-							}else {
+							} else {
 								HashMap<String, String> map4 = new HashMap<String, String>();
 								map4.put("table_name", table_name);
 								map4.put("table_status", table_status);
@@ -521,7 +529,7 @@ public class TableInfoFragment extends BaseFragment implements
 
 						}
 					}
-					
+
 				}
 
 			} catch (Exception e) {

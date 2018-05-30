@@ -228,14 +228,17 @@ public class OrderFragment extends BaseFragment implements OnClickListener ,OnFo
 	public void onResume() {
 		if (selectBtnFlag==0) {
 			dateList.clear();
+			orderAdapter.notifyDataSetChanged();
 			page = 1;
 			geOrderInfo(-1);
 		}else if (selectBtnFlag==1) {
 			dateList.clear();
+			orderAdapter.notifyDataSetChanged();
 			page = 1;
 			geOrderInfo(0);
 		}else if (selectBtnFlag==2) {
 			dateList.clear();
+			orderAdapter.notifyDataSetChanged();
 			page = 1;
 			geOrderInfo(1);
 		}

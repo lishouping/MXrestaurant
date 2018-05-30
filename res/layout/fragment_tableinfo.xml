@@ -59,17 +59,16 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.mx.sy.common.PullToRefreshView
+    <com.mx.sy.common.PullToGrideRefreshView
         android:id="@+id/pullrefresh_table"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <com.tnktech.weight.TNKGridView
+        <GridView
             android:id="@+id/gri_tables"
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="fill_parent"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -78,11 +77,8 @@
             android:numColumns="4"
             android:scrollbars="none"
             android:verticalSpacing="10dp" >
-        </com.tnktech.weight.TNKGridView>
-        <View 
-            android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:background="#fff"/>
-    </com.mx.sy.common.PullToRefreshView>
+        </GridView>
+
+    </com.mx.sy.common.PullToGrideRefreshView>
 
 </LinearLayout>

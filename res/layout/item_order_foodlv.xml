@@ -24,12 +24,12 @@
             android:id="@+id/tv_pricenum"
             android:textSize="12sp"
             android:layout_width="0dp"
-            android:layout_weight="0.2"
+            android:layout_weight="0.3"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:gravity="center"
             android:textColor="@color/text_color"
-            android:text="$30"/>
+            android:text="$3000"/>
         <TextView 
             android:id="@+id/number"
             android:textSize="12sp"

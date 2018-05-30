@@ -359,7 +359,7 @@ public class OrderSubmitActivity extends BaseActivity {
 						JSONObject jsonObject = new JSONObject(response);
 						String CODE = jsonObject.getString("CODE");
 						if (CODE.equals("1000")) {
-							int doub = 0;
+							double doub = 0;
 							if (!objectintent.equals("null")) {
 							JSONObject obJsonObject = new JSONObject(objectintent);
 							
@@ -371,7 +371,7 @@ public class OrderSubmitActivity extends BaseActivity {
 									.getJSONArray("goods_set");
 							String orderprice = cartobj
 									.getString("total_price");
-						    doub = Integer.parseInt(orderprice);
+						    doub = Double.parseDouble(orderprice);
 							for (int i = 0; i < arr.length(); i++) {
 								JSONObject object2 = arr.getJSONObject(i);
 								HashMap<String, String> map = new HashMap<String, String>();
@@ -401,9 +401,10 @@ public class OrderSubmitActivity extends BaseActivity {
 							String total_num = object.getString("total_num");
 							String total_price = object
 									.getString("total_price");
-							int doub1 = Integer.parseInt(total_price);
+							double totalPrice = Double.parseDouble(total_price);
+							
 							if (!objectintent.equals("null")) {
-								tv_subtotalprice.setText(doub1+doub + "元");
+								tv_subtotalprice.setText(totalPrice+doub + "元");
 							}else {
 								tv_subtotalprice.setText(total_price + "元");
 							}
