@@ -226,9 +226,11 @@ public class FoodCustomActivity extends BaseActivity implements SendMessage {
 				handler.sendMessage(message);
 			}
 		};
-		if (isrefreshcar == true) {
-			timer.schedule(task, 2000, 3000);
-		}
+		timer.schedule(task, 2000, 3000);
+//		if (isrefreshcar == true) {
+//			timer.schedule(task, 2000, 3000);
+//		}
+			
 	}
 
 	Handler handler = new Handler() {
